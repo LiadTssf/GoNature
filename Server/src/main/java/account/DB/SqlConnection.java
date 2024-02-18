@@ -1,4 +1,4 @@
-package DB;
+package account.DB;
 
 import java.sql.*;
 
@@ -20,6 +20,10 @@ public class SqlConnection {
         }
 
     }
+
+
+
+
 
 
 
