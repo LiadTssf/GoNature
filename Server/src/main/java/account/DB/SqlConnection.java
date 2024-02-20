@@ -21,6 +21,9 @@ public class SqlConnection {
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public static void main(String[] args) {
+        getConnection();
     }
 }

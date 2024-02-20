@@ -1000,7 +1000,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="289" parent="1" name="GoNeture Tables">
-      <LastIntrospectionLocalTimestamp>2024-02-20.11:03:03</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-02-20.13:54:01</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="290" parent="1" name="information_schema">
@@ -1044,25 +1044,37 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="301" parent="300" name="OrderNumber">
+    <table id="301" parent="289" name="tourGuideUsers">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="302" parent="300" name="OrderNumber">
       <DasType>text|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="302" parent="300" name="ParkName">
+    <column id="303" parent="300" name="ParkName">
       <DasType>text|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="303" parent="300" name="TimeOfVisit">
+    <column id="304" parent="300" name="TimeOfVisit">
       <DasType>time|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="304" parent="300" name="NumberOfVisitors">
+    <column id="305" parent="300" name="NumberOfVisitors">
       <DasType>int|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="305" parent="300" name="TelephoneNumber">
+    <column id="306" parent="300" name="TelephoneNumber">
       <DasType>text|0s</DasType>
       <Position>5</Position>
+    </column>
+    <column id="307" parent="301" name="TGUsername">
+      <DasType>text|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="308" parent="301" name="TGPassword">
+      <DasType>text|0s</DasType>
+      <Position>2</Position>
     </column>
   </database-model>
 </dataSource>
