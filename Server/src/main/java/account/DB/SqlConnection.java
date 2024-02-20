@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class SqlConnection {
 
-    private static final String URL = "jdbc:mysql://localhost/students_db?serverTimezone=UTC"; // need to be changed later
+    private static final String URL = "jdbc:mysql://localhost:3306/GoNeture"; // Changed to Nir's DB
     private static final String USER = "root";
-    private static final String PASSWORD = "Aa123456";
+    private static final String PASSWORD = "n8040197";
 
 
 

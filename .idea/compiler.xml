@@ -10,5 +10,8 @@
         <module name="Server" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SQL_tbl" target="19" />
+    </bytecodeTargetLevel>
   </component>
 </project>
