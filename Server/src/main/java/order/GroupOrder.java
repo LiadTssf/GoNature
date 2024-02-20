@@ -1,18 +1,28 @@
 package order;
 
-
+import account.DB.CRUD;
 
 public class GroupOrder extends Order{
 
-    public GroupOrder (int parkID,String email,int amountOfVisitors){
+    boolean prePaid = false; // need to get from DB
+    final int MAX_GROUP_CAPACITY = 15;
+    private double price;
+    public GroupOrder (int parkID,String email,int amountOfVisitors) throws NumberOutOfBoundException {
+
         super(parkID,email,amountOfVisitors);
+        this.price = calculatePrice(0.75);
     }
 
 
     @Override
-    public double calculatePrice() { // need to be implmented
-        return 0 ;
+    public double calculatePrice(double discount_percentage) throws NumberOutOfBoundException {
+        if (this.getAmountOfVisitors()<=MAX_GROUP_CAPACITY && this.getAmountOfVisitors()>=2){
+            if (prePaid){
+                return (this.calculatePrice(discount_percentage))*0.85;
+            }
+            return calculatePrice(discount_percentage);
+        }else{
+           throw new NumberOutOfBoundException();
+        }
     }
-
-
 }

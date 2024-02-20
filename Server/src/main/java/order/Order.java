@@ -11,14 +11,36 @@ public abstract class Order {
     private double price;
 
 
-    public Order(int parkID,String email,int amountOfVisitors){
+    public Order(int parkID,String email,int amountOfVisitors) throws NumberOutOfBoundException {
         this.parkID = parkID;
         this.email = email;
         this.amountOfVisitors= amountOfVisitors;
         this.enterTime = LocalTime.now();
-        this.price = calculatePrice();
     }
 
+    public int getParkID() {
+        return parkID;
+    }
 
-    public abstract double calculatePrice(); // implemented in the sons
+    public LocalTime getEnterTime() {
+        return enterTime;
+    }
+
+    public LocalTime getExitTime() {
+        return exitTime;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getAmountOfVisitors() {
+        return amountOfVisitors;
+    }
+
+    public double calculatePrice(double discount_percentage) throws NumberOutOfBoundException{
+        this.price=(amountOfVisitors*80)*discount_percentage;
+        return this.price;
+    } // get visitors amount to calculate the correct price
+
 }

@@ -13,19 +13,14 @@ public class SqlConnection {
     public static Connection getConnection (){
 
         try{
+            Connection con;
             Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(URL,USER,PASSWORD);  //return new Connection to db
+            con = DriverManager.getConnection(URL,USER,PASSWORD);  //return new Connection to db
+            System.out.println("success");
+            return con;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
     }
-
-
-
-
-
-
-
-
 }
