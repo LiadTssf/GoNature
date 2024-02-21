@@ -20,7 +20,7 @@ public class CRUD  {
     }
     public void insertData( String queryToRun) {
          try {
-             stmt.executeQuery(queryToRun);
+             stmt.executeUpdate(queryToRun);
          }
          catch (SQLException e) {e.printStackTrace();}
 

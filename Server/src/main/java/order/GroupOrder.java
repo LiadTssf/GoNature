@@ -2,15 +2,18 @@ package order;
 
 import account.DB.CRUD;
 
+import java.sql.SQLException;
+import java.time.LocalTime;
+
 public class GroupOrder extends Order{
 
     boolean prePaid = false; // need to get from DB
     final int MAX_GROUP_CAPACITY = 15;
     private double price;
-    public GroupOrder (int parkID,String email,int amountOfVisitors) throws NumberOutOfBoundException {
+    public GroupOrder (int parkID, String email, int amountOfVisitors, String phoneNumber, LocalTime time) throws NumberOutOfBoundException, SQLException {
 
-        super(parkID,email,amountOfVisitors);
-        this.price = calculatePrice(0.75);
+        super(parkID,email,amountOfVisitors,phoneNumber,time);
+        super.setPrice(calculatePrice(0.75));
     }
 
 
