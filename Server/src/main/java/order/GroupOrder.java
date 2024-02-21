@@ -10,7 +10,7 @@ public class GroupOrder extends Order{
     boolean prePaid = false; // need to get from DB
     final int MAX_GROUP_CAPACITY = 15;
     private double price;
-    public GroupOrder (int parkID, String email, int amountOfVisitors, String phoneNumber, LocalTime time) throws NumberOutOfBoundException, SQLException {
+    public GroupOrder (String parkID, String email, int amountOfVisitors, String phoneNumber, LocalTime time) throws NumberOutOfBoundException, SQLException {
 
         super(parkID,email,amountOfVisitors,phoneNumber,time);
         super.setPrice(calculatePrice(0.75));

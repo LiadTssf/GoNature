@@ -7,11 +7,10 @@ import java.time.LocalTime;
 
 public class SingleOrder extends Order{
 
-    boolean OrderExist = false; // need to check if the order exists in DB
     private double price;
-    public SingleOrder (int parkID, String email, int amountOfVisitors, String phoneNumber, LocalTime time) throws NumberOutOfBoundException, SQLException {
+    public SingleOrder (String parkID, String email, int amountOfVisitors, String phoneNumber, LocalTime time) throws NumberOutOfBoundException, SQLException {
         super(parkID,email,amountOfVisitors,phoneNumber,time);
-        this.price = calculatePrice(0.85);
+        super.setPrice(calculatePrice(0.85));
     }
 
 
@@ -20,13 +19,15 @@ public class SingleOrder extends Order{
 
     @Override
     public double calculatePrice(double discount_percentage) throws NumberOutOfBoundException {
-        if (OrderExist){ //if the
-            if (this.getAmountOfVisitors() >= 1 && this.getAmountOfVisitors() <= 5){
-                 return calculatePrice(discount_percentage);
-            }else{
-                throw new NumberOutOfBoundException();
-            }
+        if (this.getAmountOfVisitors() >= 1 && this.getAmountOfVisitors() <= 5){
+            return super.calculatePrice(discount_percentage);
+        }else{
+            throw new NumberOutOfBoundException();
         }
-        return calculatePrice(1);
+    }
+
+    public static void main(String[] args) throws SQLException, NumberOutOfBoundException {
+        SingleOrder so = new SingleOrder("Karmiel","ASDA@gmail.com",2,"0504567899",LocalTime.of(16,00));
+        LoadToDB(so.getOrderNumber(),so.getParkID(),so.getEnterTime(),so.getAmountOfVisitors(), so.getPhoneNumber());
     }
 }
