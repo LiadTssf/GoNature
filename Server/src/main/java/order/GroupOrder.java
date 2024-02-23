@@ -20,12 +20,16 @@ public class GroupOrder extends Order{
     @Override
     public double calculatePrice(double discount_percentage) throws NumberOutOfBoundException {
         if (this.getAmountOfVisitors()<=MAX_GROUP_CAPACITY && this.getAmountOfVisitors()>=2){
-            if (prePaid){
-                return (this.calculatePrice(discount_percentage))*0.85;
-            }
-            return calculatePrice(discount_percentage);
+                return (super.calculatePrice(discount_percentage))*0.85;
         }else{
            throw new NumberOutOfBoundException();
         }
     }
+
+    public static void main(String[] args) throws SQLException, NumberOutOfBoundException {
+        GroupOrder go = new GroupOrder("Karmiel","ASDA@gmail.com",2,"050-test123",LocalTime.of(16,00));
+        //****SUCCESSFUL DB LOAD//**********
+        LoadToDB(go.getOrderNumber(),go.getParkID(),go.getEnterTime(),go.getAmountOfVisitors(), go.getPhoneNumber(),"Group");
+    }
+
 }

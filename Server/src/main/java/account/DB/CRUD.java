@@ -1,9 +1,7 @@
 package account.DB;
 
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
 this class responsible to working with the db
@@ -13,10 +11,12 @@ public class CRUD  {
 
     Connection connection;
     Statement stmt;
+    ResultSet rs;
 
     public CRUD () throws SQLException {
         connection = SqlConnection.getConnection();
         stmt = connection.createStatement();
+        rs = stmt.getResultSet();
     }
     public void insertData( String queryToRun) {
          try {
@@ -36,5 +36,34 @@ public class CRUD  {
             return null;
         }
 
+    }
+
+    public boolean next() throws SQLException {
+        return rs.next();
+    }
+
+    public String getString(String stringToSearch) throws SQLException {
+        if (stringToSearch == "TelephoneNumber") {
+            return rs.getString(stringToSearch);
+        }
+        return rs.getString(stringToSearch);
+    }
+
+    public int getInt(String columm) throws SQLException {
+        if (columm == "OrderNumber") {
+            return rs.getInt(columm);
+        }
+        return rs.getInt(columm);
+    }
+
+    public Time getTime(String timeOfVisit) throws SQLException {
+       return rs.getTime(timeOfVisit);
+    }
+
+
+    public void close() throws SQLException {
+        rs.close();
+        stmt.close();
+        connection.close();
     }
 }

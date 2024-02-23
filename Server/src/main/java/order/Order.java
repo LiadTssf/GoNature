@@ -2,6 +2,7 @@ package order;
 import java.sql.*;
 import java.time.LocalTime;
 
+import java.util.UUID;
 import account.DB.CRUD;
 import account.DB.SqlConnection;
 
@@ -14,7 +15,7 @@ public abstract class Order {
     private int amountOfVisitors;
     private double price;
     private String PhoneNumber;
-    private int OrderNumber = 0;
+    private UUID OrderNumber;
     private static CRUD crud;
 
     static {
@@ -30,7 +31,7 @@ public abstract class Order {
         this.email = email;
         this.amountOfVisitors= amountOfVisitors;
         this.PhoneNumber = PhoneNumber;
-        this.OrderNumber+=1; // every order has its own number
+        OrderNumber = UUID.randomUUID();
         this.enterTime = time;
     }
 
@@ -50,7 +51,7 @@ public abstract class Order {
         return email;
     }
 
-    public int getOrderNumber(){
+    public UUID getOrderNumber(){
         return OrderNumber;
     }
 
@@ -75,9 +76,9 @@ public abstract class Order {
         return this.price;
     } // get visitors amount to calculate the correct price
 
-    public static void LoadToDB(int OrderNumber, String parkID, LocalTime enterTime, int amountOfVisitors, String phoneNumber) throws SQLException {
-        String queryToRun = "INSERT INTO `order` (OrderNumber, ParkName, TimeOfVisit, NumberOfVisitors, TelephoneNumber) VALUES ('" +
-                OrderNumber + "', '" + parkID + "', '" + enterTime + "', " + amountOfVisitors + ", '" + phoneNumber + "')";
-        crud.insertData(queryToRun);
+    public static void LoadToDB(UUID OrderNumber, String parkID, LocalTime enterTime, int amountOfVisitors, String phoneNumber,String type) throws SQLException {
+        String queryToLoad = "INSERT INTO `order` (OrderNumber, ParkName, TimeOfVisit, NumberOfVisitors, TelephoneNumber,OrderType) VALUES ('" +
+                OrderNumber + "', '" + parkID + "', '" + enterTime + "', " + amountOfVisitors + ", '" + phoneNumber + "','"+type+"')";
+        crud.insertData(queryToLoad);
     }
 }
