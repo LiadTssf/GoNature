@@ -1,0 +1,10 @@
+# Eclipse generated files
+.project
+.classpath
+.settings/
+
+# IntelliJ generated files
+.idea/
+
+# Compiled package files
+.jar
