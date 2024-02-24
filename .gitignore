@@ -8,4 +8,4 @@
 *.iml
 
 # Compiled package files
-.jar
+target/
