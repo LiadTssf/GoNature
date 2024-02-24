@@ -1,0 +1,25 @@
+.main-pane {
+    -fx-background-color: #f0f0f0;
+}
+
+#lblOrderNumber,
+#lblTimeOfVisit,
+#lblNumberOfVisitors,
+#lblTelephoneNumber,
+#lblEmail {
+    -fx-font-size: 16;
+}
+
+.save-button {
+    -fx-font-size: 16;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+}
+
+.close-button {
+    -fx-font-size: 16;
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+}

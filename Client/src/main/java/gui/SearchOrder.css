@@ -1,0 +1,82 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+#btnStudentInfo {
+    -fx-background-color: skyblue;
+    -fx-text-fill: red;
+    -fx-padding: 6 6 6 6;
+    -fx-border-radius: 8;
+    -fx-font-weight: bold;
+}
+
+.root {
+    -fx-background-color: #deb887;
+}
+
+.label {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-font-size: 16;
+}
+
+.button {
+    -fx-font-size: 16;
+    -fx-padding: 10 20;
+}
+
+.order-info-label {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4CAF50;
+}
+
+.order-info-field {
+    -fx-font-size: 16;
+    -fx-padding: 5 10;
+}
+
+.order-info-field:focused {
+    -fx-border-color: #4CAF50;
+}
+
+.order-info-field:disabled {
+    -fx-opacity: 0.5;
+}
+
+.button-bar {
+    -fx-padding: 10 0;
+    -fx-alignment: CENTER;
+}
+
+.ok-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-pref-width: 80;
+    -fx-padding: 10 20;
+}
+
+.ok-button:hover {
+    -fx-background-color: #3e8e41;
+}
+
+.ok-button:focused {
+    -fx-background-color: #4CAF50;
+    -fx-border-color: #3e8e41;
+}
+
+.cancel-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-pref-width: 80;
+    -fx-padding: 10 20;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #ea2c21;
+}
+
+.cancel-button:focused {
+    -fx-background-color: #f44336;
+    -fx-border-color: #ea2c21;
+}

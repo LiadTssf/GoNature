@@ -5,6 +5,7 @@
 
 # IntelliJ generated files
 .idea/
+*.iml
 
 # Compiled package files
 .jar

@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.example.ClientController;
-import org.example.ClientUI;
+import main.ClientController;
+import main.ClientUI;
 public class CreateOrderController {
 
     @FXML

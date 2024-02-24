@@ -14,8 +14,6 @@ public class SingleOrder extends Order{
     }
 
 
-    public void sendToSQL(){
-    }
 
     @Override
     public double calculatePrice(double discount_percentage) throws NumberOutOfBoundException {
@@ -27,7 +25,8 @@ public class SingleOrder extends Order{
     }
 
     public static void main(String[] args) throws SQLException, NumberOutOfBoundException {
-        SingleOrder so = new SingleOrder("Karmiel","ASDA@gmail.com",2,"0504567899",LocalTime.of(16,00));
-        LoadToDB(so.getOrderNumber(),so.getParkID(),so.getEnterTime(),so.getAmountOfVisitors(), so.getPhoneNumber());
+        SingleOrder so = new SingleOrder("Karmiel","ASDA@gmail.com",2,"050-test123",LocalTime.of(16,00));
+        //****SUCCESSFUL DB LOAD//**********
+        LoadToDB(so.getOrderNumber(),so.getParkID(),so.getEnterTime(),so.getAmountOfVisitors(), so.getPhoneNumber(),"regular");
     }
 }

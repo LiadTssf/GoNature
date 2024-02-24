@@ -1,6 +1,7 @@
 package messageHandler;
 
 
+import account.DB.CRUD;
 import account.DB.SqlConnection;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -13,32 +14,26 @@ import java.util.Properties;
 
 
 public class messages extends Thread{
-
+    private CRUD crud;
     @Override
     public void run(){
         while(true){
             try {
-                Connection con = SqlConnection.getConnection();
-                Statement stmt = con.createStatement();
 
+                crud.getData("SELECT OrderNumber,TelephoneNumber,TimeOfVisit,NumberOfVisitors,ParkName FROM order");
 
-                ResultSet rs = stmt.executeQuery("SELECT OrderNumber,TelephoneNumber,TimeOfVisit,NumberOfVisitors,ParkName FROM order");
-
-                while (rs.next()){
-                    String phone = rs.getString("TelephoneNumber");
-                    int OrderNumber = rs.getInt("OrderNumber");
-                    int NumberOfVisitors = rs.getInt("NumberOfVisitors");
-                    String ParkName = rs.getString("ParkName");
-                    Time time = rs.getTime("TimeOfVisit");
+                while (crud.next()){
+                    String phone = crud.getString("TelephoneNumber");
+                    int OrderNumber = crud.getInt("OrderNumber");
+                    int NumberOfVisitors = crud.getInt("NumberOfVisitors");
+                    String ParkName = crud.getString("ParkName");
+                    Time time = crud.getTime("TimeOfVisit");
 
                     if (time.equals(LocalTime.now())){
                         sendEmail(phone,OrderNumber,NumberOfVisitors,ParkName);
                     }
                 }
-
-                rs.close();
-                stmt.close();
-                con.close();
+                crud.close();
 
 
 
