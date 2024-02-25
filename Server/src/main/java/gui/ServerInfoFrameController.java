@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import Main.ServerHandler;
-import Main.ServerUI;
 
 public class ServerInfoFrameController {
     
@@ -47,9 +46,9 @@ public class ServerInfoFrameController {
     private Thread connectionStatusThread;
 
     public void start(Stage primaryStage) throws Exception {    
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/ServerInfoFrame.fxml"));       
+        Parent root = FXMLLoader.load(getClass().getResource("/ServerInfoFrame.fxml"));
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/ServerInfoFrame.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/ServerInfoFrame.css").toExternalForm());
         primaryStage.setTitle("Client");
         primaryStage.setScene(scene);
         

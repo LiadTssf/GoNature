@@ -1,6 +1,5 @@
 package gui;
 
-import main.ClientUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,10 +49,10 @@ public class VisitorOrderFormController {
 	public void getCloseBtn(ActionEvent event) throws Exception {
 		
 		((Node)event.getSource()).getScene().getWindow().hide();
-		Parent root = FXMLLoader.load(getClass().getResource("/gui/SearchOrder.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/SearchOrder.fxml"));
 		Stage primaryStage = new Stage();
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/gui/SearchOrder.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/SearchOrder.css").toExternalForm());
 		primaryStage.setTitle("Search Order");
 		primaryStage.setScene(scene);		
 		primaryStage.show();		

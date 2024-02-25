@@ -1,7 +1,5 @@
 package gui;
 
-import ocsf.client.*;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,11 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import logic.Order;
 import main.ClientHandler;
-import main.ClientUI;
 import javafx.scene.control.Label;
-
-
-import javafx.beans.property.SimpleBooleanProperty;
 
 public class SearchOrderFrameController {
 	private VisitorOrderFormController ofc;
@@ -58,7 +52,7 @@ public class SearchOrderFrameController {
 				System.out.println("Order Number Found");
 				((Node)event.getSource()).getScene().getWindow().hide(); //hiding primary window
 				Stage primaryStage = new Stage();
-				Pane root = loader.load(getClass().getResource("/gui/OrderInfoForm.fxml").openStream());
+				Pane root = loader.load(getClass().getResource("/OrderInfoForm.fxml").openStream());
 				VisitorOrderFormController orderFormController = loader.getController();		
 				orderFormController.loadOrder(ClientHandler.o1);
 				Scene scene = new Scene(root);			
@@ -73,10 +67,10 @@ public class SearchOrderFrameController {
 	
 	
 	public void start(Stage primaryStage) throws Exception {	
-		Parent root = FXMLLoader.load(getClass().getResource("/gui/SearchOrder.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/SearchOrder.fxml"));
 				
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/gui/SearchOrder.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/SearchOrder.css").toExternalForm());
 		primaryStage.setTitle("Order Search");
 		primaryStage.setScene(scene);
 		
