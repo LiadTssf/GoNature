@@ -45,10 +45,10 @@ public class ServerInfoFrameController {
     // Thread to continuously monitor and update connection status
     private Thread connectionStatusThread;
 
-    public void start(Stage primaryStage) throws Exception {    
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/ServerInfoFrame.fxml"));
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/ServerInfoFrame.css").toExternalForm());
+//        scene.getStylesheets().add(getClass().getResource("/ServerInfoFrame.css").toExternalForm());
         primaryStage.setTitle("Client");
         primaryStage.setScene(scene);
         
