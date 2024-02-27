@@ -1,2 +1,2 @@
-# GoNeture
+# GoNature
 Semester Project

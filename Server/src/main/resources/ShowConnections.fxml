@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="127.0" prefWidth="283.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ShowConnections">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Connection IP" />
+      <Label layoutX="14.0" layoutY="50.0" text="Host Name" />
+      <Label layoutX="14.0" layoutY="86.0" text="Status" />
+      <TextField id="connectionIPTxtfieldid" fx:id="connectionIPTxtfield" layoutX="115.0" layoutY="10.0" text="N/A" />
+      <TextField id="hostNameTxtfieldid" fx:id="hostNameTxtfield" layoutX="115.0" layoutY="46.0" text="N/A" />
+      <TextField id="statusTxtfieldid" fx:id="statusTxtfield" layoutX="115.0" layoutY="82.0" text="N/A" />
+   </children>
+</AnchorPane>

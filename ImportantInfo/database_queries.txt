@@ -1,0 +1,11 @@
+Order table SQL query:
+
+CREATE TABLE `order` (
+  `order_id_pk` varchar(45) NOT NULL,
+  `park_name` varchar(45) DEFAULT NULL,
+  `visit_time` varchar(45) DEFAULT NULL,
+  `number_of_visitors` varchar(45) DEFAULT NULL,
+  `telephone` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`order_id_pk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

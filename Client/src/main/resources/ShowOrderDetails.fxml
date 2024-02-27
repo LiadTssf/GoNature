@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="315.0" prefWidth="322.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ShowOrderDetails">
+
+    <!-- Order Number -->
+    <Label text="Order Number:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+    <TextField fx:id="orderNumber" editable="false" promptText="Order Number" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="20.0" />
+
+    <!-- Park Name -->
+    <Label text="Park Name:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0" />
+    <TextField fx:id="parkNameField" promptText="Park Name" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="60.0" />
+
+    <!-- Number of Visitors -->
+    <Label text="Number of Visitors:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
+    <TextField fx:id="numberOfVisitors" promptText="Number of Visitors" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0" />
+    <Label text="Phone number:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="140.0" />
+    <TextField fx:id="phoneNumber" promptText="phone number" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="140.0" />
+    <Label text="Time of visit:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0" />
+    <TextField fx:id="timeOfVisit" promptText="Time of visit" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="180.0" />
+    <Label text="Email:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="220.0" />
+    <TextField fx:id="email" promptText="email" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="220.0" />
+   <Button id="updatelbl" fx:id="updatebtn" layoutX="124.0" layoutY="268.0" mnemonicParsing="false" onAction="#getUpdatebtn" text="Update" />
+    <!-- Add more fields as needed -->
+
+</AnchorPane>
