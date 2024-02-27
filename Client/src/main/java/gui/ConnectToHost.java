@@ -23,6 +23,5 @@ public class ConnectToHost implements Initializable {
     @FXML
     public void ConnectToServer(ActionEvent actionEvent) {
         ClientUI.connect(hostip_txtfield.getText(), 1234);
-        ClientUI.changeScene("LoadOrder");
     }
 }
