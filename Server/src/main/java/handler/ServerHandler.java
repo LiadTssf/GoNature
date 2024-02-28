@@ -9,6 +9,7 @@ import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 import java.io.IOException;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class ServerHandler extends AbstractServer {
     private static ServerHandler instance;
     private CommandDictionary commandDict;
