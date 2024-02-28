@@ -9,9 +9,9 @@ import java.sql.SQLException;
 
 public class UpdateOrderByNumber implements Command {
     /**
-     * calls an sql query to update order in database by its id
-     * @param param order object to update database by
-     * @return message update successful
+     * Calls an sql query to update order in database by its id
+     * @param param Order object to update database by
+     * @return Message update successful or message order not found
      */
     @Override
     public Object execute(Object param) {

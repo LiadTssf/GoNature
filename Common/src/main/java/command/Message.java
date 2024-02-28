@@ -6,6 +6,11 @@ public class Message implements Serializable {
     private String command;
     private Object param;
 
+    /**
+     * Constructs a new message with a command to execute and parameters
+     * @param command name of the command to execute
+     * @param param any object sent as parameter, can be ArrayList if several objects need to be sent
+     */
     public Message(String command, Object param) {
         this.command = command;
         this.param = param;

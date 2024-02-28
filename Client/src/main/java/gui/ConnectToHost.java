@@ -16,9 +16,7 @@ public class ConnectToHost implements Initializable {
     private Button connect_btn;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
+    public void initialize(URL location, ResourceBundle resources) { }
 
     @FXML
     public void ConnectToServer(ActionEvent actionEvent) {

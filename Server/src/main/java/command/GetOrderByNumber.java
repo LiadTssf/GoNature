@@ -10,7 +10,7 @@ public class GetOrderByNumber implements Command {
     /**
      * Calls an SQL query to get order by order_id and sends response
      * @param param String order_id
-     * @return Message calling for LoadAndShowOrder with Order object in param
+     * @return Message calling for LoadAndShowOrder with Order object in param or message order not found
      */
     @Override
     public Object execute(Object param) {

@@ -10,10 +10,20 @@ public class Order implements Serializable {
     public String telephone;
     public String email;
 
-    public Order() {
+    /**
+     * Constructs a new empty order, details need to be filled by accessing public members
+     */
+    public Order() { }
 
-    }
-
+    /**
+     * Constructs a new order and fills in details
+     * @param order_id_pk order number or id
+     * @param park_name park name for the order
+     * @param visit_time time of visit
+     * @param number_of_visitors number of visitors
+     * @param telephone phone number for whom ordered
+     * @param email email for whom ordered
+     */
     public Order(String order_id_pk, String park_name, String visit_time, String number_of_visitors, String telephone, String email) {
         this.order_id_pk = order_id_pk;
         this.park_name = park_name;
