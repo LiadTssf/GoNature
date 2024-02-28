@@ -48,16 +48,20 @@ ClientHandler.request(msg);
 ההודעה הזאת תגיד לשרת להריץ את הפקודה GetOrderByNumber עם הפרמטר orderNum
 אחרי שליחת הודעה התשובה, השרת שולח תשובה באותו סגנון ויכול לריץ פקודות אצל הלקוח
 בדוגמה זאת השרת יכול להחזיר תשובה כזאת אחרי הרצת המחלקה GetOrderByNumber:
-Message(String "ReturnParam", Order order)
+Message("ReturnParam", order)
 
 הלקוח מקבל את התשובה מריץ את הפקודה ReturnParam ושומר את ההזמנה שהתקבלה מהשרת ב:
 Order order = ClientHandler.getCommandReturn();
 
-2 שיטות נוספות לקבל תשובה מהשרת הן דרך המטודות
-Message response = ClientHandler.getLastResponse;
-מחזיר את ההודעה של השרת במלואה, אם רוצים לגשת לפרמטר אפשר דרך
+אם אין צורך לתשובה משמעותית מהשרת ללקוח חייבים להחזיר תשובה סתמים בפקודות כמו
+return new Message("OrderUpdateSuccess", "Order has been updated successfully");
+
+שיטה נוספת לקבל תשובה משרת בזמן שליחת בקשה:
+Message response = ClientHandler.request(msg);
+מחזיר את ההודעת תשובה המלאה שמתקבלת מהשרת, אם רוצים לגשת לפרמטר אפשר דרך:
 response.getParam();
 
-שיטה נוספת בזמן שליחת בקשה
-Message response = ClientHandler.request(msg);
-מחזיר את ההודעת תשובה המלאה שמתקבלת מהשרת
+שיטה נוספת לקבל תשובה משרת:
+Message response = ClientHandler.getLastResponse;
+דוגמה ללקיחת פרמטר מתשובת שרת אם ידוע שהוא אובייקט הזמנה
+Order order = (Order) response.getParam();
