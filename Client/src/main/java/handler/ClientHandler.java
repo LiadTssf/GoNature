@@ -1,16 +1,18 @@
 package handler;
 
-import command.Command;
-import command.CommandDictionary;
+import command.ClientCommand;
+import command.ClientCommandDictionary;
 import command.Message;
+import data.Account;
 import ocsf.client.AbstractClient;
 import java.io.IOException;
 
 public class ClientHandler extends AbstractClient {
     private static ClientHandler instance;
-    private CommandDictionary commandDict;
-    private static Object lastResponse;
-    private static Object commandReturn;
+    private final ClientCommandDictionary commandDict;
+    private Message lastResponse;
+    private Object commandReturn;
+    private Account account;
     private boolean await;
 
     /**
@@ -20,9 +22,8 @@ public class ClientHandler extends AbstractClient {
      */
     public ClientHandler(String host, int port) {
         super(host, port);
-        commandReturn = null;
-        commandDict = new CommandDictionary();
         instance = this;
+        commandDict = new ClientCommandDictionary();
     }
 
     /**
@@ -31,7 +32,7 @@ public class ClientHandler extends AbstractClient {
      */
     @Override
     protected void handleMessageFromServer(Object msg) {
-        Command command;
+        ClientCommand command;
         Message response = (Message) msg;
         lastResponse = response;
 
@@ -52,7 +53,8 @@ public class ClientHandler extends AbstractClient {
      */
     public static Object request(Message msg) { return instance.executeRequest(msg); }
     private Object executeRequest(Message msg) {
-        System.out.println("Client -> Server: " + msg.toString());
+        System.out.println("Server: " + msg.toString());
+        msg.setAccount(account);
         try {
             openConnection();
             await = true;
@@ -66,15 +68,9 @@ public class ClientHandler extends AbstractClient {
         return lastResponse;
     }
 
-    /**
-     * Get the last response message from the server
-     * @return the last response message from the server
-     */
-    public static Object getLastResponse() { return lastResponse; }
 
-    /**
-     * Get the last returned object from executing server command on the client
-     * @return returned object
-     */
-    public static Object getCommandReturn() { return commandReturn; }
+    public static void setAccount(Account account) { instance.account = account; }
+    public static Object getLastResponse() { return instance.lastResponse; }
+    public static Object getCommandReturn() { return instance.commandReturn; }
+    public static Account getAccount() { return instance.account; }
 }

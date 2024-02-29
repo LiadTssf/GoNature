@@ -1,18 +1,22 @@
 package handler;
 
-import command.Command;
-import command.CommandDictionary;
+import command.ServerCommandDictionary;
 import command.Message;
+import command.ServerCommand;
+import data.Account;
 import gui.ServerUI;
 import gui.ShowConnections;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class ServerHandler extends AbstractServer {
     private static ServerHandler instance;
-    private CommandDictionary commandDict;
+    private ServerCommandDictionary commandDict;
+    private Map<ConnectionToClient, Account> clientAccountDict;
 
     /**
      * constructs new server handler
@@ -20,7 +24,7 @@ public class ServerHandler extends AbstractServer {
      */
     public ServerHandler(int port) {
         super(port);
-        commandDict = new CommandDictionary();
+        commandDict = new ServerCommandDictionary();
         instance = this;
     }
 
@@ -32,21 +36,21 @@ public class ServerHandler extends AbstractServer {
     @Override
     protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
         Message response;
-        Command command;
+        ServerCommand command;
 
-        System.out.println("Client -> Server: " + msg.toString());
+        System.out.println("Client " + client.getId() + " - " + msg.toString());
 
         //Process message
         Message request = (Message) msg;
         if((command = commandDict.getCommand(request.getCommand())) != null) {
-            response = (Message) command.execute(request.getParam());
+            //TODO: replace null with client-account dictionary result
+            response = command.execute(request.getParam(), request.getAccount());
         } else {
             response = new Message("UnknownRequest", "Could not find command to execute");
         }
 
         //Send response
         try {
-            System.out.println("Server -> Client: " + response.toString());
             client.sendToClient(response);
         } catch (IOException e) {
             e.printStackTrace();
