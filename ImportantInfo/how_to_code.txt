@@ -78,7 +78,7 @@ Order order = (Order) response.getParam();
      git clone "PROJECT URL"
 
      when you want to add changes to gitHub
-      git a .
+      git add .
       git commit -m "write what you done"
       git pull origin main ( get the newest version of the project)
       git push origin main
