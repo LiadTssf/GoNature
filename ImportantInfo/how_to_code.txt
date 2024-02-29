@@ -65,3 +65,21 @@ response.getParam();
 Message response = ClientHandler.getLastResponse;
 דוגמה ללקיחת פרמטר מתשובת שרת אם ידוע שהוא אובייקט הזמנה
 Order order = (Order) response.getParam();
+
+
+
+
+
+** working with git **
+
+     work from terminal :
+
+     -- run this commands --
+     git clone "PROJECT URL"
+
+     when you want to add changes to gitHub
+      git a .
+      git commit -m "write what you done"
+      git pull origin main ( get the newest version of the project)
+      git push origin main
+
