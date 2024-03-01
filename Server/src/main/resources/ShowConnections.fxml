@@ -2,9 +2,44 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ShowConnections">
    <children>
-      <TableView fx:id="clients_table" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="616.0" />
+      <TableView fx:id="clients_table" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="616.0">
+         <columns>
+            <TableColumn prefWidth="75.0" text="Client ID">
+               <cellValueFactory>
+                  <PropertyValueFactory property="client_id"/>
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="IP">
+               <cellValueFactory>
+                  <PropertyValueFactory property="ip"/>
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="Host">
+               <cellValueFactory>
+                  <PropertyValueFactory property="host"/>
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="Account ID">
+               <cellValueFactory>
+                  <PropertyValueFactory property="account_id"/>
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="230.0" text="Last Request">
+               <cellValueFactory>
+                  <PropertyValueFactory property="lastRequest"/>
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="84.0" text="Status">
+               <cellValueFactory>
+                  <PropertyValueFactory property="status"/>
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

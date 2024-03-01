@@ -11,102 +11,115 @@ public class ClientUI extends Application {
     private static ClientUI instance;
     private static Object currentController;
     private static MainWindow mainWindowController;
-    private Stage primaryStage;
-
-    @Override
-    public void start(Stage stage) {
-        instance = this;
-        this.primaryStage = stage;
-
-        mainWindowController = (MainWindow) changeWindow("MainWindow");
-    }
-
-    @Override
-    public void stop() { ClientHandler.closeClientHandler(); }
 
     public static void main(String[] args) { launch(); }
 
     /**
-     * Closes current gui window and opens new window with specified scene
-     * This method can only be called by methods in the javafx run thread
-     * i.e. gui controllers
-     * @param fxmlName filename without .fxml extension
+     * Launches the main client application with the main window
+     * @param stage javafx assigned primary stage
      */
-    public static Object changeWindow(String fxmlName) {
-        try {
-            return instance.loadWindow(fxmlName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    private Object loadWindow(String fxmlName) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/window/" + fxmlName + ".fxml"));
+    @Override
+    public void start(Stage stage) {
+        instance = this;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/window/mainWindow.fxml"));
         try {
             Scene scene = new Scene(loader.load());
             currentController = loader.getController();
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IllegalStateException e) {
-            ClientUI.popupNotification("Could not find fxml file: /" + fxmlName + ".fxml");
+            stage.setResizable(false);
+            stage.setTitle("GoNature Client");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return loader.getController();
+        mainWindowController = loader.getController();
     }
 
-    public static Object changeScene(String fxmlName) {
-        return instance.loadScene(fxmlName);
-    }
-    private Object loadScene(String fxmlName) {
+    /**
+     * Handles closing the application, sends a disconnect message to the server
+     * and closes the connection before exiting the application
+     */
+    @Override
+    public void stop() { ClientHandler.closeClientHandler(); }
+
+    /**
+     * Changes the main window scene that will be displayed
+     * All fxml files used in this command should be in resources/gui/ directory
+     * @param fxmlName fxml filename without .fxml
+     */
+    public static void changeScene(String fxmlName) {
         try {
             currentController = mainWindowController.loadPane(fxmlName);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return currentController;
     }
 
+    /**
+     * Adds a new item on the sidebar to access new scenes from the UI
+     * @param text test to appear on the button
+     * @param fxmlName fxml filename without .fxml to open when clicking the item
+     */
     public static void addMainMenuItem(String text, String fxmlName) {
-        try {
-            mainWindowController.addMenuItem(text, fxmlName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mainWindowController.addMenuItem(text, fxmlName);
     }
 
+    /**
+     * Removes a specific item from the main window sidebar
+     * @param fxmlName fxml filename without .fxml
+     */
     public static void removeMainMenuItem(String fxmlName) {
         mainWindowController.removeMenuItem(fxmlName);
     }
 
-    public static Object openNewWindow(String fxmlName) {
+    /**
+     * Completely clears the main window sidebar from all items
+     */
+    public static void removeAllMainMenuItems() {
+        mainWindowController.removeAllMenuItems();
+    }
+
+    /**
+     * Opens a completely new window with the passed fxml file
+     * @param fxmlName fxml filename without .fxml
+     * @return controller object of the newly opened window
+     */
+    public static Object openNewWindow(String fxmlName) { return instance.loadNewWindow(fxmlName); }
+    private Object loadNewWindow(String fxmlName) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/window/" + fxmlName + ".fxml"));
+        Stage secondaryStage = new Stage();
         try {
-            return instance.loadNewWindow(fxmlName);
+            Scene scene = new Scene(loader.load());
+            secondaryStage.setScene(scene);
+            secondaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
-    }
-    private Object loadNewWindow(String fxmlName) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/window/" + fxmlName + ".fxml"));
-        Stage secondaryStage = new Stage();
-        Scene scene = new Scene(loader.load());
-        secondaryStage.setScene(scene);
-        secondaryStage.show();
         return loader.getController();
     }
 
+    /**
+     * Opens a pop-up notification with the specified text string
+     * The notification only has a text field and a button to close it
+     * @param notification text string to display on the notification
+     */
     public static void popupNotification(String notification) {
         PopupNotification controller = (PopupNotification) openNewWindow("PopupNotification");
         if(controller != null) { controller.update_label(notification); }
     }
 
     /**
-     * Gets current javafx controller instance
+     * Gets current javafx controller instance from the sub-scene displayed in the main window
      * @return javafx controller instance
      */
     public static Object getCurrentController() {
         return currentController;
     }
 
+    /**
+     * Gets current javafx controller instance from the main window
+     * @return mainWindow controller instance
+     */
     public static Object getMainWindowController() {
         return mainWindowController;
     }

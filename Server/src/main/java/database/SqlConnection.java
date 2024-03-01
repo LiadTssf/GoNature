@@ -15,6 +15,10 @@ public class SqlConnection {
         dbpass = pass;
     }
 
+    /**
+     * Establishes new connection to the database
+     * @return connection instance
+     */
     public static Connection getConnection() {
         try {
             Connection con;

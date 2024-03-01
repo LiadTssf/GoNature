@@ -5,50 +5,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ShowConnections implements Initializable {
+    private ObservableList<ConnectionTableData> connectionTableData;
 
     @FXML
     private TableView<ConnectionTableData> clients_table;
 
-    private ObservableList<ConnectionTableData> connectionTableData;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        //Create new observable array list
         connectionTableData = FXCollections.observableArrayList();
-
-        //Setup columns
-        TableColumn<ConnectionTableData, String> clientIDCol = new TableColumn<>("Client ID");
-        TableColumn<ConnectionTableData, String> ipCol = new TableColumn<>("IP");
-        TableColumn<ConnectionTableData, String> hostCol = new TableColumn<>("Host");
-        TableColumn<ConnectionTableData, String> accountIDCol = new TableColumn<>("Account ID");
-        TableColumn<ConnectionTableData, String> lastRequestCol = new TableColumn<>("Last Request");
-        TableColumn<ConnectionTableData, String> statusCol = new TableColumn<>("Status");
-        clientIDCol.setCellValueFactory(new PropertyValueFactory<>("client_id"));
-        ipCol.setCellValueFactory(new PropertyValueFactory<>("ip"));
-        hostCol.setCellValueFactory(new PropertyValueFactory<>("host"));
-        accountIDCol.setCellValueFactory(new PropertyValueFactory<>("account_id"));
-        lastRequestCol.setCellValueFactory(new PropertyValueFactory<>("lastRequest"));
-        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
-
         clients_table.setItems(connectionTableData);
-
-        //Insert columns to table
-        clients_table.getColumns().add(clientIDCol);
-        clients_table.getColumns().add(ipCol);
-        clients_table.getColumns().add(hostCol);
-        clients_table.getColumns().add(accountIDCol);
-        clients_table.getColumns().add(lastRequestCol);
-        clients_table.getColumns().add(statusCol);
     }
 
+    /**
+     * Adds a new client connection or updates and existing one at the connections table
+     * @param connection table client data
+     */
     public void addOrUpdateConnection(ConnectionTableData connection) {
         boolean exist = false;
         for(ConnectionTableData connectionData : connectionTableData) {
@@ -67,5 +43,22 @@ public class ShowConnections implements Initializable {
             connectionTableData.add(connection);
         }
         clients_table.refresh();
+    }
+
+    /**
+     * Returns client id assigned by the server handler by assigned account id
+     * Returns -1 if no client id exists for the account
+     * Used to verify client is assigned a specific account or to check whether an account
+     * is not logged in from another session
+     * @param account_id assigned account id of the client looked for
+     * @return client id as used by the server handler
+     */
+    public long getClientFromAccount(int account_id) {
+        for(ConnectionTableData connectionData : connectionTableData) {
+            if (connectionData.getAccount_id().equals(String.valueOf(account_id))) {
+                return Long.parseLong(connectionData.getClient_id());
+            }
+        }
+        return -1;
     }
 }

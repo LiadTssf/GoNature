@@ -21,12 +21,21 @@ public class PopupNotification implements Initializable {
 
     }
 
+    /**
+     * Called when notification is closed
+     * Closes the notification window
+     * @param actionEvent javafx actionEvent
+     */
     @FXML
     public void close_btn(ActionEvent actionEvent) {
         Stage currentStage = (Stage) close_btn.getScene().getWindow();
         currentStage.close();
     }
 
+    /**
+     * Updates notification text
+     * @param label new text to apply
+     */
     public void update_label(String label) {
         notif_lbl.setText(label);
     }

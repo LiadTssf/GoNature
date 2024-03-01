@@ -7,10 +7,12 @@ public class ClientCommandDictionary {
     private final Map<String, ClientCommand> commandDictionary;
 
     /**
-     * Constructs a new commands dictionary
+     * Constructs a new commands dictionary and adds client commandss
      */
     public ClientCommandDictionary() {
         commandDictionary = new HashMap<>();
+        this.addCommand("AuthenticateClient", new AuthenticateClient());
+        this.addCommand("DeauthenticateClient", new DeauthenticateClient());
     }
 
     /**

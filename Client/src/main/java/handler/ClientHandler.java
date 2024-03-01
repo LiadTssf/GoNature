@@ -37,7 +37,7 @@ public class ClientHandler extends AbstractClient {
         Message response = (Message) msg;
         lastResponse = response;
 
-        System.out.println("Server:" + msg.toString());
+        System.out.println("Server: " + msg.toString());
 
         //Process message and executes command if applicable
         if ((command = commandDict.getCommand(response.getCommand())) != null) {
@@ -68,7 +68,10 @@ public class ClientHandler extends AbstractClient {
             sendToServer(msg);
         } catch (IOException e) {
             //Connection refused handling
-            ClientUI.popupNotification("Server not found");
+            ClientUI.popupNotification("Failed to establish connection");
+            ClientUI.changeScene("ConnectToHost");
+            ClientUI.removeAllMainMenuItems();
+            ClientUI.addMainMenuItem("Server Connection", "ConnectToHost");
         }
 
         //Await response
@@ -89,10 +92,14 @@ public class ClientHandler extends AbstractClient {
         return commandReturn;
     }
 
+    /**
+     * Sends a disconnection message to the server and closes the connection
+     */
     public static void closeClientHandler() {
         if(instance != null) {
             try {
-                instance.executeRequest(new Message("DisconnectClient"));
+                ClientHandler.setAccount(null);
+                instance.executeRequest(new Message("DisconnectClient", "No parameters"));
                 instance.closeConnection();
             }
             catch (IOException e) {
@@ -101,18 +108,35 @@ public class ClientHandler extends AbstractClient {
         }
     }
 
+    /**
+     * Assigns account to the client
+     * This account is passed to all messages to the server
+     * @param account to be assigned to client
+     */
     public static void setAccount(Account account) {
         instance.account = account;
     }
 
-    public static Object getLastResponse() {
+    /**
+     * Returns last message response received from the server
+     * @return server response
+     */
+    public static Message getLastResponse() {
         return instance.lastResponse;
     }
 
+    /**
+     * Returns last command return value
+     * @return command return value
+     */
     public static Object getCommandReturn() {
         return instance.commandReturn;
     }
 
+    /**
+     * Returns account assigned to the client
+     * @return account
+     */
     public static Account getAccount() {
         return instance.account;
     }

@@ -6,4 +6,8 @@ public class WorkerAccount extends Account {
     public int      worker_id;
     public String   park_id_fk;
     public String   worker_role;                    // { Worker, Sales, Park_Manager, Department_Manager }
+
+    public WorkerAccount(int account_id_pk, String account_type) {
+        super(account_id_pk, account_type);
+    }
 }

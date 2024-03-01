@@ -7,11 +7,13 @@ public class ServerCommandDictionary {
     private final Map<String, ServerCommand> commandDictionary;
 
     /**
-     * Constructs a new commands dictionary
+     * Constructs a new commands dictionary and adds server specific commands to it
      */
     public ServerCommandDictionary() {
         commandDictionary = new HashMap<>();
         this.addCommand("ConnectClient", new ConnectClient());
+        this.addCommand("DisconnectClient", new DisconnectClient());
+        this.addCommand("LoginWithID", new LoginWithID());
     }
 
     /**

@@ -1,6 +1,5 @@
 package handler;
 
-import command.DisconnectClient;
 import command.Message;
 import command.ServerCommand;
 import command.ServerCommandDictionary;
@@ -28,7 +27,8 @@ public class ServerHandler extends AbstractServer {
     }
 
     /**
-     * receives message from client, tries to execute command and sends response
+     * receives message from client, tries to execute command
+     * sends client updated information to connections table and sends response back to client
      * @param msg   the message sent
      * @param client the connection connected to the client that
      */
@@ -56,24 +56,45 @@ public class ServerHandler extends AbstractServer {
 
         //Send client information to gui
         if(request.getCommand().equals("DisconnectClient")) {
-            System.out.println("Disconnecting");
             sendClientInfo(client, request.getAccount(), request, "Disconnected");
         } else {
-            System.out.println("Connecting");
             sendClientInfo(client, request.getAccount(), request, "Connected");
         }
     }
 
     /**
-     * not used, client-server communication only with message objects
-     * @param msg
-     * @param client
+     * not used, client-server communication should be done with only with message objects
+     * @param msg message received by server
+     * @param client client sending message
      */
     @Override
     protected void handleMessageFromClient(String msg, ConnectionToClient client) {
 
     }
 
+    /**
+     * Returns client id assigned by the server handler by assigned account id
+     * Returns -1 if no client id exists for the account or connections table has not been created
+     * Used to verify client is assigned a specific account or to check whether an account
+     * is not logged in from another session
+     * @param account_id assigned account id of the client looked for
+     * @return client id as used by the server handler
+     */
+    public static long getClientFromAccount(int account_id) {
+        if(ServerUI.getCurrentController() instanceof ShowConnections) {
+            ShowConnections controller = (ShowConnections) ServerUI.getCurrentController();
+            return controller.getClientFromAccount(account_id);
+        }
+        return -1;
+    }
+
+    /**
+     * Sends new client information to the connections table
+     * @param client client object assigned by server handler
+     * @param account account assigned to the client
+     * @param lastRequest the last request the client has made to the server
+     * @param status the client's connection status
+     */
     public void sendClientInfo(ConnectionToClient client, Account account, Message lastRequest, String status) {
         if(ServerUI.getCurrentController() instanceof ShowConnections) {
             ShowConnections controller = (ShowConnections) ServerUI.getCurrentController();
@@ -97,6 +118,9 @@ public class ServerHandler extends AbstractServer {
         }
     }
 
+    /**
+     * Closes the current instance of the server
+     */
     public static void closeServerHandler() {
         try {
             instance.close();

@@ -47,7 +47,7 @@ public class Message implements Serializable {
         if (account == null) {
             return command + "( " + param.toString() + " ) ";
         } else {
-            return command + "(" + param.toString() + " ) " + "Authenticated as " + account;
+            return command + "(" + param.toString() + " ) " + "Account: " + account;
         }
     }
 }

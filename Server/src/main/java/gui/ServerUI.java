@@ -12,30 +12,26 @@ public class ServerUI extends Application {
     private static Object currentController;
     private Stage stage;
 
+    public static void main(String[] args) { launch(); }
+
+    /**
+     * Launches the main server application with the main window
+     * @param stage javafx assigned primary stage
+     */
     @Override
     public void start(Stage stage) {
         instance = this;
         this.stage = stage;
 
-        //TODO Temporary location for starting server
-        ServerHandler serverHandler = new ServerHandler(1234);
-        try {
-            serverHandler.listen();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //!Temporary location for starting server
-
         changeScene("DatabaseConnection");
     }
 
+    /**
+     * Handles closing the application, closes the server handler
+     */
     @Override
     public void stop() {
         ServerHandler.closeServerHandler();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 
     /**
@@ -49,11 +45,12 @@ public class ServerUI extends Application {
             e.printStackTrace();
         }
     }
-
     private void loadScene(String fxmlName) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + fxmlName + ".fxml"));
         Scene scene = new Scene(loader.load());
         currentController = loader.getController();
+        stage.setResizable(false);
+        stage.setTitle("GoNature Server");
         stage.setScene(scene);
         stage.show();
     }
