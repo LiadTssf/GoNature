@@ -29,14 +29,25 @@ public class ServerUI extends Application {
         changeScene("DatabaseConnection");
     }
 
-    public static void main(String[] args) { launch(); }
+    @Override
+    public void stop() {
+        ServerHandler.closeServerHandler();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
 
     /**
      * Closes current gui window and opens new window with specified scene
      * @param fxmlName filename without .fxml extension
      */
     public static void changeScene(String fxmlName) {
-        try { instance.loadScene(fxmlName); } catch (IOException e) { e.printStackTrace(); }
+        try {
+            instance.loadScene(fxmlName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadScene(String fxmlName) throws IOException {
@@ -51,5 +62,7 @@ public class ServerUI extends Application {
      * Gets current javafx controller instance
      * @return javafx controller instance
      */
-    public static Object getCurrentController() { return currentController; }
+    public static Object getCurrentController() {
+        return currentController;
+    }
 }

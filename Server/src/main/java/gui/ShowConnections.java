@@ -16,7 +16,9 @@ public class ShowConnections implements Initializable {
     private TextField statusTxtfield;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) { }
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 
     public void updateStatus(String ip, String hostname, String status) {
         connectionIPTxtfield.setText(ip);

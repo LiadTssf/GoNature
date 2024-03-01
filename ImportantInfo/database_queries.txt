@@ -1,4 +1,4 @@
-CREATE TABLE `gonature`.`data` (
+CREATE TABLE `gonature`.`account` (
   `account_id_pk` INT NOT NULL,
   `account_type` VARCHAR(45) NULL,
   `username` VARCHAR(45) NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `gonature`.`account_extra_info_worker` (
   INDEX `park_id_fk_idx` (`park_id_fk` ASC) VISIBLE,
   CONSTRAINT `worker_account_fk`
     FOREIGN KEY (`account_id`)
-    REFERENCES `gonature`.`data` (`account_id_pk`)
+    REFERENCES `gonature`.`account` (`account_id_pk`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `worker_park_fk`

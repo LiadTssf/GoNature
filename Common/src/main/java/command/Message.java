@@ -19,18 +19,35 @@ public class Message implements Serializable {
         this.param = param;
     }
 
-    public String getCommand() { return command; }
-    public Object getParam() { return param; }
-    public Account getAccount() { return account; }
-    public void setCommand(String command) { this.command = command; }
-    public void setParam(Object param) { this.param = param; }
-    public void setAccount(Account account) { this.account = account; }
+    public String getCommand() {
+        return command;
+    }
+
+    public Object getParam() {
+        return param;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
+    }
+
+    public void setParam(Object param) {
+        this.param = param;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 
     public String toString() {
         if (account == null) {
-            return command + "( " + param.toString() + ") ";
+            return command + "( " + param.toString() + " ) ";
         } else {
-            return command + "( " + param.toString() + ") " + "Authenticated as " + account;
+            return command + "(" + param.toString() + " ) " + "Authenticated as " + account;
         }
     }
 }

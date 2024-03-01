@@ -3,7 +3,7 @@ package database;
 import java.sql.*;
 
 public class DatabaseController {
-    Connection connection;
+    final Connection connection;
 
     /**
      * Constructs a new database controller and establishes connection to db
@@ -16,7 +16,9 @@ public class DatabaseController {
      * Returns the current connection instance
      * @return connection instance
      */
-    public Connection getConnection() { return connection; }
+    public Connection getConnection() {
+        return connection;
+    }
 
     public ResultSet executeQuery(PreparedStatement statement) {
         ResultSet resultSet = null;

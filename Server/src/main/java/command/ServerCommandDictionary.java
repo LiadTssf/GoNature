@@ -11,10 +11,7 @@ public class ServerCommandDictionary {
      */
     public ServerCommandDictionary() {
         commandDictionary = new HashMap<>();
-        //this.addCommand();
-        //this.addCommand();
-        //this.addCommand();
-        //...
+        this.addCommand("TestClientConnection", new TestClientConnection());
     }
 
     /**
@@ -22,12 +19,16 @@ public class ServerCommandDictionary {
      * @param key the name of the command as a string
      * @return A command instance to be executed
      */
-    public ServerCommand getCommand(String key) { return commandDictionary.get(key); }
+    public ServerCommand getCommand(String key) {
+        return commandDictionary.get(key);
+    }
 
     /**
      * Adds a new command to the dictionary
      * @param key the name of the command as a string
      * @param command an instance of the command to save in the dictionary
      */
-    public void addCommand(String key, ServerCommand command) { commandDictionary.put(key, command); }
+    public void addCommand(String key, ServerCommand command) {
+        commandDictionary.put(key, command);
+    }
 }

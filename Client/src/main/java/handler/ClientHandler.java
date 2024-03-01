@@ -4,6 +4,7 @@ import command.ClientCommand;
 import command.ClientCommandDictionary;
 import command.Message;
 import data.Account;
+import gui.ClientUI;
 import ocsf.client.AbstractClient;
 import java.io.IOException;
 
@@ -36,11 +37,13 @@ public class ClientHandler extends AbstractClient {
         Message response = (Message) msg;
         lastResponse = response;
 
-        System.out.println("Server -> Client: " + msg.toString());
+        System.out.println("Server:" + msg.toString());
 
         //Process message and executes command if applicable
-        if((command = commandDict.getCommand(response.getCommand())) != null) {
+        if ((command = commandDict.getCommand(response.getCommand())) != null) {
             commandReturn = command.execute(response.getParam());
+        } else {
+            commandReturn = response.getParam();
         }
 
         await = false;
@@ -53,24 +56,63 @@ public class ClientHandler extends AbstractClient {
      */
     public static Object request(Message msg) { return instance.executeRequest(msg); }
     private Object executeRequest(Message msg) {
-        System.out.println("Server: " + msg.toString());
+        int secondsToTimeout = 5;
+
+        System.out.println("Client: " + msg.toString());
         msg.setAccount(account);
+
+        //Send request
         try {
             openConnection();
             await = true;
             sendToServer(msg);
-        } catch (IOException e) { e.printStackTrace(); }
-        while(await) {
+        } catch (IOException e) {
+            //Connection refused handling
+            ClientUI.popupNotification("Server not found");
+        }
+
+        //Await response
+        while(await && secondsToTimeout > 0) {
             try {
                 Thread.sleep(1000);
-            } catch(InterruptedException e) { e.printStackTrace(); }
+                secondsToTimeout--;
+            } catch(InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        return lastResponse;
+
+        //Timeout handling
+        if(await) {
+            ClientUI.popupNotification("Timed out\nServer did not send response or client command run threw exception");
+        }
+
+        return commandReturn;
     }
 
+    public static void closeClientHandler() {
+        if(instance != null) {
+            try {
+                instance.closeConnection();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-    public static void setAccount(Account account) { instance.account = account; }
-    public static Object getLastResponse() { return instance.lastResponse; }
-    public static Object getCommandReturn() { return instance.commandReturn; }
-    public static Account getAccount() { return instance.account; }
+    public static void setAccount(Account account) {
+        instance.account = account;
+    }
+
+    public static Object getLastResponse() {
+        return instance.lastResponse;
+    }
+
+    public static Object getCommandReturn() {
+        return instance.commandReturn;
+    }
+
+    public static Account getAccount() {
+        return instance.account;
+    }
 }

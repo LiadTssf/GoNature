@@ -1,5 +1,7 @@
 package gui;
 
+import command.Message;
+import handler.ClientHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,10 +18,18 @@ public class ConnectToHost implements Initializable {
     private Button connect_btn;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) { }
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 
     @FXML
     public void ConnectToServer(ActionEvent actionEvent) {
-        ClientUI.connect(hostip_txtfield.getText(), 1234);
+        new ClientHandler(hostip_txtfield.getText(), 1234);
+        String response = (String) ClientHandler.request(new Message("TestClientConnection"));
+        if(response != null && response.equals("Connection successfully established")) {
+            ClientUI.changeScene("Login");
+            ClientUI.removeMainMenuItem("ConnectToHost");
+            ClientUI.addMainMenuItem("Login", "Login");
+        }
     }
 }

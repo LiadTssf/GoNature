@@ -1,22 +1,18 @@
 package handler;
 
-import command.ServerCommandDictionary;
 import command.Message;
 import command.ServerCommand;
-import data.Account;
+import command.ServerCommandDictionary;
 import gui.ServerUI;
 import gui.ShowConnections;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-@SuppressWarnings("FieldCanBeLocal")
+import java.io.IOException;
+
 public class ServerHandler extends AbstractServer {
     private static ServerHandler instance;
-    private ServerCommandDictionary commandDict;
-    private Map<ConnectionToClient, Account> clientAccountDict;
+    private final ServerCommandDictionary commandDict;
 
     /**
      * constructs new server handler
@@ -38,12 +34,11 @@ public class ServerHandler extends AbstractServer {
         Message response;
         ServerCommand command;
 
-        System.out.println("Client " + client.getId() + " - " + msg.toString());
+        System.out.println("Client " + client.getId() + ": " + msg.toString());
 
         //Process message
         Message request = (Message) msg;
-        if((command = commandDict.getCommand(request.getCommand())) != null) {
-            //TODO: replace null with client-account dictionary result
+        if ((command = commandDict.getCommand(request.getCommand())) != null) {
             response = command.execute(request.getParam(), request.getAccount());
         } else {
             response = new Message("UnknownRequest", "Could not find command to execute");
@@ -92,6 +87,14 @@ public class ServerHandler extends AbstractServer {
         String ip = str.substring(0, str.indexOf("(") - 1);
         if(ServerUI.getCurrentController() instanceof ShowConnections) {
             ((ShowConnections)ServerUI.getCurrentController()).updateStatus(ip, hostname, "Disconnected");
+        }
+    }
+
+    public static void closeServerHandler() {
+        try {
+            instance.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
