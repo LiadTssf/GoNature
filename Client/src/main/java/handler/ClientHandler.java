@@ -92,6 +92,7 @@ public class ClientHandler extends AbstractClient {
     public static void closeClientHandler() {
         if(instance != null) {
             try {
+                instance.executeRequest(new Message("DisconnectClient"));
                 instance.closeConnection();
             }
             catch (IOException e) {

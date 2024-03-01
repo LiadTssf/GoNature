@@ -25,7 +25,7 @@ public class ConnectToHost implements Initializable {
     @FXML
     public void ConnectToServer(ActionEvent actionEvent) {
         new ClientHandler(hostip_txtfield.getText(), 1234);
-        String response = (String) ClientHandler.request(new Message("TestClientConnection"));
+        String response = (String) ClientHandler.request(new Message("ConnectClient"));
         if(response != null && response.equals("Connection successfully established")) {
             ClientUI.changeScene("Login");
             ClientUI.removeMainMenuItem("ConnectToHost");

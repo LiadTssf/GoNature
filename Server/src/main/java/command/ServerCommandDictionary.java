@@ -11,7 +11,7 @@ public class ServerCommandDictionary {
      */
     public ServerCommandDictionary() {
         commandDictionary = new HashMap<>();
-        this.addCommand("TestClientConnection", new TestClientConnection());
+        this.addCommand("ConnectClient", new ConnectClient());
     }
 
     /**

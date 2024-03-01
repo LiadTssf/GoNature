@@ -1,8 +1,11 @@
 package handler;
 
+import command.DisconnectClient;
 import command.Message;
 import command.ServerCommand;
 import command.ServerCommandDictionary;
+import data.Account;
+import data.ConnectionTableData;
 import gui.ServerUI;
 import gui.ShowConnections;
 import ocsf.server.AbstractServer;
@@ -35,9 +38,9 @@ public class ServerHandler extends AbstractServer {
         ServerCommand command;
 
         System.out.println("Client " + client.getId() + ": " + msg.toString());
+        Message request = (Message) msg;
 
         //Process message
-        Message request = (Message) msg;
         if ((command = commandDict.getCommand(request.getCommand())) != null) {
             response = command.execute(request.getParam(), request.getAccount());
         } else {
@@ -49,6 +52,15 @@ public class ServerHandler extends AbstractServer {
             client.sendToClient(response);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        //Send client information to gui
+        if(request.getCommand().equals("DisconnectClient")) {
+            System.out.println("Disconnecting");
+            sendClientInfo(client, request.getAccount(), request, "Disconnected");
+        } else {
+            System.out.println("Connecting");
+            sendClientInfo(client, request.getAccount(), request, "Connected");
         }
     }
 
@@ -62,31 +74,26 @@ public class ServerHandler extends AbstractServer {
 
     }
 
-    /**
-     * method called when a client connects
-     * @param client the connection connected to the client
-     */
-    @Override
-    protected void clientConnected(ConnectionToClient client) {
-        String str = client.toString();
-        String hostname = str.substring(str.indexOf("(") + 1, str.indexOf(")"));
-        String ip = str.substring(0, str.indexOf("(") - 1);
+    public void sendClientInfo(ConnectionToClient client, Account account, Message lastRequest, String status) {
         if(ServerUI.getCurrentController() instanceof ShowConnections) {
-            ((ShowConnections)ServerUI.getCurrentController()).updateStatus(ip, hostname, "Connected");
-        }
-    }
-
-    /**
-     * method called when a client disconnects
-     * @param client the connection with the client
-     */
-    @Override
-    protected synchronized void clientDisconnected(ConnectionToClient client) {
-        String str = client.toString();
-        String hostname = str.substring(str.indexOf("(") + 1, str.indexOf(")"));
-        String ip = str.substring(0, str.indexOf("(") - 1);
-        if(ServerUI.getCurrentController() instanceof ShowConnections) {
-            ((ShowConnections)ServerUI.getCurrentController()).updateStatus(ip, hostname, "Disconnected");
+            ShowConnections controller = (ShowConnections) ServerUI.getCurrentController();
+            String clientString = client.toString();
+            String client_id = String.valueOf(client.getId());
+            String ip = clientString.substring(clientString.indexOf("(") + 1, clientString.indexOf(")"));
+            String host = clientString.substring(0, clientString.indexOf("(") - 1);
+            String account_id = "N/A";
+            String lastRequestString = lastRequest.toString();
+            if(account != null) {
+                account_id = String.valueOf(account.account_id_pk);
+            }
+            ConnectionTableData connectionTableData = new ConnectionTableData();
+            connectionTableData.setClient_id(client_id);
+            connectionTableData.setIp(ip);
+            connectionTableData.setHost(host);
+            connectionTableData.setAccount_id(account_id);
+            connectionTableData.setLastRequest(lastRequestString);
+            connectionTableData.setStatus(status);
+            controller.addOrUpdateConnection(connectionTableData);
         }
     }
 
