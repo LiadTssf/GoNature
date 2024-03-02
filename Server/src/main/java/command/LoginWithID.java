@@ -13,6 +13,9 @@ public class LoginWithID implements ServerCommand {
      */
     @Override
     public Message execute(Object param, Account account) {
+        if(!(param instanceof Integer)) {
+            return new Message("LoginDenied", "Invalid parameter type sent");
+        }
         int account_id = (int) param;
         if (account_id >= 100000000 && account_id <= 999999999) {
             if(ServerHandler.getClientFromAccount(account_id) == -1) {
