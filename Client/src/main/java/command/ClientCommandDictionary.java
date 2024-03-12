@@ -13,6 +13,8 @@ public class ClientCommandDictionary {
         commandDictionary = new HashMap<>();
         this.addCommand("AuthenticateClient", new AuthenticateClient());
         this.addCommand("DeauthenticateClient", new DeauthenticateClient());
+        this.addCommand("AuthenticateUser",new AuthenticateUser());
+        this.addCommand("DeauthenticateClient",new DeauthenticateUser());
     }
 
     /**

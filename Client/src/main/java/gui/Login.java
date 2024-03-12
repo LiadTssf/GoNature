@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
@@ -88,6 +89,35 @@ public class Login implements Initializable {
      */
     @FXML
     public void login_account(ActionEvent actionEvent) {
+        try {
+            ArrayList<String> loginUserNameAndPassword = new ArrayList<>();
+            loginUserNameAndPassword.add(String.valueOf(username_txtfield.getText()));
+            loginUserNameAndPassword.add(String.valueOf(password_txtfield.getText()));
+            ClientHandler.request(new Message("TourGuideLogin",loginUserNameAndPassword));
+        }catch (Exception e){
+            ClientUI.popupNotification("Check the fields");
+        }
+
+        if (ClientHandler.getLastResponse().getCommand().equals("UserNameIncorrect")){
+            ClientUI.popupNotification((String) ClientHandler.getLastResponse().getParam());
+        }
+
+        if (ClientHandler.getLastResponse().getCommand().equals("PassWordIncorrect")){
+            ClientUI.popupNotification((String) ClientHandler.getLastResponse().getParam());
+        }
+
+        if(ClientHandler.getLastResponse().getCommand().equals("AuthenticateUser")) {
+            //Accepted response
+            ClientHandler.request(new Message("ConnectClient"));
+
+            ClientUI.changeScene("Welcome");
+            ClientUI.removeAllMainMenuItems();
+            ClientUI.addMainMenuItem("Welcome", "Welcome");
+            ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
+            ClientUI.addMainMenuItem("Orders List", "OrderList");
+            //ClientUI.addMainMenuItem("Register Account", "Register");
+            ClientUI.addMainMenuItem("Logout", "Logout");
+        }
 
     }
 }

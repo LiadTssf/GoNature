@@ -24,7 +24,7 @@ public class MainWindow implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             loadPane("ConnectToHost");
-            addMenuItem("Server Connection", "ConnectToHost");
+            //addMenuItem("Server Connection", "ConnectToHost");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package command;
 
 import data.Account;
+import ocsf.server.ConnectionToClient;
 
 public class ConnectClient implements ServerCommand {
     /**
