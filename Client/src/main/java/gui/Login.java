@@ -17,7 +17,7 @@ import java.util.function.UnaryOperator;
 
 public class Login implements Initializable {
     @FXML
-    private TextField id_number_txtfield;
+    public TextField id_number_txtfield;
     @FXML
     private TextField username_txtfield;
     @FXML

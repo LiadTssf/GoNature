@@ -15,6 +15,7 @@ public class ClientCommandDictionary {
         this.addCommand("DeauthenticateClient", new DeauthenticateClient());
         this.addCommand("AuthenticateUser",new AuthenticateUser());
         this.addCommand("DeauthenticateClient",new DeauthenticateUser());
+        this.addCommand("OrderCreated",new OrderCreated());
     }
 
     /**

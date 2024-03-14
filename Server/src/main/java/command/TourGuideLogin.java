@@ -1,6 +1,7 @@
 package command;
 
 import data.Account;
+import data.RegisteredAccount;
 import database.DatabaseController;
 import handler.ServerHandler;
 
@@ -36,20 +37,25 @@ public class TourGuideLogin implements ServerCommand{
             PreparedStatement pstmt = DB.getConnection().prepareStatement(query);
 
             pstmt.setString(1,userName);
-            pstmt.setString(1,PassWord);
+            pstmt.setString(2,PassWord);
 
             ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()){
+            if (rs.next()) {
                 LoginInfo.add(rs.getString("account_type"));
                 int account_id_pk = rs.getInt("account_id_pk");
-                if (ServerHandler.getClientFromAccount(account_id_pk) != -1){
-                    return new Message("AuthenticateUser",new Account(account_id_pk,LoginInfo.get(2)));
+                if (ServerHandler.getClientFromAccount(account_id_pk) == -1) {
+                    RegisteredAccount accountToReturn = new RegisteredAccount(account_id_pk, LoginInfo.get(2));
+                    rs.first();
+                    accountToReturn.email= rs.getString("email");
+                    accountToReturn.phone = rs.getString("phone");
+                    accountToReturn.password = rs.getString("password");
+                    accountToReturn.username = rs.getString("username");
+                    return new Message("AuthenticateUser", accountToReturn);
                 }
-                return new Message("LoginFailed","Username or password is incorrect.");
-            }else{
-                return new Message("LoginFailed","Username or password is incorrect.");
+                return new Message("LoginFailed", "Username already connected from another session.");
             }
+            return new Message("LoginFailed", "User not found.");
 
 
         }catch (SQLException e){

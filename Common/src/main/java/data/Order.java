@@ -2,13 +2,17 @@ package data;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.UUID;
 
 public class Order implements Serializable {
-    public int          order_id_pk;
+    public UUID order_id_pk;
     public int          account_id;
-    public int          park_id_fk;
-    public Timestamp    visit_time;
-    public Timestamp    exit_time;
+    public String          park_id_fk;
+    public LocalTime visit_time;
+    public LocalTime    exit_time;
+    public  LocalDate visit_date;
     public int          number_of_visitors;
     public String       email;
     public String       phone;
