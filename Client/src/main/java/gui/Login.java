@@ -93,7 +93,7 @@ public class Login implements Initializable {
             ArrayList<String> loginUserNameAndPassword = new ArrayList<>();
             loginUserNameAndPassword.add(String.valueOf(username_txtfield.getText()));
             loginUserNameAndPassword.add(String.valueOf(password_txtfield.getText()));
-            ClientHandler.request(new Message("TourGuideLogin",loginUserNameAndPassword));
+            ClientHandler.request(new Message("GeneralLogin",loginUserNameAndPassword));
         }catch (Exception e){
             ClientUI.popupNotification("Check the fields");
         }
@@ -110,13 +110,42 @@ public class Login implements Initializable {
             //Accepted response
             ClientHandler.request(new Message("ConnectClient"));
 
-            ClientUI.changeScene("Welcome");
-            ClientUI.removeAllMainMenuItems();
-            ClientUI.addMainMenuItem("Welcome", "Welcome");
-            ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
-            ClientUI.addMainMenuItem("Orders List", "OrderList");
-            //ClientUI.addMainMenuItem("Register Account", "Register");
-            ClientUI.addMainMenuItem("Logout", "Logout");
+            if (ClientHandler.getAccount().account_type.equals("TourGuide")) {
+                ClientUI.changeScene("Welcome");
+                ClientUI.removeAllMainMenuItems();
+                ClientUI.addMainMenuItem("Welcome", "Welcome");
+                ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
+                ClientUI.addMainMenuItem("Orders List", "OrderList");
+                //ClientUI.addMainMenuItem("Register Account", "Register");
+                ClientUI.addMainMenuItem("Logout", "Logout");
+            } else if (ClientHandler.getAccount().account_type.equals("OfficeManager")) {
+                ClientUI.changeScene("Welcome");
+                ClientUI.removeAllMainMenuItems();
+                ClientUI.addMainMenuItem("Welcome", "Welcome");
+                ClientUI.addMainMenuItem("Ex. Cancellation Report", "ExportCancellationReport");
+                ClientUI.addMainMenuItem("Ex. Visit Report", "OrderList");
+                ClientUI.addMainMenuItem("Logout", "Logout");
+            } else if (ClientHandler.getAccount().account_type.equals("ParkManager")) {
+                ClientUI.changeScene("Welcome");
+                ClientUI.removeAllMainMenuItems();
+                ClientUI.addMainMenuItem("Welcome", "Welcome");
+                ClientUI.addMainMenuItem("Import Visit Report", "OrderVisit");
+                ClientUI.addMainMenuItem("Import Capacity Report", "OrderList");
+                ClientUI.addMainMenuItem("Logout", "Logout");
+            } else if (ClientHandler.getAccount().account_type.equals("OfficeWorker")) {
+                ClientUI.changeScene("Welcome");
+                ClientUI.removeAllMainMenuItems();
+                ClientUI.addMainMenuItem("Welcome", "Welcome");
+                ClientUI.addMainMenuItem("Tour Guide Registration", "OrderVisit");
+                ClientUI.addMainMenuItem("Logout", "Logout");
+            }else if (ClientHandler.getAccount().account_type.equals("ParkWorker")){
+                ClientUI.changeScene("Welcome");
+                ClientUI.removeAllMainMenuItems();
+                ClientUI.addMainMenuItem("Welcome", "Welcome");
+                ClientUI.addMainMenuItem("View Order", "OrderVisit");
+                ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
+                ClientUI.addMainMenuItem("Logout", "Logout");
+            }
         }
 
     }

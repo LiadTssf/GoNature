@@ -14,8 +14,9 @@ public class ServerCommandDictionary {
         this.addCommand("ConnectClient", new ConnectClient());
         this.addCommand("DisconnectClient", new DisconnectClient());
         this.addCommand("LoginWithID", new LoginWithID());
-        this.addCommand("TourGuideLogin",new TourGuideLogin());
+        this.addCommand("GeneralLogin",new GeneralLogin());
         this.addCommand("CreateNewOrder",new CreateNewOrder());
+        this.addCommand("ExportReport",new ExportReport());
     }
 
     /**

@@ -4,10 +4,10 @@ import data.Account;
 import data.Order;
 import database.DatabaseController;
 import handler.ServerHandler;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -42,18 +42,25 @@ public class CreateNewOrder implements ServerCommand {
 
         DatabaseController DB = new DatabaseController();
 
-        String query = ("INSERT INTO order (order_id_pk,account_id,park_id_pk,visit_time,exit_time,number_of_visitors,email,phone,guided_order,on_arrival_order,on_waiting_list,canceled) VALUES (" + orderToCreate.order_id_pk +
-                "," + orderToCreate.account_id + "," + orderToCreate.park_id_fk + "," + orderToCreate.visit_time + "," + orderToCreate.exit_time + "," + orderToCreate.number_of_visitors + "," + orderToCreate.email + "," + orderToCreate.phone + "," +
-                orderToCreate.guided_order + "," + orderToCreate.on_arrival_order + "," + orderToCreate.on_waiting_list + "," + orderToCreate.cancelled + ")");
-
+        String query = ("INSERT INTO order (order_id_pk,account_id,park_id_pk,visit_time,exit_time,number_of_visitors,email,phone,guided_order,on_arrival_order,on_waiting_list,canceled) VALUES (?,?,?,?,?,?,?,?,?,?,?,?");
+        String queryToCount = ("SELECT COUNT(*) AS rowcount FROM `order`");
         try {
             PreparedStatement pstmt = DB.getConnection().prepareStatement(query);
 
-            ResultSet rs = pstmt.executeQuery();
-            if (ServerHandler.getClientFromAccount(orderToCreate.account_id) == -1) {
-                return new Message("OrderCreated", orderToCreate);
-            }
-            return new Message("OrderFailed", "Order creation failed in DB");
+            pstmt.setString(1, String.valueOf(orderToCreate.order_id_pk));
+            pstmt.setInt(2, orderToCreate.account_id);
+            pstmt.setString(3, orderToCreate.park_id_fk);
+            pstmt.setTime(4, Time.valueOf(orderToCreate.visit_time));
+            pstmt.setTime(5, Time.valueOf(orderToCreate.exit_time));
+            pstmt.setInt(6, orderToCreate.number_of_visitors);
+            pstmt.setString(7, orderToCreate.email);
+            pstmt.setString(8, orderToCreate.phone);
+            pstmt.setBoolean(9, orderToCreate.guided_order);
+            pstmt.setBoolean(10, orderToCreate.on_arrival_order);
+            pstmt.setBoolean(11, orderToCreate.on_waiting_list);
+            pstmt.setBoolean(12, orderToCreate.cancelled);
+
+            return new Message("OrderCreated", "Order creation succeed");
         } catch (SQLException e) {
             e.printStackTrace();
             return new Message("Error", "An error occurred while trying to create order.");

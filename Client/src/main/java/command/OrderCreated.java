@@ -10,6 +10,6 @@ public class OrderCreated implements ClientCommand{
         if (param instanceof Order){
             ClientHandler.setAccount(null);
         }
-        return null;
+        return param;
     }
 }

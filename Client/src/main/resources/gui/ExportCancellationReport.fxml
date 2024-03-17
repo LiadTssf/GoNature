@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ExportCancellationReport">
+    <children>
+        <Label layoutX="81.0" layoutY="14.0" text="Export Cancellation Report">
+            <font>
+                <Font name="System Bold Italic" size="24.0" />
+            </font>
+        </Label>
+        <Label layoutX="94.0" layoutY="59.0" text="Please Pick the Day, Month and year for your Report" />
+        <Label layoutX="67.0" layoutY="88.0" text="Day:" />
+      <Label layoutX="212.0" layoutY="88.0" text="Month:" />
+      <Label layoutX="357.0" layoutY="88.0" text="Year:" />
+      <Spinner fx:id="day_picker" layoutX="52.0" layoutY="119.0" prefHeight="25.0" prefWidth="54.0" />
+      <Spinner fx:id="month_picker" layoutX="204.0" layoutY="119.0" prefHeight="25.0" prefWidth="54.0" />
+      <Spinner fx:id="year_picker" layoutX="329.0" layoutY="119.0" prefHeight="25.0" prefWidth="83.0" />
+
+
+      <Button fx:id="export_report" layoutX="192.0" layoutY="326.0" mnemonicParsing="false" onAction="#ExportCancellationReport" style="-fx-background-color: green;" text="Export" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="67.0" layoutY="234.0" text="Day:" />
+      <Label layoutX="212.0" layoutY="234.0" text="Month:" />
+      <Label layoutX="357.0" layoutY="234.0" text="Year:" />
+      <Spinner fx:id="day_picker1" disable="true" layoutX="52.0" layoutY="265.0" prefHeight="25.0" prefWidth="54.0" />
+      <Spinner fx:id="month_picker1" disable="true" layoutX="204.0" layoutY="265.0" prefHeight="25.0" prefWidth="54.0" />
+      <Spinner fx:id="year_picker1" disable="true" layoutX="329.0" layoutY="265.0" prefHeight="25.0" prefWidth="83.0" />
+      <RadioButton fx:id="To_Date" layoutX="33.0" layoutY="183.0" mnemonicParsing="false" text="To Date: " />
+    </children>
+
+</AnchorPane>

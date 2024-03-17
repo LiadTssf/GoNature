@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class TourGuideLogin implements ServerCommand{
+public class GeneralLogin implements ServerCommand{
     /**
      * Receives an authentication attempt using only account_id and either accepts it and tells the client to
      * authenticate or denies it and sends appropriate denial message

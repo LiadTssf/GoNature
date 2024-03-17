@@ -29,30 +29,37 @@ public class OrderVisit extends Login implements Initializable {
     private Spinner<LocalTime> timeOfVisit;
     @FXML
     private TextField customer_id;
-
-    @FXML RadioButton waitingList;
+    @FXML
+    private RadioButton waitingList;
     @FXML
     private TextField customer_email;
-
     @FXML
     private TextField customer_phone_number;
     @FXML
     private SplitMenuButton location_pick;
     @FXML
     private MenuItem menuItem_karmiel;
-
     @FXML
     private MenuItem menuItem_Haifa;
     @FXML
     private MenuItem menuItem_Tel_aviv;
+    @FXML
+    private TextField final_cost;
 
+    private float priceCalculation(int numberOfVisitors,double discount){
+        return 0;
+    }
+
+    /* The initialize function sets the ID field with the ID from Login
+    * the diffrence between Client and tour guide is the number of visitors in the group
+    * the Spinner local method it's for set time (the steps are by half hour)*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         customer_id.setText(String.valueOf(ClientHandler.getAccount().account_id_pk));
         if (ClientHandler.getAccount().account_type.equals("TourGuide")){
-            numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,15));
+            numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,15));
         }else {
-            numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 5));
+            numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5));
         }
 
         SpinnerValueFactory<LocalTime> valueFactory = new SpinnerValueFactory<LocalTime>() {
@@ -86,7 +93,7 @@ public class OrderVisit extends Login implements Initializable {
         menuItem_karmiel.setOnAction(event -> location_pick.setText(menuItem_karmiel.getText()));
         menuItem_Haifa.setOnAction(event -> location_pick.setText(menuItem_Haifa.getText()));
         menuItem_Tel_aviv.setOnAction(event -> location_pick.setText(menuItem_Tel_aviv.getText()));
-
+        
 
     }
 
@@ -95,33 +102,27 @@ public class OrderVisit extends Login implements Initializable {
     @FXML
     public void OrderVisit(ActionEvent actionEvent) {
         Order newOrder = new Order();
-        newOrder.guided_order = false;
-            try {
-                newOrder.account_id = Integer.parseInt(customer_id.getText());
-            } catch (NullPointerException e) {
-                ClientUI.popupNotification("Please enter your ID Number");
-            } catch (NumberFormatException e1) {
-                ClientUI.popupNotification("Please check your ID Number");
-            }
+        if(ClientHandler.getAccount().account_type.equals("TourGuide")) {
+            newOrder.guided_order = true;
+        }else{
+            newOrder.guided_order = false;
+        }
+
             try {
                 String email = String.valueOf(customer_email.getText());
                 newOrder.email = email;
             } catch (NullPointerException e) {
-                ClientUI.popupNotification("Please enter your Email name");
+                ClientUI.popupNotification("Please enter your Email");
             }
 
             try {
                 String phoneNumber = String.valueOf(customer_phone_number.getText());
                 newOrder.phone = phoneNumber;
             } catch (NullPointerException e) {
-                ClientUI.popupNotification("Please enter your Email name");
+                ClientUI.popupNotification("Please enter your Phone Number");
             }
-            try {
-                int numOfVisitors = Integer.parseInt(numberOfVisitors.getPromptText());
-                newOrder.number_of_visitors = numOfVisitors;
-            } catch (NumberFormatException exception) {
-                ClientUI.popupNotification("ID number was not entered");
-            }
+            int numOfVisitors = Integer.parseInt(String.valueOf(numberOfVisitors.getValue()));
+            newOrder.number_of_visitors = numOfVisitors;
 
             try {
                 LocalTime visitTime = timeOfVisit.getValue();
@@ -141,7 +142,7 @@ public class OrderVisit extends Login implements Initializable {
             newOrder.on_waiting_list = waitingList.isPressed();
             newOrder.order_id_pk = UUID.randomUUID();
             newOrder.cancelled = false;
-            newOrder.exit_time = newOrder.visit_time.minusHours(4);
+            newOrder.exit_time = newOrder.visit_time.plusHours(4);
             newOrder.park_id_fk = String.valueOf(location_pick.getText());
 
             ClientHandler.request(new Message("CreateNewOrder",newOrder));
