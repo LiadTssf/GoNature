@@ -41,7 +41,7 @@ public class GeneralLogin implements ServerCommand{
 
             ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 LoginInfo.add(rs.getString("account_type"));
                 int account_id_pk = rs.getInt("account_id_pk");
                 if (ServerHandler.getClientFromAccount(account_id_pk) == -1) {

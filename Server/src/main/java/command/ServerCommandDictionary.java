@@ -17,6 +17,7 @@ public class ServerCommandDictionary {
         this.addCommand("GeneralLogin",new GeneralLogin());
         this.addCommand("CreateNewOrder",new CreateNewOrder());
         this.addCommand("ExportReport",new ExportReport());
+        this.addCommand("RegisterUser",new RegisterUser());
     }
 
     /**

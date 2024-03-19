@@ -60,10 +60,11 @@ public class CreateNewOrder implements ServerCommand {
             pstmt.setBoolean(11, orderToCreate.on_waiting_list);
             pstmt.setBoolean(12, orderToCreate.cancelled);
 
+            pstmt.execute();
             return new Message("OrderCreated", "Order creation succeed");
         } catch (SQLException e) {
             e.printStackTrace();
-            return new Message("Error", "An error occurred while trying to create order.");
+            return new Message("OrderFailed", "An error occurred while trying to create order.");
         }
     }
 }

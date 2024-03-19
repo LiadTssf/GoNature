@@ -1,6 +1,7 @@
 package command;
 
 import data.Account;
+import data.RegisteredAccount;
 import handler.ClientHandler;
 
 public class AuthenticateUser implements ClientCommand{

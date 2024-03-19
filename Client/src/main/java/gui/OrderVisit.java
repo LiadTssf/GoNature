@@ -2,6 +2,7 @@ package gui;
 
 import command.Message;
 import data.Order;
+import data.RegisteredAccount;
 import handler.ClientHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,12 +52,17 @@ public class OrderVisit extends Login implements Initializable {
     }
 
     /* The initialize function sets the ID field with the ID from Login
-    * the diffrence between Client and tour guide is the number of visitors in the group
+    * the difference between Client and tour guide is the number of visitors in the group
     * the Spinner local method it's for set time (the steps are by half hour)*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         customer_id.setText(String.valueOf(ClientHandler.getAccount().account_id_pk));
         if (ClientHandler.getAccount().account_type.equals("TourGuide")){
+            customer_email.setDisable(true);
+            //customer_email.setText(String.valueOf(ClientHandler.getAccount()));
+            customer_phone_number.setDisable(true);
+            //customer_email.setText(String.valueOf(ClientHandler.getRegisterAccount().phone));
+
             numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,15));
         }else {
             numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5));

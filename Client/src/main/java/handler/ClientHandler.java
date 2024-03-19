@@ -4,6 +4,7 @@ import command.ClientCommand;
 import command.ClientCommandDictionary;
 import command.Message;
 import data.Account;
+import data.RegisteredAccount;
 import gui.ClientUI;
 import ocsf.client.AbstractClient;
 import java.io.IOException;
@@ -14,6 +15,7 @@ public class ClientHandler extends AbstractClient {
     private Message lastResponse;
     private Object commandReturn;
     private Account account;
+    private RegisteredAccount registeredAccount;
     private boolean await;
 
     /**
@@ -139,5 +141,13 @@ public class ClientHandler extends AbstractClient {
      */
     public static Account getAccount() {
         return instance.account;
+    }
+
+    public static void setRegisterAccount(RegisteredAccount registeredAccount){
+        instance.registeredAccount = registeredAccount;
+    }
+
+    public static RegisteredAccount getRegisterAccount(){
+        return instance.registeredAccount;
     }
 }

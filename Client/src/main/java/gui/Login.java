@@ -116,7 +116,6 @@ public class Login implements Initializable {
                 ClientUI.addMainMenuItem("Welcome", "Welcome");
                 ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
                 ClientUI.addMainMenuItem("Orders List", "OrderList");
-                //ClientUI.addMainMenuItem("Register Account", "Register");
                 ClientUI.addMainMenuItem("Logout", "Logout");
             } else if (ClientHandler.getAccount().account_type.equals("OfficeManager")) {
                 ClientUI.changeScene("Welcome");
@@ -136,7 +135,7 @@ public class Login implements Initializable {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
                 ClientUI.addMainMenuItem("Welcome", "Welcome");
-                ClientUI.addMainMenuItem("Tour Guide Registration", "OrderVisit");
+                ClientUI.addMainMenuItem("Tour Guide Registration", "Register");
                 ClientUI.addMainMenuItem("Logout", "Logout");
             }else if (ClientHandler.getAccount().account_type.equals("ParkWorker")){
                 ClientUI.changeScene("Welcome");
@@ -145,6 +144,8 @@ public class Login implements Initializable {
                 ClientUI.addMainMenuItem("View Order", "OrderVisit");
                 ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
                 ClientUI.addMainMenuItem("Logout", "Logout");
+            }else{
+                ClientUI.popupNotification("User Doesn't Exist");
             }
         }
 
