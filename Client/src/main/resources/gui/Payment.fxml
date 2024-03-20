@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Payment">
+   <children>
+      <Button fx:id="Cash" layoutX="96.0" layoutY="188.0" mnemonicParsing="false" text="Cash" />
+      <Button fx:id="credit_card" layoutX="224.0" layoutY="188.0" mnemonicParsing="false" text="Credit Card" />
+      <Button fx:id="back_btn" layoutX="26.0" layoutY="343.0" mnemonicParsing="false" text="back" />
+   </children>
+
+</AnchorPane>

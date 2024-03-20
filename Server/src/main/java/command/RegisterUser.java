@@ -38,7 +38,7 @@ public class RegisterUser implements ServerCommand{
             if (rs.next()){
                 String userName = rs.getString("username");
                 if (userName.equals(registerUser.username)){
-                    return new Message("RegistrationFailed","Username already exist");
+                    return new Message("UserNameInvalid","Username already exist");
                 }
             }
 

@@ -141,7 +141,7 @@ public class Login implements Initializable {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
                 ClientUI.addMainMenuItem("Welcome", "Welcome");
-                ClientUI.addMainMenuItem("View Order", "OrderVisit");
+                ClientUI.addMainMenuItem("View Order", "OrderView");
                 ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
                 ClientUI.addMainMenuItem("Logout", "Logout");
             }else{

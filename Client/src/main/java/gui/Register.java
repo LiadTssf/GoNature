@@ -81,5 +81,9 @@ public class Register implements Initializable {
 
         ClientHandler.request(new Message("RegisterUser",rg));
 
+        if (ClientHandler.getLastResponse().getCommand().equals("UserNameInvalid")){
+            ClientUI.popupNotification("");
+        }
+
     }
 }
