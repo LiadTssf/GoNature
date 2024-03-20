@@ -19,11 +19,11 @@ public class RegisterUser implements ServerCommand{
         RegisteredAccount registerUser = (RegisteredAccount) param;
 
         if (!registerUser.email.contains("@")) {
-            return new Message("RegistrationFailed", "The Email you entered is incorrect");
+            return new Message("InvalidEmail", "The Email you entered is incorrect");
         }
 
         if (registerUser.password.length() != 6){
-            return new Message("RegistrationFailed", "The password you entered is not 6 characters");
+            return new Message("InvalidPassword", "The password you entered is not 6 characters");
         }
 
         DatabaseController DB = new DatabaseController();

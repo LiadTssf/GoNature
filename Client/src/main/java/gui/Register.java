@@ -82,8 +82,23 @@ public class Register implements Initializable {
         ClientHandler.request(new Message("RegisterUser",rg));
 
         if (ClientHandler.getLastResponse().getCommand().equals("UserNameInvalid")){
-            ClientUI.popupNotification("");
+            ClientUI.popupNotification("The Entered User name is already exist");
         }
+        if (ClientHandler.getLastResponse().getCommand().equals("InvalidPassword")){
+            ClientUI.popupNotification("The PassWord is Not 6 characters");
+        }
+        if (ClientHandler.getLastResponse().getCommand().equals("InvalidEmail")){
+            ClientUI.popupNotification("The Email is not valid");
+        }
+        if (ClientHandler.getLastResponse().getCommand().equals("RegistrationFailed")){
+            ClientUI.popupNotification("The Registration Failed,Please try again");
+        }
+        if (ClientHandler.getLastResponse().getCommand().equals("AuthenticateUser")){
+            ClientUI.popupNotification("The Registration is completed");
+
+            ClientUI.changeScene("Welcome");
+        }
+
 
     }
 }
