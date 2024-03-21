@@ -44,9 +44,6 @@ public class OrderVisit extends Login implements Initializable {
     private MenuItem menuItem_Haifa;
     @FXML
     private MenuItem menuItem_Tel_aviv;
-    @FXML
-    private TextField final_cost;
-
     private float priceCalculation(int numberOfVisitors,double discount){
         return 0;
     }
@@ -138,6 +135,7 @@ public class OrderVisit extends Login implements Initializable {
             } catch (NullPointerException e) {
                 ClientUI.popupNotification("Enter visit time");
             }
+
             try {
                 LocalDate visitDate = dateToVisit.getValue();
                 newOrder.visit_date = visitDate;
@@ -145,13 +143,45 @@ public class OrderVisit extends Login implements Initializable {
                 ClientUI.popupNotification("Please enter visit Date");
             }
 
-            newOrder.on_waiting_list = waitingList.isPressed();
+            newOrder.on_waiting_list = waitingList.isSelected();
             newOrder.order_id_pk = UUID.randomUUID();
+            newOrder.account_id = ClientHandler.getAccount().account_id_pk;
             newOrder.cancelled = false;
-            newOrder.exit_time = newOrder.visit_time.plusHours(4);
+            try {
+                newOrder.exit_time = newOrder.visit_time.plusHours(4);
+            }catch (NullPointerException e){
+                ClientUI.popupNotification("Choose Time between 7:00 - 20:00");
+            }
             newOrder.park_id_fk = String.valueOf(location_pick.getText());
 
+            if (ClientHandler.getAccount().account_type.equals("ParkWorker")){
+                newOrder.on_arrival_order = true;
+            }else{
+                newOrder.on_arrival_order = false;
+            }
+
             ClientHandler.request(new Message("CreateNewOrder",newOrder));
+
+//            if (ClientHandler.getLastResponse().getCommand().equals("OrderCreated")) {
+//                ClientUI.openNewWindow("OrderConfirmation");
+//            }
+            if (ClientHandler.getLastResponse().getCommand().equals("OrderEmail")){
+                ClientUI.popupNotification("Enter your Email please");
+            }
+            if (ClientHandler.getLastResponse().getCommand().equals("OrderPhone")){
+                ClientUI.popupNotification("Enter your Phone,please");
+            }
+            if (ClientHandler.getLastResponse().getCommand().equals("OrderDate")){
+                ClientUI.popupNotification("Choose Date is after "+LocalDate.now()+",please");
+            }
+            if (ClientHandler.getLastResponse().getCommand().equals("OrderTime")){
+                ClientUI.popupNotification("Choose Time between 7:00 - 20:00");
+            }
+            if (ClientHandler.getLastResponse().getCommand().equals("OnWaitingList")){
+                ClientUI.popupNotification("Unfortunately, The park is fully booked.\nYour order Moved to waiting List.\nWe will let you know when there will be open spot");
+            }
+
+
     }
 
 }

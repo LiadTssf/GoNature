@@ -25,24 +25,26 @@
       <Label layoutX="50.0" layoutY="242.0" text="Visit Date: " />
       <Label layoutX="50.0" layoutY="271.0" text="Visit Time: " />
       <Label layoutX="50.0" layoutY="302.0" text="Final Cost: " />
-      <Button layoutX="399.0" layoutY="172.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Confirm" textFill="WHITE">
+
+      <Label fx:id="orderID" layoutX="257.0" layoutY="95.0" text="fullName" />
+      <Label fx:id="orderEmail" layoutX="267.0" layoutY="123.0" text="email" />
+      <Label fx:id="orderPhone" layoutX="268.0" layoutY="153.0" text="phone" />
+      <Label fx:id="orderNumOfVisitors" layoutX="247.0" layoutY="183.0" text="numOfVisitors" />
+      <Label fx:id="orderLocation" layoutX="263.0" layoutY="213.0" text="location" />
+      <Label fx:id="orderDate" layoutX="270.0" layoutY="242.0" text="date" />
+      <Label fx:id="orderTime" layoutX="267.0" layoutY="271.0" text="time" />
+      <Label fx:id="orderFinalCost" layoutX="256.0" layoutY="302.0" text="finalCost" />
+
+      <Button layoutX="399.0" layoutY="172.0" mnemonicParsing="false" onAction="#orderConfirm" style="-fx-background-color: green;" text="Confirm" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="420.0" layoutY="230.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Back" textFill="WHITE" >
+      <Button layoutX="420.0" layoutY="230.0" mnemonicParsing="false" onAction="#orderBack" style="-fx-background-color: red;" text="Back" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label fx:id="OrderFullName" layoutX="257.0" layoutY="95.0" text="fullName" />
-      <Label fx:id="OrderEmail" layoutX="267.0" layoutY="123.0" text="email" />
-      <Label fx:id="OrderPhone" layoutX="268.0" layoutY="153.0" text="phone" />
-      <Label fx:id="OrderNumOfVisitors" layoutX="247.0" layoutY="183.0" text="numOfVisitors" />
-      <Label fx:id="OrderLocation" layoutX="263.0" layoutY="213.0" text="location" />
-      <Label fx:id="OrderDate" layoutX="270.0" layoutY="242.0" text="date" />
-      <Label fx:id="OrderTime" layoutX="267.0" layoutY="271.0" text="time" />
-      <Label fx:id="OrderFinalCost" layoutX="256.0" layoutY="302.0" text="finalCost" />
    </children>
 
 </AnchorPane>

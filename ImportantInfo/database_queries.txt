@@ -17,7 +17,7 @@ CREATE TABLE `gonature`.`park` (
   PRIMARY KEY (`park_id_pk`));
 
 CREATE TABLE `gonature`.`order` (
-  `order_id_pk` INT NOT NULL,
+  `order_id_pk` VARCHAR(65) NOT NULL,
   `account_id` INT NULL,
   `park_id_fk` INT NULL,
   `visit_date` DATE NULL,
@@ -26,10 +26,10 @@ CREATE TABLE `gonature`.`order` (
   `number_of_visitors` INT NULL,
   `email` VARCHAR(45) NULL,
   `phone` VARCHAR(45) NULL,
-  `guided_order` TINYINT NULL,
-  `on_arrival_order` TINYINT NULL,
-  `on_waiting_list` TINYINT NULL,
-  `cancelled` TINYINT NULL,
+  `guided_order` BOOLEAN NULL,
+  `on_arrival_order` BOOLEAN NULL,
+  `on_waiting_list` BOOLEAN NULL,
+  `cancelled` BOOLEAN NULL,
   PRIMARY KEY (`order_id_pk`),
   INDEX `park_id_fk_idx` (`park_id_fk` ASC) VISIBLE,
   CONSTRAINT `order_park_fk`

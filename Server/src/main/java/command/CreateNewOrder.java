@@ -40,14 +40,62 @@ public class CreateNewOrder implements ServerCommand {
 
         DatabaseController DB = new DatabaseController();
 
-        String query = ("INSERT INTO order (order_id_pk,account_id,park_id_pk,visit_date,visit_time,exit_time,number_of_visitors,email,phone,guided_order,on_arrival_order,on_waiting_list,canceled) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?");
-        String queryToCount = ("SELECT COUNT(*) AS rowcount FROM `order`");
+        /*DAVID AND MAXIM ----> כרגע ביצירת הזמנה זה מעדכן את מספר האנשים הנוכחי בפארק (אל תמחקו את זה!!!!)
+        * LIAD ----------> תעתיק את הפעולות שאתה צריך כי אחרי תשלום אתה תצטרך לעלות את מספר המבקרים בפארק*/
+        String query = ("INSERT INTO `order` (order_id_pk, account_id, park_id_fk, visit_date, visit_time, exit_time, number_of_visitors, email, phone, guided_order, on_arrival_order, on_waiting_list, cancelled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        String queryGetID = ("SELECT park_id_pk FROM park WHERE park_name = ?"); //Get park ID
+        String queryToIncrease = ("UPDATE park SET current_visitors = ? WHERE park_id_pk = ?"); //Updates current visitors+specific order visitors number by using park ID
+        String queryCapacity = ("SELECT capacity FROM park WHERE park_id_pk = ?"); // get the park capacity
+        String queryCurrentNum = ("SELECT current_visitors FROM park WHERE park_id_pk = ?"); //get current visitors
+
+        String queryToSumVisitors =("SELECT SUM(number_of_visitors) AS total_visitors FROM `order` WHERE visit_date = ? AND visit_time = ?");
         try {
-            PreparedStatement pstmt = DB.getConnection().prepareStatement(query);
+            int parkID = 0;
+            int currentNum = 0;
+            int capacity = 0;
+            int totalVisitors = 0;
+            PreparedStatement pstmt = DB.getConnection().prepareStatement(queryGetID); // ID from DB
+            pstmt.setString(1, orderToCreate.park_id_fk);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                parkID = rs.getInt("park_id_pk");
+            }
+
+//            pstmt = DB.getConnection().prepareStatement(queryToSumVisitors);
+//            pstmt.setDate(1,Date.valueOf(orderToCreate.visit_date));
+//            pstmt.setTime(1,Time.valueOf(orderToCreate.visit_time));
+//            rs = pstmt.executeQuery();
+//            if (rs.next()){
+//                totalVisitors = rs.getInt("total_visitors");
+//            }
+
+            pstmt = DB.getConnection().prepareStatement(queryCurrentNum); //current number of visitors
+            pstmt.setInt(1,parkID);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                currentNum = rs.getInt("current_visitors");
+            }
+            pstmt = DB.getConnection().prepareStatement(queryCapacity); // capacity from DB
+            pstmt.setInt(1,parkID);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                capacity = rs.getInt("capacity");
+            }
+            if (currentNum+orderToCreate.number_of_visitors <= capacity){ // increasing current visitors
+                pstmt = DB.getConnection().prepareStatement(queryToIncrease);
+                pstmt.setInt(2,parkID);
+                pstmt.setInt(1,currentNum+orderToCreate.number_of_visitors);
+                pstmt.execute();
+            }else{
+                orderToCreate.on_waiting_list = true;
+            }
+
+            pstmt = DB.getConnection().prepareStatement(query);
 
             pstmt.setString(1, String.valueOf(orderToCreate.order_id_pk));
             pstmt.setInt(2, orderToCreate.account_id);
-            pstmt.setString(3, orderToCreate.park_id_fk);
+            pstmt.setInt(3, parkID);
             pstmt.setDate(4, Date.valueOf(orderToCreate.visit_date));
             pstmt.setTime(5, Time.valueOf(orderToCreate.visit_time));
             pstmt.setTime(6, Time.valueOf(orderToCreate.exit_time));
@@ -59,6 +107,9 @@ public class CreateNewOrder implements ServerCommand {
             pstmt.setBoolean(12, orderToCreate.on_waiting_list);
             pstmt.setBoolean(13, orderToCreate.cancelled);
             pstmt.execute();
+            if (orderToCreate.on_waiting_list){
+                return new Message("OnWaitingList");
+            }
             return new Message("OrderCreated", orderToCreate);
         } catch (SQLException e) {
             e.printStackTrace();
