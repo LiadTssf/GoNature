@@ -2,6 +2,7 @@ package command;
 
 import data.Account;
 import data.RegisteredAccount;
+import data.WorkerAccount;
 import database.DatabaseController;
 import handler.ServerHandler;
 
@@ -30,8 +31,11 @@ public class GeneralLogin implements ServerCommand{
 
         String userName = LoginInfo.get(0);
         String PassWord = LoginInfo.get(1);
-
+        String accountID;
+        String accountType;
         String query = ("SELECT * FROM gonature.account WHERE username = ? AND password = ?");
+        String QueryToSearchInWorkerDB=("SELECT * FROM gonature.account_extra_info_worker WHERE account_id = ?");
+
 
         try{
             PreparedStatement pstmt = DB.getConnection().prepareStatement(query);
@@ -41,9 +45,16 @@ public class GeneralLogin implements ServerCommand{
 
             ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 LoginInfo.add(rs.getString("account_type"));
+                accountType = rs.getString("account_type");
                 int account_id_pk = rs.getInt("account_id_pk");
+//                if (accountType.equals("Worker")){
+//                    pstmt = DB.getConnection().prepareStatement(QueryToSearchInWorkerDB);
+//                    pstmt.setInt(1,account_id_pk);
+//
+//                }
+
                 if (ServerHandler.getClientFromAccount(account_id_pk) == -1) {
                     RegisteredAccount accountToReturn = new RegisteredAccount(account_id_pk, LoginInfo.get(2));
                     rs.first();
@@ -53,7 +64,7 @@ public class GeneralLogin implements ServerCommand{
                     accountToReturn.username = rs.getString("username");
                     return new Message("AuthenticateUser", accountToReturn);
                 }
-                return new Message("LoginFailed", "Username already connected from another session.");
+                return new Message("LoginSession", "Username already connected from another session.");
             }
             return new Message("LoginFailed", "User not found.");
 
