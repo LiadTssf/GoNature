@@ -21,11 +21,13 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.FormatStyle;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.RED;
 
 public class UpdateOrder implements Initializable {
+
     @FXML
     private Label orderIdLabel;
 
@@ -38,8 +40,7 @@ public class UpdateOrder implements Initializable {
     @FXML
     private Button cancelOrderButton;
 
-    @FXML
-    private Spinner <Integer> numberOfVisitors;
+
 
     @FXML
     private Button saveButton;
@@ -53,14 +54,14 @@ public class UpdateOrder implements Initializable {
 
     private OrderList orderListController;
 
-
+    private Boolean isCancelled;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (ClientHandler.getAccount().account_type.equals("TourGuide")){
-            numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,15));
-        }else {
-            numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5));
-        }
+//        if (ClientHandler.getAccount().account_type.equals("TourGuide")){
+//            numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,15));
+//        }else {
+//            numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5));
+//        }
 
         SpinnerValueFactory<LocalTime> valueFactory = new SpinnerValueFactory<LocalTime>() {
             {
@@ -101,25 +102,28 @@ public class UpdateOrder implements Initializable {
         orderIdLabel.setText("Order ID: " + order.getOrderIdPk().toString());
         timeOfVisit.getValueFactory().setValue(order.getVisitTime());
         dateToVisit.setValue(order.getVisitDate());
-        numberOfVisitors.getValueFactory().setValue(order.getNumberOfVisitors());
+        //numberOfVisitors.getValueFactory().setValue(order.getNumberOfVisitors());
     }
 
     @FXML
     private void handleSaveChangesAndBack() {
         // Get the values from the text box, calendar, and time chooser
-        int newNumberOfVisitors = Integer.parseInt(String.valueOf(numberOfVisitors.getValue()));
+        //int newNumberOfVisitors = Integer.parseInt(String.valueOf(numberOfVisitors.getValue()));
         LocalDate newDateToVisit = dateToVisit.getValue();
         LocalTime newTimeOfVisit = timeOfVisit.getValue();
         // Check if newTimeOfVisit is before order.getExitTime()
-        if (newTimeOfVisit.isAfter(order.getExitTime()) || newTimeOfVisit.equals(order.getExitTime())) {
-            showMessage("The visit time cannot be later than or equal to the exit time.",RED);
+        if (false) {
+            showMessage("The visit time has to be between...",RED);
             return;
         }
+
+
         // Update the order with the new values
-        order.setNumVisitors(newNumberOfVisitors);
+        //order.setNumVisitors(newNumberOfVisitors);
         order.setDateToVisit(newDateToVisit);
         order.setVisitTime(newTimeOfVisit);
-
+        if(isCancelled)
+            order.setCancelled(true);
         // Update the order in the OrderList class and refrest table
         orderListController.updateOrder(order);
         orderListController.refreshTable();
@@ -166,9 +170,21 @@ public class UpdateOrder implements Initializable {
 
         timeline.play(); // Start the animation
     }
+    private void popupAcceptWindow(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Order Cancellation");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
 
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK){
+            isCancelled = true;
+            timeOfVisit.setDisable(true);
+            dateToVisit.setDisable(true);
+        }
+    }
     @FXML
     private void handleCancelOrder() {
-        order.setCancelled(true);
+        popupAcceptWindow("Are you sure you want to cancel the order?");
     }
 }

@@ -3,21 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane prefHeight="400.0" prefWidth="1100" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OrderList">
+<StackPane prefHeight="400.0" prefWidth="500" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OrderList">
    <VBox prefHeight="400.0" prefWidth="1071.0">
-      <TableView fx:id="orderTable" editable="true" prefHeight="375.0" prefWidth="1041.0">
+      <TableView fx:id="orderTable" editable="true" prefHeight="375.0" prefWidth="803.0">
          <columns>
-            <TableColumn fx:id="orderId" editable="false" prefWidth="227.0" text="Order ID" />
             <TableColumn fx:id="parkId" minWidth="0.0" prefWidth="44.0" text="Park" />
-            <TableColumn fx:id="visitTime" prefWidth="66.0" text="Visit Time" />
-            <TableColumn fx:id="exitTime" prefWidth="67.0" text="Exit Time" />
-            <TableColumn fx:id="numVisitors" prefWidth="123.0" text="Number of Visitors" />
-            <TableColumn fx:id="email" editable="false" prefWidth="182.0" text="Email" />
-            <TableColumn fx:id="phone" editable="false" prefWidth="128.0" text="Phone" />
-            <TableColumn fx:id="guidedOrder" minWidth="0.0" prefWidth="47.0" text="Guided" />
-            <TableColumn fx:id="onArrivalOrder" prefWidth="64.0" text="On Arrival" />
-            <TableColumn fx:id="onWaitingList" prefWidth="81.0" text="On Waiting" />
-            <TableColumn fx:id="cancelled" prefWidth="70.0" text="Cancelled" />
+            <TableColumn fx:id="visitTime" prefWidth="62.0" text="Visit Time" />
+            <TableColumn fx:id="visit_date" prefWidth="74.0" text="Visit Date" />
+            <TableColumn fx:id="numVisitors" prefWidth="118.0" text="Number of Visitors" />
+            <TableColumn fx:id="email" editable="false" prefWidth="201.0" text="Email" />
          </columns>
       </TableView>
       <HBox prefHeight="25.0" prefWidth="646.0" spacing="10">

@@ -34,7 +34,7 @@
         <!-- Buttons -->
         <HBox alignment="CENTER" layoutX="20.0" layoutY="300.0" spacing="20" />
         <HBox alignment="CENTER" layoutX="20.0" layoutY="340.0" spacing="20" />
-        <Button fx:id="cancelOrderButton" layoutX="14.0" layoutY="200.0" onAction="#handleCancelOrder" style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px; -fx-background-color: #FF0000; -fx-text-fill: #000000;" text="Cancel Order">
+        <Button fx:id="cancelOrderButton" layoutX="20.0" layoutY="161.0" onAction="#handleCancelOrder" style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px; -fx-background-color: #FF0000; -fx-text-fill: #000000;" text="Cancel Order">
          <font>
             <Font name="Times New Roman" size="12.0" />
          </font>
@@ -54,10 +54,8 @@
                </stops>
             </RadialGradient>
          </textFill></Button>
-          <Label layoutX="19.0" layoutY="163.0" prefWidth="178.0" style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px;" text="Number of Visitors:" />
-          <Spinner fx:id="numberOfVisitors" editable="true" layoutX="183.0" layoutY="163.0" prefWidth="100.0" />
-         <Button fx:id="saveButton" layoutX="150.0" layoutY="321.0" onAction="#handleSaveChangesAndBack" style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px;" text="Save and Go Back" />
-         <Button fx:id="backButton" layoutX="354.0" layoutY="321.0" onAction="#handleBack" style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px;" text="Back" />
+         <Button fx:id="saveButton" layoutX="116.0" layoutY="321.0" onAction="#handleSaveChangesAndBack" style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px;" text="Save and Go Back" />
+         <Button fx:id="backButton" layoutX="301.0" layoutY="321.0" onAction="#handleBack" style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px;" text="Cancel and Go Back" />
       <Label fx:id="msgToUser" layoutX="39.0" layoutY="283.0" prefHeight="35.0" prefWidth="523.0">
          <font>
             <Font size="14.0" />
