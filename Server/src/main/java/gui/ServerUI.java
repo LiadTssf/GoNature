@@ -74,7 +74,6 @@ public class ServerUI extends Application {
     private void startBackgroundScheduler() {
         /**
          * run cancelation thread every hour
-
          */
         threadToCancel = new ThreadToCancel();
         scheduler = Executors.newSingleThreadScheduledExecutor();
