@@ -7,6 +7,7 @@ import data.Account;
 import data.ConnectionTableData;
 import gui.ServerUI;
 import gui.ShowConnections;
+import gui.ThreadToCancel;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
@@ -16,6 +17,7 @@ public class ServerHandler extends AbstractServer {
     private static ServerHandler instance;
     private final ServerCommandDictionary commandDict;
 
+
     /**
      * constructs new server handler
      * @param port the port number on which to listen
@@ -24,6 +26,7 @@ public class ServerHandler extends AbstractServer {
         super(port);
         commandDict = new ServerCommandDictionary();
         instance = this;
+
     }
 
     /**

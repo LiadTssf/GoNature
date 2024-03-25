@@ -15,12 +15,13 @@ public class ThreadToCancel implements Runnable{
     public void run() {
         try {
             DatabaseController DB = new DatabaseController();
-            String queryToCancel = ("UPDATE `order` SET cancelled = ? WHERE exit_time = ? AND visit_date = ?");
+            String queryToCancel = "UPDATE `order` SET cancelled = ? WHERE exit_time = ? AND visit_date = ? AND  paid = ?";
             try {
                 PreparedStatement pstmt = DB.getConnection().prepareStatement(queryToCancel);
                 pstmt.setBoolean(1, true);
                 pstmt.setTime(2, Time.valueOf(LocalTime.of(LocalTime.now().getHour(), 0, 0)));
                 pstmt.setDate(3, Date.valueOf(LocalDate.now()));
+                pstmt.setBoolean(4,false);
                 int rowsUpdated = pstmt.executeUpdate();
                 System.out.println(rowsUpdated + " rows updated");
             } catch (SQLException e) {
@@ -29,5 +30,7 @@ public class ThreadToCancel implements Runnable{
         }catch (Exception e){
             e.printStackTrace();
         }
+        System.out.println("cancel orders every hour");
+
     }
 }

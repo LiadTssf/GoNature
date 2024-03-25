@@ -6,13 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ServerUI extends Application {
     private static ServerUI instance;
     private static Object currentController;
     private Stage stage;
+    private ScheduledExecutorService scheduler;
+    private ThreadToCancel threadToCancel;
 
-    private Thread cancellationThread;
     public static void main(String[] args) { launch(); }
 
     /**
@@ -24,8 +28,8 @@ public class ServerUI extends Application {
         instance = this;
         this.stage = stage;
 
-
         changeScene("DatabaseConnection");
+//        startBackgroundScheduler();
     }
 
     /**
@@ -33,7 +37,9 @@ public class ServerUI extends Application {
      */
     @Override
     public void stop() {
+
         ServerHandler.closeServerHandler();
+//        scheduler.shutdown();
     }
 
     /**
@@ -63,5 +69,15 @@ public class ServerUI extends Application {
      */
     public static Object getCurrentController() {
         return currentController;
+    }
+
+    private void startBackgroundScheduler() {
+        /**
+         * run cancelation thread every hour
+
+         */
+        threadToCancel = new ThreadToCancel();
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(threadToCancel, 0, 1, TimeUnit.HOURS); // Run every hour
     }
 }
