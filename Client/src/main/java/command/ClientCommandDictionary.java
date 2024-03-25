@@ -11,6 +11,8 @@ public class ClientCommandDictionary {
      */
     public ClientCommandDictionary() {
         commandDictionary = new HashMap<>();
+        this.addCommand("FailMessage", new FailMessage());
+        this.addCommand("SendOrderListToClient", new SendOrderListToClient());
         this.addCommand("AuthenticateClient", new AuthenticateClient());
         this.addCommand("DeauthenticateClient", new DeauthenticateClient());
         this.addCommand("AuthenticateUser",new AuthenticateUser());

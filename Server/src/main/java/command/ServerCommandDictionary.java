@@ -11,6 +11,8 @@ public class ServerCommandDictionary {
      */
     public ServerCommandDictionary() {
         commandDictionary = new HashMap<>();
+        this.addCommand("SetOrderListById", new SetOrderListById());
+        this.addCommand("GetOrderListById", new GetOrderListById());
         this.addCommand("ConnectClient", new ConnectClient());
         this.addCommand("DisconnectClient", new DisconnectClient());
         this.addCommand("LoginWithID", new LoginWithID());
