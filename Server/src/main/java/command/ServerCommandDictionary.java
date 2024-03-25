@@ -11,12 +11,14 @@ public class ServerCommandDictionary {
      */
     public ServerCommandDictionary() {
         commandDictionary = new HashMap<>();
+        this.addCommand("SetOrderListById", new SetOrderListById());
+        this.addCommand("GetOrderListById", new GetOrderListById());
         this.addCommand("ConnectClient", new ConnectClient());
         this.addCommand("DisconnectClient", new DisconnectClient());
         this.addCommand("LoginWithID", new LoginWithID());
         this.addCommand("GeneralLogin",new GeneralLogin());
         this.addCommand("CreateNewOrder",new CreateNewOrder());
-        this.addCommand("ExportReport",new ExportReport());
+        this.addCommand("ExportReportRequest",new ExportReportRequest());
         this.addCommand("RegisterUser",new RegisterUser());
     }
 

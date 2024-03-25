@@ -130,8 +130,6 @@ public class OrderVisit extends Login implements Initializable {
             try {
                 LocalTime visitTime = timeOfVisit.getValue();
                 newOrder.visit_time = visitTime;
-
-
             } catch (NullPointerException e) {
                 ClientUI.popupNotification("Enter visit time");
             }

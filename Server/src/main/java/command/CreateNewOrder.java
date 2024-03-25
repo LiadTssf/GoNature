@@ -67,7 +67,7 @@ public class CreateNewOrder implements ServerCommand {
 //            pstmt.setTime(1,Time.valueOf(orderToCreate.visit_time));
 //            rs = pstmt.executeQuery();
 //            if (rs.next()){
-//                totalVisitors = rs.getInt("total_visitors");
+//                totalVisitors = rs.getInt("total_visitors");1
 //            }
 
             pstmt = DB.getConnection().prepareStatement(queryCurrentNum); //current number of visitors

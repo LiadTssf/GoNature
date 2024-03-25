@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ApplyChange">
+   <children>
+      <TableView fx:id="changeApply" layoutX="14.0" layoutY="46.0" prefHeight="309.0" prefWidth="415.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Old offset" />
+          <TableColumn prefWidth="75.0" text="New offset" />
+          <TableColumn prefWidth="90.0" text="Old avg time" />
+          <TableColumn prefWidth="88.0" text="New avg time" />
+          <TableColumn prefWidth="85.0" text="Park Name" />
+        </columns>
+      </TableView>
+      <Button layoutX="464.0" layoutY="98.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Confirm" textFill="WHITE" onAction="#ConfirmChange">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="472.0" layoutY="161.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Cancel" textFill="WHITE" onAction="#discardChange">
+         <font>
+            <Font size="18.0" name="System Bold"/>
+         </font>
+      </Button>
+   </children>
+
+</AnchorPane>

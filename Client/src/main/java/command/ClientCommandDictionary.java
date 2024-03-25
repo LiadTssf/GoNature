@@ -11,11 +11,14 @@ public class ClientCommandDictionary {
      */
     public ClientCommandDictionary() {
         commandDictionary = new HashMap<>();
+        this.addCommand("FailMessage", new FailMessage());
+        this.addCommand("SendOrderListToClient", new SendOrderListToClient());
         this.addCommand("AuthenticateClient", new AuthenticateClient());
         this.addCommand("DeauthenticateClient", new DeauthenticateClient());
         this.addCommand("AuthenticateUser",new AuthenticateUser());
         this.addCommand("DeauthenticateClient",new DeauthenticateUser());
         this.addCommand("OrderCreated",new OrderCreated());
+        this.addCommand("VisitExportReport",new VisitExportReport());
     }
 
     /**

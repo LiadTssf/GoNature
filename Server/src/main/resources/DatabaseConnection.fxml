@@ -17,6 +17,7 @@
 
 <AnchorPane prefHeight="200.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DatabaseConnection">
    <children>
+<<<<<<< HEAD
       <VBox layoutX="14.0" layoutY="14.0" spacing="10">
          <Label text="URL" />
          <TextField fx:id="url_txtfield" prefHeight="26.0" prefWidth="391.0" text="jdbc:mysql://localhost/gonature?serverTimezone=UTC" />
@@ -34,6 +35,15 @@
 
 
 
+=======
+      <Label layoutX="14.0" layoutY="14.0" text="URL" />
+      <Label layoutX="14.0" layoutY="50.0" text="Username" />
+      <Label layoutX="15.0" layoutY="87.0" text="Password" />
+      <TextField fx:id="url_txtfield" layoutX="84.0" layoutY="10.0" prefHeight="26.0" prefWidth="391.0" text="jdbc:mysql://localhost/gonature?serverTimezone=UTC" />
+      <TextField fx:id="username_txtfield" layoutX="84.0" layoutY="46.0" prefHeight="26.0" prefWidth="391.0" text="root" />
+      <TextField fx:id="password_txtfield" layoutX="84.0" layoutY="83.0" prefHeight="26.0" prefWidth="391.0" text="1234" />
+      <Button fx:id="connect_btn" layoutX="213.0" layoutY="127.0" mnemonicParsing="false" onAction="#ConnectToDB" text="Connect" />
+>>>>>>> 8e8e48b23c44d90d79a2edc00a15398f704027a5
    </children>
    <stylesheets>
       <URL value="@DatabaseConnection.css"/>

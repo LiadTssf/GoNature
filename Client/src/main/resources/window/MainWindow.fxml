@@ -2,9 +2,11 @@
 
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainWindow">
-   <children>
-      <HBox fx:id="main_hbox" layoutX="140.0" prefHeight="400.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <VBox fx:id="options_list_vbox" prefHeight="400.0" prefWidth="140.0" />
-   </children>
-</AnchorPane>
+<BorderPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainWindow">
+   <left>
+      <VBox fx:id="options_list_vbox" prefHeight="400.0" prefWidth="140.0" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <StackPane fx:id="main_hbox" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

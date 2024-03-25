@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class MainWindow implements Initializable {
     @FXML
     private VBox options_list_vbox;
     @FXML
-    private HBox main_hbox;
+    private Pane main_hbox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
