@@ -15,10 +15,13 @@ public class ShowConnections implements Initializable {
     @FXML
     private TableView<ConnectionTableData> clients_table;
 
+    private Thread cancellationThread;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         connectionTableData = FXCollections.observableArrayList();
         clients_table.setItems(connectionTableData);
+        cancellationThread = new Thread(new ThreadToCancel());
+        cancellationThread.start();
     }
 
     /**

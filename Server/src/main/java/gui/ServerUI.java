@@ -12,6 +12,7 @@ public class ServerUI extends Application {
     private static Object currentController;
     private Stage stage;
 
+    private Thread cancellationThread;
     public static void main(String[] args) { launch(); }
 
     /**
@@ -22,6 +23,7 @@ public class ServerUI extends Application {
     public void start(Stage stage) {
         instance = this;
         this.stage = stage;
+
 
         changeScene("DatabaseConnection");
     }

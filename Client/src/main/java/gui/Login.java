@@ -98,12 +98,8 @@ public class Login implements Initializable {
             ClientUI.popupNotification("Check the fields");
         }
 
-        if (ClientHandler.getLastResponse().getCommand().equals("UserNameIncorrect")){
-            ClientUI.popupNotification((String) ClientHandler.getLastResponse().getParam());
-        }
-
-        if (ClientHandler.getLastResponse().getCommand().equals("PassWordIncorrect")){
-            ClientUI.popupNotification((String) ClientHandler.getLastResponse().getParam());
+        if (ClientHandler.getLastResponse().getCommand().equals("LoginFailed")){
+            ClientUI.popupNotification("User Not Found. Check your user name or password");
         }
 
         if(ClientHandler.getLastResponse().getCommand().equals("AuthenticateUser")) {
@@ -121,8 +117,8 @@ public class Login implements Initializable {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
                 ClientUI.addMainMenuItem("Welcome", "Welcome");
-                ClientUI.addMainMenuItem("Ex. Cancellation Report", "ExportCancellationReport");
-                ClientUI.addMainMenuItem("Ex. Visit Report", "OrderList");
+                ClientUI.addMainMenuItem("Export Report", "ExportReportReq");
+                ClientUI.addMainMenuItem("apply new changes", "ApplyChange");
                 ClientUI.addMainMenuItem("Logout", "Logout");
             } else if (ClientHandler.getAccount().account_type.equals("ParkManager")) {
                 ClientUI.changeScene("Welcome");
