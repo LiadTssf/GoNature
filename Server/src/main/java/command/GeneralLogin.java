@@ -34,12 +34,8 @@ public class GeneralLogin implements ServerCommand{
         String accountID;
         String accountType;
         String query = ("SELECT * FROM gonature.account WHERE username = ? AND password = ?");
-        String QueryToSearchInWorkerDB=("SELECT * FROM gonature.account_extra_info_worker WHERE account_id = ?");
-
-
         try{
             PreparedStatement pstmt = DB.getConnection().prepareStatement(query);
-
             pstmt.setString(1,userName);
             pstmt.setString(2,PassWord);
 
@@ -49,12 +45,9 @@ public class GeneralLogin implements ServerCommand{
                 LoginInfo.add(rs.getString("account_type"));
                 accountType = rs.getString("account_type");
                 int account_id_pk = rs.getInt("account_id_pk");
-//                if (accountType.equals("Worker")){
-//                    pstmt = DB.getConnection().prepareStatement(QueryToSearchInWorkerDB);
-//                    pstmt.setInt(1,account_id_pk);
-//
-//                }
-
+                if (accountType.equals("Worker")){
+                    return workerDBSearch(pstmt,rs,account_id_pk,accountType,DB);
+                }
                 if (ServerHandler.getClientFromAccount(account_id_pk) == -1) {
                     RegisteredAccount accountToReturn = new RegisteredAccount(account_id_pk, LoginInfo.get(2));
                     rs.first();
@@ -73,5 +66,35 @@ public class GeneralLogin implements ServerCommand{
             e.printStackTrace();
             return new Message("Error","An error occurred while trying to log in.");
         }
+    }
+
+    private Message workerDBSearch(PreparedStatement pstmt,ResultSet rs,int accountID,String accountType,DatabaseController DB) throws SQLException {
+        String QueryToSearchInWorkerDB=("SELECT * FROM gonature.account_extra_info_worker WHERE account_id = ?");
+        String searchParkNameQuery = ("SELECT park_name FROM gonature.park WHERE park_id_pk = ?");
+        DatabaseController databaseController = new DatabaseController();
+        pstmt = DB.getConnection().prepareStatement(QueryToSearchInWorkerDB);
+        pstmt.setInt(1,accountID);
+        rs = pstmt.executeQuery();
+        if (rs.next()) {
+            if (ServerHandler.getClientFromAccount(accountID) == -1) {
+                WorkerAccount workerAccount = new WorkerAccount(accountID, accountType);
+                rs.first();
+                workerAccount.account_type = rs.getString("worker_role");
+                int park_id = rs.getInt("park_id_fk");
+                PreparedStatement preparedStatement = databaseController.getConnection().prepareStatement(searchParkNameQuery);
+                preparedStatement.setInt(1,park_id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()){
+                    workerAccount.park_id_fk = resultSet.getString("park_name");
+                }
+                workerAccount.firstname = rs.getString("firstname");
+                workerAccount.lastname = rs.getString("lastname");
+                workerAccount.worker_id = rs.getInt("worker_id");
+
+                return new Message("AuthenticateUser", workerAccount);
+            }
+            return new Message("LoginSession", "Username already connected from another session.");
+        }
+        return new Message("LoginFailed", "User not found.");
     }
 }
