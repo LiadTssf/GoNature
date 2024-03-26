@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ChangesCommit">
+   <children>
+      <Label layoutX="191.0" layoutY="14.0" text="Confirm Your Changes">
+         <font>
+            <Font name="Impact" size="24.0" />
+         </font></Label>
+      <Label layoutX="220.0" layoutY="51.0" text="Changes For " />
+      <Label layoutX="110.0" layoutY="108.0" text="new Capacity: " />
+      <Label layoutX="110.0" layoutY="141.0" text="new Offset: " />
+      <Label layoutX="110.0" layoutY="177.0" text="new Staying Time: " />
+      <Label fx:id="parkName" layoutX="290.0" layoutY="46.0" text="ParkName">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="315.0" layoutY="108.0" text="old Capacity: " />
+      <Label layoutX="315.0" layoutY="141.0" text="old Offset: " />
+      <Label layoutX="315.0" layoutY="177.0" text="old Staying Time: " />
+      <Label fx:id="newCapacity" layoutX="206.0" layoutY="108.0" text="newCap" />
+      <Label fx:id="newOffSet" layoutX="206.0" layoutY="141.0" text="newSet" />
+      <Label fx:id="newTime" layoutX="220.0" layoutY="177.0" text="newTime" />
+      <Label fx:id="oldCapacity" layoutX="410.0" layoutY="108.0" text="oldCap" />
+      <Label fx:id="oldOffSet" layoutX="410.0" layoutY="141.0" text="oldSet" />
+      <Label fx:id="oldTime" layoutX="429.0" layoutY="177.0" text="oldTime" />
+      <Button layoutX="325.0" layoutY="294.0" mnemonicParsing="false" text="Commit" onAction="#sendToManager"/>
+   </children>
+</AnchorPane>

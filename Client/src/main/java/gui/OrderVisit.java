@@ -44,6 +44,7 @@ public class OrderVisit extends Login implements Initializable {
     private MenuItem menuItem_Haifa;
     @FXML
     private MenuItem menuItem_Tel_aviv;
+    private RegisteredAccount registeredAccount;
     private float priceCalculation(int numberOfVisitors,double discount){
         return 0;
     }
@@ -55,10 +56,11 @@ public class OrderVisit extends Login implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         customer_id.setText(String.valueOf(ClientHandler.getAccount().account_id_pk));
         if (ClientHandler.getAccount().account_type.equals("TourGuide")){
+            registeredAccount = (RegisteredAccount) ClientHandler.getAccount();
             customer_email.setDisable(true);
-            //customer_email.setText(String.valueOf(ClientHandler.getAccount()));
+            customer_email.setText(registeredAccount.email);
             customer_phone_number.setDisable(true);
-            //customer_email.setText(String.valueOf(ClientHandler.getRegisterAccount().phone));
+            customer_phone_number.setText(registeredAccount.phone);
 
             numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,15));
         }else {
@@ -96,11 +98,8 @@ public class OrderVisit extends Login implements Initializable {
         menuItem_karmiel.setOnAction(event -> location_pick.setText(menuItem_karmiel.getText()));
         menuItem_Haifa.setOnAction(event -> location_pick.setText(menuItem_Haifa.getText()));
         menuItem_Tel_aviv.setOnAction(event -> location_pick.setText(menuItem_Tel_aviv.getText()));
-        
 
     }
-
-
 
     @FXML
     public void OrderVisit(ActionEvent actionEvent) {
@@ -110,7 +109,6 @@ public class OrderVisit extends Login implements Initializable {
         }else{
             newOrder.guided_order = false;
         }
-
             try {
                 String email = String.valueOf(customer_email.getText());
                 newOrder.email = email;
@@ -160,9 +158,10 @@ public class OrderVisit extends Login implements Initializable {
 
             ClientHandler.request(new Message("CreateNewOrder",newOrder));
 
-//            if (ClientHandler.getLastResponse().getCommand().equals("OrderCreated")) {
-//                ClientUI.openNewWindow("OrderConfirmation");
-//            }
+            if (ClientHandler.getLastResponse().getCommand().equals("OrderCreated")) {
+                ClientUI.popupNotification("Congratulations!!\nYour Order Created Successfully.\nWe'll be Happy To see you!");
+                ClientUI.changeScene("Welcome");
+            }
             if (ClientHandler.getLastResponse().getCommand().equals("OrderEmail")){
                 ClientUI.popupNotification("Enter your Email please");
             }
