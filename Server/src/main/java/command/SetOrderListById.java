@@ -51,7 +51,7 @@ public class SetOrderListById implements ServerCommand {
 
 
         // Insert the new orders
-        String insertQuery = "INSERT INTO `order` (order_id_pk, account_id, park_id_fk, visit_date, visit_time, exit_time, number_of_visitors, email, phone, guided_order, on_arrival_order, on_waiting_list, cancelled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO `order` (order_id_pk, account_id, park_id_fk, visit_date, visit_time, exit_time, number_of_visitors, email, phone, guided_order, on_arrival_order, on_waiting_list, cancelled,paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         try {
             PreparedStatement insertPstmt = DB.getConnection().prepareStatement(insertQuery);
             for (Order order : orderList) {
@@ -74,6 +74,7 @@ public class SetOrderListById implements ServerCommand {
                 insertPstmt.setBoolean(11, order.getOnArrivalOrder());
                 insertPstmt.setBoolean(12, order.getOnWaitingList());
                 insertPstmt.setBoolean(13, order.getCancelled());
+                insertPstmt.setBoolean(14, order.getPaid());
                 System.out.println("here");
                 insertPstmt.execute();
             }

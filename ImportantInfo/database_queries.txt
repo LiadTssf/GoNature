@@ -30,6 +30,7 @@ CREATE TABLE `gonature`.`order` (
   `on_arrival_order` BOOLEAN NULL,
   `on_waiting_list` BOOLEAN NULL,
   `cancelled` BOOLEAN NULL,
+  `paid` BOOLEAN NULL ,
   PRIMARY KEY (`order_id_pk`),
   INDEX `park_id_fk_idx` (`park_id_fk` ASC) VISIBLE,
   CONSTRAINT `order_park_fk`

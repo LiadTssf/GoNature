@@ -20,6 +20,8 @@ public class ServerCommandDictionary {
         this.addCommand("CreateNewOrder",new CreateNewOrder());
         this.addCommand("ExportReportRequest",new ExportReportRequest());
         this.addCommand("RegisterUser",new RegisterUser());
+        this.addCommand("CancelOrder",new CancelOrder());
+        this.addCommand("changePaidOrder",new changePaidOrder());
     }
 
     /**

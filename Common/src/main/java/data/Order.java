@@ -19,6 +19,9 @@ public class Order implements Serializable {
     public Boolean on_arrival_order;
     public Boolean on_waiting_list;
     public Boolean cancelled;
+    public Boolean paid;
+
+
 
     // Getters
     public UUID getOrderIdPk() {
@@ -72,6 +75,9 @@ public class Order implements Serializable {
     public Boolean getCancelled() {
         return cancelled;
     }
+    public Boolean getPaid() {
+        return paid;
+    }
     public void setNumVisitors(int numVisitors) {
         this.number_of_visitors = numVisitors;
     }
@@ -85,6 +91,9 @@ public class Order implements Serializable {
     }
     public void setCancelled(boolean b) {
         this.cancelled = b;
+    }
+    public void setPaid(boolean c) {
+        this.paid = c;
     }
 
     @Override
@@ -104,6 +113,22 @@ public class Order implements Serializable {
                 ", on_waiting_list=" + on_waiting_list +
                 ", cancelled=" + cancelled +
                 '}';
+    }
+
+    public double getFinalPrice() {
+
+        double costCalc;
+        if (guided_order){
+            costCalc = (number_of_visitors * 80) * 0.75;
+            if (!on_arrival_order) {
+                return costCalc*0.88;
+            }
+            return costCalc;
+        }
+        if (!on_arrival_order){
+            return (number_of_visitors*80)*0.85;
+        }
+        return number_of_visitors*80;
     }
 
 }

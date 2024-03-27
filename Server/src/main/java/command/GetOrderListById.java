@@ -53,6 +53,7 @@ public class GetOrderListById implements ServerCommand {
                 order.on_arrival_order = rs.getBoolean("on_arrival_order");
                 order.on_waiting_list = rs.getBoolean("on_waiting_list");
                 order.cancelled = rs.getBoolean("cancelled");
+                order.paid = rs.getBoolean("paid");
                 orderList.add(order);
             }
 

@@ -45,24 +45,11 @@ public class OrderConfirmation implements Initializable {
         orderLocation.setText(compOrder.park_id_fk);
         orderDate.setText(String.valueOf(compOrder.visit_date));
         orderTime.setText(String.valueOf(compOrder.visit_time));
-        orderFinalCost.setText(String.valueOf(finalCost()));
+        orderFinalCost.setText(String.valueOf(compOrder.getFinalPrice()));
     }
 
 
-    private double finalCost(){
-        double costCalc;
-        if (compOrder.guided_order){
-            costCalc = (compOrder.number_of_visitors * 80) * 0.75;
-            if (!compOrder.on_arrival_order) {
-                return costCalc*0.88;
-            }
-            return costCalc;
-        }
-        if (!compOrder.on_arrival_order){
-            return (compOrder.number_of_visitors*80)*0.85;
-        }
-        return compOrder.number_of_visitors*80;
-    }
+
 
     @FXML
     public void orderConfirm(javafx.event.ActionEvent actionEvent){

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OrderList">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OrderView">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Client's Order">
          <font>
@@ -12,15 +17,33 @@
          </font>
       </Label>
       <Label layoutX="14.0" layoutY="49.0" text="Enter Client's ID to find his Order: " />
-      <TextField id="client_id_search" layoutX="218.0" layoutY="45.0" />
-      <Button layoutX="400.0" layoutY="45.0" mnemonicParsing="false" text="Search for order" />
-      <Button layoutX="367.0" layoutY="323.0" mnemonicParsing="false" text="Payment">
+      <TextField fx:id="client_id_search" layoutX="218.0" layoutY="45.0" />
+      <Button layoutX="400.0" layoutY="45.0" mnemonicParsing="false" text="Search for order" onAction="#onSearchButtonClick"/>
+      <Button layoutX="367.0" layoutY="323.0" mnemonicParsing="false" text="Payment" onAction="#onOpenPaymentWindow">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="246.0" layoutY="325.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="94.0" text="Cancel Order" />
-      <ListView layoutX="14.0" layoutY="80.0" prefHeight="232.0" prefWidth="503.0" />
+      <Button layoutX="246.0" layoutY="325.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="94.0" text="Cancel Order" onAction="#onCancelOrderButtonClick"/>
+      <ScrollPane layoutX="14.0" layoutY="90.0" prefHeight="228.0" prefWidth="463.0">
+         <content>
+            <TableView fx:id="orderTableView" prefHeight="226.0" prefWidth="461.0">
+               <columns>
+                  <TableColumn fx:id="orderId" text="Order ID" />
+                  <TableColumn fx:id="parkId" text="Park ID" />
+                  <TableColumn fx:id="visitTime" text="Visit Time" />
+                  <TableColumn fx:id="exitTime" text="Exit Time" />
+                  <TableColumn fx:id="numVisitors" text="Number of Visitors" />
+                  <TableColumn fx:id="email" text="Email" />
+                  <TableColumn fx:id="phone" text="Phone" />
+                  <TableColumn fx:id="guidedOrder" text="Guided Order" />
+                  <TableColumn fx:id="onArrivalOrder" text="On Arrival Order" />
+                  <TableColumn fx:id="onWaitingList" text="On Waiting List" />
+                  <TableColumn fx:id="cancelled" text="Cancelled" />
+                  <TableColumn fx:id="paid" text="Paid" />
+               </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
    </children>
-
 </AnchorPane>
