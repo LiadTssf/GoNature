@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="gui.OfficeMangerWelcomeWindow"
+            prefHeight="1000.0" prefWidth="1000.0">
+
+    <children>
+
+        <TableView fx:id="parkChanges" layoutX="5.0" layoutY="5.0" prefHeight="600.0" prefWidth="800.0" styleClass="table-view">
+            <columns>
+                <TableColumn prefWidth="90.0" text="park name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="parkName"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="90.0" text="old capacity">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="oldCapacity"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="110.0" text="old avg visit time">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="oldAverageVisitTime"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="110.0" text="old offset capacity">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="oldCapacityOffset"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="90.0" text="new capacity">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="newCapacity"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="110.0" text="new avg visit time">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="newAverageVisitTime"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="130.0" text="new offset capacity">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="newCapacityOffset"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+
+        </TableView>
+
+
+        <Button fx:id="refresh" layoutX="20.0" layoutY="20.0" onAction="#getParkChanges" text="Refresh"/>
+        <Button fx:id="confirm" layoutX="130.0" layoutY="20.0" onAction="#confirmChanges" text="Confirm"/>
+    </children>
+
+</AnchorPane>

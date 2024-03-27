@@ -88,6 +88,7 @@ public class Order implements Serializable {
 
     public void setVisitTime(LocalTime visitTime) {
         this.visit_time = visitTime;
+        this.exit_time = visitTime.plusHours(4);
     }
     public void setCancelled(boolean b) {
         this.cancelled = b;

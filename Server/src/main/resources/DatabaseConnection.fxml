@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import java.net.URL?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -10,7 +10,8 @@
       <Label layoutX="15.0" layoutY="87.0" text="Password" />
       <TextField fx:id="url_txtfield" layoutX="84.0" layoutY="10.0" prefHeight="26.0" prefWidth="391.0" text="jdbc:mysql://localhost/gonature?serverTimezone=UTC" />
       <TextField fx:id="username_txtfield" layoutX="84.0" layoutY="46.0" prefHeight="26.0" prefWidth="391.0" text="root" />
-      <TextField fx:id="password_txtfield" layoutX="84.0" layoutY="83.0" prefHeight="26.0" prefWidth="391.0" text="1234" />
+      <TextField fx:id="password_txtfield" layoutX="84.0" layoutY="83.0" prefHeight="26.0" prefWidth="391.0" text="n8040197" />
       <Button fx:id="connect_btn" layoutX="213.0" layoutY="127.0" mnemonicParsing="false" onAction="#ConnectToDB" text="Connect" />
    </children>
 </AnchorPane>
+

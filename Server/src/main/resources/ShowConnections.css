@@ -1,0 +1,24 @@
+.table-view {
+    -fx-background-color: #f2f2f2; /* Background color */
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #666666; /* Column header background color */
+}
+
+.table-view .column-header {
+    -fx-text-fill: white; /* Column header text color */
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #ffffff; /* Row background color */
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f9f9f9; /* Alternate row background color */
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #3399ff; /* Selected row background color */
+    -fx-text-fill: white; /* Selected row text color */
+}

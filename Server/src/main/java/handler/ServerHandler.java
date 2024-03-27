@@ -7,14 +7,17 @@ import data.Account;
 import data.ConnectionTableData;
 import gui.ServerUI;
 import gui.ShowConnections;
+import gui.ThreadToCancel;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ServerHandler extends AbstractServer {
     private static ServerHandler instance;
     private final ServerCommandDictionary commandDict;
+
 
     /**
      * constructs new server handler
@@ -24,6 +27,7 @@ public class ServerHandler extends AbstractServer {
         super(port);
         commandDict = new ServerCommandDictionary();
         instance = this;
+
     }
 
     /**
@@ -34,18 +38,23 @@ public class ServerHandler extends AbstractServer {
      */
     @Override
     protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
-        Message response;
+        Message response = null;
         ServerCommand command;
 
         System.out.println("Client " + client.getId() + ": " + msg.toString());
         Message request = (Message) msg;
 
         //Process message
-        if ((command = commandDict.getCommand(request.getCommand())) != null) {
-            response = command.execute(request.getParam(), request.getAccount());
-        } else {
-            response = new Message("UnknownRequest", "Could not find command to execute");
+        try {
+            if ((command = commandDict.getCommand(request.getCommand())) != null) {
+                response = command.execute(request.getParam(), request.getAccount());
+            } else {
+                response = new Message("UnknownRequest", "Could not find command to execute");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
         }
+        
 
         //Send response
         try {

@@ -109,34 +109,34 @@ public class Login implements Initializable {
             if (ClientHandler.getAccount().account_type.equals("TourGuide")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
-                ClientUI.addMainMenuItem("Welcome", "Welcome");
+                //ClientUI.addMainMenuItem("Welcome", "Welcome");
                 ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
                 ClientUI.addMainMenuItem("Orders List", "OrderList");
                 ClientUI.addMainMenuItem("Logout", "Logout");
             } else if (ClientHandler.getAccount().account_type.equals("OfficeManager")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
-                ClientUI.addMainMenuItem("Welcome", "Welcome");
+                //ClientUI.addMainMenuItem("Welcome", "Welcome");
                 ClientUI.addMainMenuItem("Export Report", "ExportReportReq");
                 ClientUI.addMainMenuItem("apply new changes", "ApplyChange");
                 ClientUI.addMainMenuItem("Logout", "Logout");
             } else if (ClientHandler.getAccount().account_type.equals("ParkManager")) {
-                ClientUI.changeScene("Welcome");
+                ClientUI.changeScene("OfficeMangerWelcomeWindow");
                 ClientUI.removeAllMainMenuItems();
-                ClientUI.addMainMenuItem("Welcome", "Welcome");
-                ClientUI.addMainMenuItem("Import Visit Report", "OrderVisit");
-                ClientUI.addMainMenuItem("Import Capacity Report", "OrderList");
+                //ClientUI.addMainMenuItem("Welcome", "Welcome");
+                ClientUI.addMainMenuItem("Import Reports", "ImportReports");
+                ClientUI.addMainMenuItem("Change details", "ChangeDetails");
                 ClientUI.addMainMenuItem("Logout", "Logout");
             } else if (ClientHandler.getAccount().account_type.equals("OfficeWorker")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
-                ClientUI.addMainMenuItem("Welcome", "Welcome");
+                //ClientUI.addMainMenuItem("Welcome", "Welcome");
                 ClientUI.addMainMenuItem("Tour Guide Registration", "Register");
                 ClientUI.addMainMenuItem("Logout", "Logout");
             }else if (ClientHandler.getAccount().account_type.equals("ParkWorker")){
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
-                ClientUI.addMainMenuItem("Welcome", "Welcome");
+                //ClientUI.addMainMenuItem("Welcome", "Welcome");
                 ClientUI.addMainMenuItem("View Order", "OrderView");
                 ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
                 ClientUI.addMainMenuItem("Logout", "Logout");

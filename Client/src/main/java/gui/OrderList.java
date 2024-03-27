@@ -22,10 +22,13 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class OrderList implements Initializable {
     @FXML
@@ -35,16 +38,13 @@ public class OrderList implements Initializable {
     private TableView <Order> orderTable;
 
     @FXML
-    private TableColumn<Order, UUID> orderId;
-
-    @FXML
     private TableColumn<Order, String> parkId;
 
     @FXML
     private TableColumn<Order, LocalTime> visitTime;
 
     @FXML
-    private TableColumn<Order, LocalTime> exitTime;
+    private TableColumn<Order, LocalDate> visit_date;
 
     @FXML
     private TableColumn<Order, Integer> numVisitors;
@@ -53,26 +53,10 @@ public class OrderList implements Initializable {
     private TableColumn<Order, String> email;
 
     @FXML
-    private TableColumn<Order, String> phone;
-
-    @FXML
-    private TableColumn<Order, Boolean> guidedOrder;
-
-    @FXML
-    private TableColumn<Order, Boolean> onArrivalOrder;
-
-    @FXML
-    private TableColumn<Order, Boolean> onWaitingList;
-
-    @FXML
-    private TableColumn<Order, String> cancelled;
-
-    @FXML
     private Button saveButton;
 
     @FXML
     private Button backButton;
-
     @FXML
     private Label saveMessage;
     private int customerId;
@@ -80,17 +64,11 @@ public class OrderList implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set up the cell value factories for the table columns
-        orderId.setCellValueFactory(new PropertyValueFactory<>("OrderIdPk"));
         parkId.setCellValueFactory(new PropertyValueFactory<>("ParkIdFk"));
         visitTime.setCellValueFactory(new PropertyValueFactory<>("VisitTime"));
-        exitTime.setCellValueFactory(new PropertyValueFactory<>("ExitTime"));
+        visit_date.setCellValueFactory(new PropertyValueFactory<>("VisitDate"));
         numVisitors.setCellValueFactory(new PropertyValueFactory<>("NumberOfVisitors"));
         email.setCellValueFactory(new PropertyValueFactory<>("Email"));
-        phone.setCellValueFactory(new PropertyValueFactory<>("Phone"));
-        guidedOrder.setCellValueFactory(new PropertyValueFactory<>("GuidedOrder"));
-        onArrivalOrder.setCellValueFactory(new PropertyValueFactory<>("OnArrivalOrder"));
-        onWaitingList.setCellValueFactory(new PropertyValueFactory<>("OnWaitingList"));
-        cancelled.setCellValueFactory(new PropertyValueFactory<>("Cancelled"));
 
 
 
@@ -106,8 +84,10 @@ public class OrderList implements Initializable {
         }
 
         if (orderList != null) {
-            System.out.println(orderList);
-            orderTable.getItems().addAll(orderList);
+            List<Order> filteredOrders = orderList.stream()
+                    .filter(order -> !order.getCancelled())
+                    .collect(Collectors.toList());
+            orderTable.getItems().addAll(filteredOrders);
         }
 
 
@@ -161,7 +141,10 @@ public class OrderList implements Initializable {
 
     public void refreshTable() {
         orderTable.getItems().clear();
-        orderTable.getItems().addAll(orderList);
+        List <Order> filteredOrders = orderList.stream()
+                .filter(order -> !order.getCancelled())
+                .collect(Collectors.toList());
+        orderTable.getItems().addAll(filteredOrders);
     }
 
     public void updateOrder(Order updatedOrder) {
