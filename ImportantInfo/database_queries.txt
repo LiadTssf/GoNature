@@ -19,15 +19,14 @@ CREATE TABLE `gonature`.`park` (
 
 
 CREATE TABLE `gonature`.`park_changes` (
-    `park_name` VARCHAR(45) NULL,
+    `park_name` VARCHAR(45) NOT NULL,
     `new_capacity` INT NULL,
     `old_capacity` INT NULL,
     `new_average_visit_time` INT NULL,
     `old_average_visit_time` INT NULL,
     `new_capacity_offset` INT NULL,
     `old_capacity_offset` INT NULL,
-
-)
+    PRIMARY KEY (`park_name`));
 
 CREATE TABLE `gonature`.`order` (
   `order_id_pk` VARCHAR(65) NOT NULL,

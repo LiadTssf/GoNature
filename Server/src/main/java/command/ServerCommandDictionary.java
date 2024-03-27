@@ -21,6 +21,8 @@ public class ServerCommandDictionary {
         this.addCommand("ExportReportRequest",new ExportReportRequest());
         this.addCommand("RegisterUser",new RegisterUser());
         this.addCommand("GetDataFromPark",new GetDataFromPark());
+        this.addCommand("GetParkChanges",new GetParkChanges());
+        this.addCommand("UpdateParkDetails", new UpdateParkDetails());
     }
 
     /**

@@ -29,7 +29,7 @@ public class ServerUI extends Application {
         this.stage = stage;
 
         changeScene("DatabaseConnection");
-//        startBackgroundScheduler();
+        startBackgroundScheduler();
     }
 
     /**
@@ -39,7 +39,7 @@ public class ServerUI extends Application {
     public void stop() {
 
         ServerHandler.closeServerHandler();
-//        scheduler.shutdown();
+        scheduler.shutdown();
     }
 
     /**

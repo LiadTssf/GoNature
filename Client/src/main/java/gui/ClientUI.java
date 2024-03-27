@@ -11,6 +11,8 @@ public class ClientUI extends Application {
     private static ClientUI instance;
     private static Object currentController;
     private static MainWindow mainWindowController;
+//     private static OfficeMangerWelcomeWindow mainWindowController;
+
 
     public static void main(String[] args) { launch(); }
 
@@ -33,6 +35,7 @@ public class ClientUI extends Application {
             e.printStackTrace();
         }
         mainWindowController = loader.getController();
+
     }
 
     /**
