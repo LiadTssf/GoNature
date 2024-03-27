@@ -40,15 +40,12 @@ public class CreateNewOrder implements ServerCommand {
 
         DatabaseController DB = new DatabaseController();
 
-        /*DAVID AND MAXIM ----> כרגע ביצירת הזמנה זה מעדכן את מספר האנשים הנוכחי בפארק (אל תמחקו את זה!!!!)
-        * LIAD ----------> תעתיק את הפעולות שאתה צריך כי אחרי תשלום אתה תצטרך לעלות את מספר המבקרים בפארק*/
         String query = ("INSERT INTO `order` (order_id_pk, account_id, park_id_fk, visit_date, visit_time, exit_time, number_of_visitors, email, phone, guided_order, on_arrival_order, on_waiting_list, cancelled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         String queryGetID = ("SELECT park_id_pk FROM park WHERE park_name = ?"); //Get park ID
 
         String queryToIncrease = ("SELECT current_visitors,capacity,capacity_offset FROM park WHERE park_id_pk = ?"); //Updates current visitors+specific order visitors number by using park ID
 
-        String queryCapacity = ("SELECT capacity,capacity_offset FROM park WHERE park_id_pk = ?"); // get the park capacity
-        String queryOffset = ("SELECT capacity_offset FROM park WHERE park_id_pk = ?"); //get current visitors
+        String queryCapacity = ("SELECT capacity,capacity_offset,average_visit_time FROM park WHERE park_id_pk = ?"); // get the park capacity
 
         String queryToSumVisitors =("SELECT SUM(number_of_visitors) AS total_visitors FROM `order` WHERE visit_date = ? AND visit_time = ?");
 
@@ -58,6 +55,7 @@ public class CreateNewOrder implements ServerCommand {
             int capacity = 0;
             int currentVisitors = 0;
             int totalVisitors = 0;
+            int avgTime = 0;
 
             PreparedStatement pstmt = DB.getConnection().prepareStatement(queryGetID); // ID from DB
             pstmt.setString(1, orderToCreate.park_id_fk);
@@ -73,6 +71,7 @@ public class CreateNewOrder implements ServerCommand {
             if (rs.next()) {
                 capacity = rs.getInt("capacity");
                 offset = rs.getInt("current_visitors");
+                avgTime = rs.getInt("average_visit_time");
             }
 
             pstmt = DB.getConnection().prepareStatement(queryToSumVisitors);
@@ -98,6 +97,7 @@ public class CreateNewOrder implements ServerCommand {
                 orderToCreate.on_waiting_list = false;
             }
 
+            orderToCreate.exit_time = orderToCreate.visit_time.plusHours(avgTime);
             pstmt = DB.getConnection().prepareStatement(query);
             pstmt.setString(1, String.valueOf(orderToCreate.order_id_pk));
             pstmt.setInt(2, orderToCreate.account_id);

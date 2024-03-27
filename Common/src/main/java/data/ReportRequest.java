@@ -11,5 +11,7 @@ public class ReportRequest implements Serializable {
 
     public boolean cancelled;
     public boolean allOrders;
+    public boolean capacityReport;
+    public boolean byTypesReport;
 
 }

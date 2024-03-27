@@ -1,5 +1,6 @@
 package gui;
 
+import command.Message;
 import data.DataParkChange;
 import handler.ClientHandler;
 import javafx.event.ActionEvent;
@@ -49,6 +50,13 @@ public class ChangesCommit implements Initializable {
 
     @FXML
     public void sendToManager(ActionEvent actionEvent) {
-        ClientUI.popupNotification("Your Changes sent to CEO to Approve,\nYou Can Close The Window");
+        ClientHandler.request(new Message("UploadChangesData",dataParkChange));
+        if (ClientHandler.getLastResponse().getCommand().equals("UploadSucceed")) {
+            ClientUI.popupNotification("Your Changes sent to CEO to Approve,\nYou Can Close The Window");
+        }
+        if (ClientHandler.getLastResponse().getCommand().equals("UploadFailed")){
+            ClientUI.popupNotification("Upload Failed \n Please Call IT Group 15");
+        }
+
     }
 }

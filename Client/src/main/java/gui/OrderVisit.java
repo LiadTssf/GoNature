@@ -143,11 +143,11 @@ public class OrderVisit extends Login implements Initializable {
             newOrder.order_id_pk = UUID.randomUUID();
             newOrder.account_id = ClientHandler.getAccount().account_id_pk;
             newOrder.cancelled = false;
-            try {
-                newOrder.exit_time = newOrder.visit_time.plusHours(4);
-            }catch (NullPointerException e){
-                ClientUI.popupNotification("Choose Time between 7:00 - 20:00");
-            }
+//            try {
+//                newOrder.exit_time = newOrder.visit_time.plusHours(4);
+//            }catch (NullPointerException e){
+//                ClientUI.popupNotification("Choose Time between 7:00 - 20:00");
+//            }
             newOrder.park_id_fk = String.valueOf(location_pick.getText());
 
             if (ClientHandler.getAccount().account_type.equals("ParkWorker")){
@@ -158,10 +158,7 @@ public class OrderVisit extends Login implements Initializable {
 
             ClientHandler.request(new Message("CreateNewOrder",newOrder));
 
-            if (ClientHandler.getLastResponse().getCommand().equals("OrderCreated")) {
-                ClientUI.popupNotification("Congratulations!!\nYour Order Created Successfully.\nWe'll be Happy To see you!");
-                ClientUI.changeScene("Welcome");
-            }
+
             if (ClientHandler.getLastResponse().getCommand().equals("OrderEmail")){
                 ClientUI.popupNotification("Enter your Email please");
             }
@@ -177,6 +174,10 @@ public class OrderVisit extends Login implements Initializable {
             if (ClientHandler.getLastResponse().getCommand().equals("OnWaitingList")){
                 ClientUI.popupNotification("Unfortunately, The park is fully booked.\nYour order Moved to waiting List.\nWe will let you know when there will be open spot");
             }
+        if (ClientHandler.getLastResponse().getCommand().equals("OrderCreated")) {
+            ClientUI.popupNotification("Congratulations!!\nYour Order Created Successfully.\nWe'll be Happy To see you!");
+            ClientUI.changeScene("Welcome");
+        }
 
 
     }
