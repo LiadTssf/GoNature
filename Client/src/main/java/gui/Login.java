@@ -76,6 +76,8 @@ public class Login implements Initializable {
 
             ClientUI.changeScene("Welcome");
             ClientUI.removeAllMainMenuItems();
+            ClientUI.addMainMenuImage("profile picture");
+            ClientUI.addMainMenuName("Mr.Nigger");
             ClientUI.addMainMenuItem("Welcome", "Welcome");
             ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
             ClientUI.addMainMenuItem("Orders List", "OrderList");
@@ -95,9 +97,11 @@ public class Login implements Initializable {
      */
     @FXML
     public void login_account(ActionEvent actionEvent) {
+        String username = "User";
         try {
+            username = String.valueOf(username_txtfield.getText());
             ArrayList<String> loginUserNameAndPassword = new ArrayList<>();
-            loginUserNameAndPassword.add(String.valueOf(username_txtfield.getText()));
+            loginUserNameAndPassword.add(username);
             loginUserNameAndPassword.add(String.valueOf(password_txtfield.getText()));
             ClientHandler.request(new Message("GeneralLogin",loginUserNameAndPassword));
         }catch (Exception e){
@@ -115,6 +119,8 @@ public class Login implements Initializable {
             if (ClientHandler.getAccount().account_type.equals("TourGuide")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
+                ClientUI.addMainMenuImage("profile picture");
+                ClientUI.addMainMenuName(username);
                 ClientUI.addMainMenuItem("Home Screen", "Welcome");
                 ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
                 ClientUI.addMainMenuItem("Orders List", "OrderList");
@@ -122,6 +128,8 @@ public class Login implements Initializable {
             } else if (ClientHandler.getAccount().account_type.equals("OfficeManager")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
+                ClientUI.addMainMenuImage("profile picture");
+                ClientUI.addMainMenuName(username);
                 ClientUI.addMainMenuItem("Home Screen", "Welcome");
                 ClientUI.addMainMenuItem("Export Report", "ExportReportReq");
                 ClientUI.addMainMenuItem("apply new changes", "OfficeMangerWelcomeWindow");
@@ -130,6 +138,8 @@ public class Login implements Initializable {
             } else if (ClientHandler.getAccount().account_type.equals("ParkManager")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
+                ClientUI.addMainMenuImage("profile picture");
+                ClientUI.addMainMenuName(username);
                 ClientUI.addMainMenuItem("Home Screen", "Welcome");
                 ClientUI.addMainMenuItem("Import Reports", "ImportReports");
                 ClientUI.addMainMenuItem("Change details", "ChangeDetails");
@@ -137,12 +147,16 @@ public class Login implements Initializable {
             } else if (ClientHandler.getAccount().account_type.equals("OfficeWorker")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
+                ClientUI.addMainMenuImage("profile picture");
+                ClientUI.addMainMenuName(username);
                 ClientUI.addMainMenuItem("Home Screen", "Welcome");
                 ClientUI.addMainMenuItem("Tour Guide Registration", "Register");
                 ClientUI.addMainMenuItem("Logout", "Logout");
             }else if (ClientHandler.getAccount().account_type.equals("ParkWorker")){
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
+                ClientUI.addMainMenuImage("profile picture");
+                ClientUI.addMainMenuName(username);
                 ClientUI.addMainMenuItem("Home Screen", "Welcome");
                 ClientUI.addMainMenuItem("View Order", "OrderView");
                 ClientUI.addMainMenuItem("Order Visit", "OrderVisit");

@@ -60,12 +60,27 @@ public class ClientUI extends Application {
 
     /**
      * Adds a new item on the sidebar to access new scenes from the UI
-     * @param text test to appear on the button
+     * @param text text to appear on the button
      * @param fxmlName fxml filename without .fxml to open when clicking the item
      */
     public static void addMainMenuItem(String text, String fxmlName) {
         mainWindowController.addMenuItem(text, fxmlName);
     }
+    /**
+     * adds an image on the sidebar a profile picture based on the connected type
+     * @param Image "image of the user" that connected
+     */
+    public static void addMainMenuImage(String Image) {
+        mainWindowController.addMenuImage(Image);
+    }
+    /**
+     * adds a name on the sidebar the name of the connected person
+     * @param name name of the user that connected
+     */
+    public static void addMainMenuName(String name) {
+        mainWindowController.addMenuName(name);
+    }
+
 
     /**
      * Removes a specific item from the main window sidebar

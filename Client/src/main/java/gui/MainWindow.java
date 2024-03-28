@@ -7,10 +7,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
+import javafx.scene.image.ImageView;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,6 +22,10 @@ public class MainWindow implements Initializable {
     private VBox options_list_vbox;
     @FXML
     private Pane main_hbox;
+    @FXML
+    private ImageView profilePicture;
+    @FXML
+    private Label name;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,12 +61,60 @@ public class MainWindow implements Initializable {
         Button newButton = new Button();
         newButton.setText(text);
         newButton.setId(fxmlName + "_btn");
-        newButton.setPrefSize(140, 50);
+        newButton.setPrefSize(140, 30);
+        newButton.setStyle("-fx-background-color: #Caffd1; -fx-text-fill: #000; -fx-font-size: 14; -fx-margin: 5 0 5 0;");
+        newButton.setOnMouseEntered(event -> newButton.setStyle("-fx-background-color: #Abdab1; -fx-text-fill: #000; -fx-font-size: 14; -fx-margin: 3 0 3 0;")); // Darker color when mouse pointer is over the button
+        newButton.setOnMouseExited(event -> newButton.setStyle("-fx-background-color: #Caffd1; -fx-text-fill: #000; -fx-font-size: 14; -fx-margin: 3 0 3 0;")); // Original color when mouse pointer leaves the button
         newButton.setOnAction(event -> {
             ClientUI.changeScene(fxmlName);
         });
         options_list_vbox.getChildren().add(newButton);
     }
+    /**
+     * Adds a profile image to the sidebar of the UI.
+     * If the image is not found or the input is null, a default image is used.
+     * All image files used in this command should be in the /Images/ directory.
+     * @param image The filename of the image without the extension (.jpg).
+     */
+    public void addMenuImage(String image) {
+        URL imageUrl = null;
+        if (image == null) {
+            image = "/Images/profile picture.jpg";
+        } else {
+            // Get the URL of the image resource
+            imageUrl = getClass().getResource("/Images/" + image + ".jpg");
+            if (imageUrl == null) {
+                image = "/Images/profile picture.jpg";
+                imageUrl = getClass().getResource(image);
+            }
+        }
+        // Create a new Image object
+        javafx.scene.image.Image img = new javafx.scene.image.Image(imageUrl.toExternalForm());
+
+        // Set the image to the ImageView
+        profilePicture.setImage(img);
+    }
+    /**
+     * Give text to the username on the sidebar of the UI.
+     * If the input name is null, it defaults to "User".
+     * The name is displayed in a label with a styled border.
+     * @param name The name to be displayed.
+     */
+    public void addMenuName(String name) {
+        // If the name is null, set it to "User"
+        if (name == null) {
+            name = "User";
+        }
+
+        // Set the text of the label
+        this.name.setText(name);
+
+        // Apply the style
+        this.name.setStyle("-fx-border-color: black; -fx-border-width: 3 3 3 3;");
+    }
+
+
+
 
     /**
      * Removes a specific item from the main window sidebar
