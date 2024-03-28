@@ -16,6 +16,7 @@ public class ServerUI extends Application {
     private Stage stage;
     private ScheduledExecutorService scheduler;
     private ThreadToCancel threadToCancel;
+    private ThreadParkFullChecker ThreadParkFullChecker;
 
     public static void main(String[] args) { launch(); }
 
@@ -30,6 +31,7 @@ public class ServerUI extends Application {
 
         changeScene("DatabaseConnection");
         startBackgroundScheduler();
+        startBackroundReminderThread();
     }
 
     /**
@@ -74,9 +76,24 @@ public class ServerUI extends Application {
     private void startBackgroundScheduler() {
         /**
          * run cancelation thread every hour
+         * run ParkFullChecker thread every 1 minute
          */
         threadToCancel = new ThreadToCancel();
-        scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(threadToCancel, 0, 1, TimeUnit.HOURS); // Run every hour
+        ThreadParkFullChecker  = new ThreadParkFullChecker();
+
+        ScheduledExecutorService cancelScheduler = Executors.newSingleThreadScheduledExecutor();
+        cancelScheduler.scheduleAtFixedRate(threadToCancel, 0, 1, TimeUnit.HOURS); // Run every hour
+
+        ScheduledExecutorService parkCheckerScheduler = Executors.newSingleThreadScheduledExecutor();
+        parkCheckerScheduler.scheduleAtFixedRate(ThreadParkFullChecker, 0, 1, TimeUnit.MINUTES); // Run every 1 minute
+
     }
+
+    private void startBackroundReminderThread(){
+        //will run once a day
+        ThreadSmsReminder threadSmsReminder = new ThreadSmsReminder();
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(threadSmsReminder, 0, 2, TimeUnit.SECONDS); // Run every hour
+    }
+
 }

@@ -59,16 +59,37 @@ public class OfficeMangerWelcomeWindow implements Initializable {
         parkChanges.refresh();
     }
     @FXML
-    public void confirmChanges(){
+    public void confirmChanges() {
+        // Get the selected row
+        ParkChangesView selectedRow = parkChanges.getSelectionModel().getSelectedItem();
 
-        for(ParkChangesView changes : parkChangesData ){
+        if (selectedRow != null) {
             Park updatedParkDetails = new Park();
-            updatedParkDetails.setPark_name(changes.getParkName());
-            updatedParkDetails.setCapacity(changes.getNewCapacity());
-            updatedParkDetails.setAverage_visit_time(changes.getNewAverageVisitTime());
-            updatedParkDetails.setCapacity_offset(changes.getNewCapacityOffset());
-            ClientHandler.request(new Message("UpdateParkDetails",updatedParkDetails));
+            updatedParkDetails.setPark_name(selectedRow.getParkName());
+            updatedParkDetails.setCapacity(selectedRow.getNewCapacity());
+            updatedParkDetails.setAverage_visit_time(selectedRow.getNewAverageVisitTime());
+            updatedParkDetails.setCapacity_offset(selectedRow.getNewCapacityOffset());
+            ClientHandler.request(new Message("UpdateParkDetails", updatedParkDetails));
+
+            // Refresh the TableView to reflect the changes
+            getParkChanges();
+        } else {
+            // If no row is selected, display a message
+            ClientUI.popupNotification("Please select a row to confirm changes.");
         }
-        getParkChanges();
     }
+
+//    @FXML
+//    public void confirmChanges(){
+//
+//        for(ParkChangesView changes : parkChangesData ){
+//            Park updatedParkDetails = new Park();
+//            updatedParkDetails.setPark_name(changes.getParkName());
+//            updatedParkDetails.setCapacity(changes.getNewCapacity());
+//            updatedParkDetails.setAverage_visit_time(changes.getNewAverageVisitTime());
+//            updatedParkDetails.setCapacity_offset(changes.getNewCapacityOffset());
+//            ClientHandler.request(new Message("UpdateParkDetails",updatedParkDetails));
+//        }
+//        getParkChanges();
+//    }
 }

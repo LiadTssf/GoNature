@@ -16,7 +16,7 @@ public class ThreadToCancel implements Runnable{
     public void run() {
         ZoneId zoneId = ZoneId.of("Asia/Jerusalem");
         try {
-            Thread.sleep(100000);
+            Thread.sleep(10000);
             DatabaseController DB = new DatabaseController();
             String queryToCancel = "UPDATE `order` SET cancelled = ? WHERE exit_time <= ? AND visit_date = ? AND  paid = ? AND cancelled = ?";
             try {
@@ -26,7 +26,7 @@ public class ThreadToCancel implements Runnable{
                 pstmt.setDate(3, Date.valueOf(LocalDate.now(zoneId).plusDays(1)));
                 pstmt.setBoolean(4,false);
                 pstmt.setBoolean(5,false);
-                System.out.println(pstmt);
+
                 int rowsUpdated = pstmt.executeUpdate();
                 System.out.println(rowsUpdated + " rows updated");
             } catch (SQLException e) {

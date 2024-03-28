@@ -13,6 +13,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DatabaseConnection implements Initializable {
+    public static boolean isConnected = false;
+
     @FXML
     private TextField url_txtfield;
     @FXML
@@ -41,6 +43,7 @@ public class DatabaseConnection implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        isConnected = true;
         ServerUI.changeScene("ShowConnections");
     }
 }

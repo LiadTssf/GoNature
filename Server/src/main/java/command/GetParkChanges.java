@@ -30,8 +30,6 @@ public class GetParkChanges implements ServerCommand {
                 parkChangesView.setOldAverageVisitTime(rs.getInt("old_average_visit_time"));
                 parkChangesView.setNewCapacityOffset(rs.getInt("new_capacity_offset"));
                 parkChangesView.setOldCapacityOffset(rs.getInt("old_capacity_offset"));
-                System.out.println(parkChangesView.getParkName());
-                System.out.println(parkChangesView.getNewAverageVisitTime());
                 parkChangesList.add(parkChangesView);
             }
 
