@@ -16,10 +16,13 @@ public class ThreadSmsReminder implements Runnable{
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        while(!(DatabaseConnection.isConnected))
+        {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         List<Order> orders = new ArrayList<>();
             LocalDate tomorrow = LocalDate.now().plusDays(2); // Tomorrow's date

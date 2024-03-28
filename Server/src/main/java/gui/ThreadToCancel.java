@@ -15,8 +15,15 @@ public class ThreadToCancel implements Runnable{
     @Override
     public void run() {
         ZoneId zoneId = ZoneId.of("Asia/Jerusalem");
-        try {
-            Thread.sleep(10000);
+
+        while(!(DatabaseConnection.isConnected))
+        {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
             DatabaseController DB = new DatabaseController();
             String queryToCancel = "UPDATE `order` SET cancelled = ? WHERE exit_time <= ? AND visit_date = ? AND  paid = ? AND cancelled = ?";
             try {
@@ -32,9 +39,7 @@ public class ThreadToCancel implements Runnable{
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
         System.out.println("cancel orders every hour");
 
     }
