@@ -54,7 +54,7 @@ public class UpdateOrder implements Initializable {
 
     private OrderList orderListController;
 
-    private Boolean isCancelled;
+    private Boolean isCancelled=false;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        if (ClientHandler.getAccount().account_type.equals("TourGuide")){
@@ -107,13 +107,22 @@ public class UpdateOrder implements Initializable {
 
     @FXML
     private void handleSaveChangesAndBack() {
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
         // Get the values from the text box, calendar, and time chooser
         //int newNumberOfVisitors = Integer.parseInt(String.valueOf(numberOfVisitors.getValue()));
         LocalDate newDateToVisit = dateToVisit.getValue();
         LocalTime newTimeOfVisit = timeOfVisit.getValue();
         // Check if newTimeOfVisit is before order.getExitTime()
-        if (false) {
-            showMessage("The visit time has to be between...",RED);
+        if (newDateToVisit.isBefore(today)) {
+            showMessage("The visit date has to be today or in the future", RED);
+            return;
+        } else if (newDateToVisit.equals(today) && newTimeOfVisit.isBefore(now.plusHours(1))) {
+            showMessage("If the visit date is today, the visit time has to be at least one hour from now", RED);
+            return;
+        }
+        if (newTimeOfVisit.isBefore( LocalTime.of(7, 0)) || newTimeOfVisit.isAfter(LocalTime.of(20, 0))) {
+            showMessage("The visit time has to be between 7:00 and 20:00", RED);
             return;
         }
 

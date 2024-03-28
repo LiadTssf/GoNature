@@ -16,7 +16,7 @@
       </TableView>
       <HBox prefHeight="25.0" prefWidth="646.0" spacing="10">
          <Button fx:id="saveButton" text="Save Changes" />
-         <Button fx:id="backButton" text="Back" />
+         <Button fx:id="refreshButton" text="Refresh" />
          <Label fx:id="saveMessage" />
       </HBox>
    </VBox>

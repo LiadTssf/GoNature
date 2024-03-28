@@ -59,7 +59,7 @@ public class SetOrderListById implements ServerCommand {
                 insertPstmt.setString(1, order.getOrderIdPk().toString());
                 insertPstmt.setInt(2, order.getAccountId());
                 insertPstmt.setString(3, order.getParkIdFk());
-                insertPstmt.setDate(4, Date.valueOf(order.getVisitDate()));
+                insertPstmt.setDate(4, Date.valueOf(order.getVisitDate().plusDays(1)));
 
                 // Create a java.sql.Time object and set it to the prepared statement
                 Time visitTime = Time.valueOf(order.getVisitTime());

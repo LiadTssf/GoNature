@@ -56,11 +56,12 @@ public class OrderList implements Initializable {
     private Button saveButton;
 
     @FXML
-    private Button backButton;
+    private Button refreshButton;
     @FXML
     private Label saveMessage;
     private int customerId;
     private ArrayList<Order> orderList;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set up the cell value factories for the table columns
@@ -76,9 +77,9 @@ public class OrderList implements Initializable {
         // Load orders based on customer ID
         loadOrdersFromDatabase(customerId);
 
-
         Object param = ClientHandler.getLastResponse().getParam();
         ArrayList<?> list = (ArrayList<?>) param;
+
         if (!list.isEmpty() && list.get(0) instanceof Order) {
             orderList = (ArrayList<Order>) list;
         }
@@ -105,7 +106,7 @@ public class OrderList implements Initializable {
 
         // Set button actions
         saveButton.setOnAction(event -> handleSaveChanges());
-        backButton.setOnAction(event -> handleBack());
+        refreshButton.setOnAction(event -> onRefreshButton());
     }
 
     private void handleRowDoubleClick() {
@@ -190,9 +191,21 @@ public class OrderList implements Initializable {
         timeline.play(); // Start the animation
     }
 
+    public void onRefreshButton() {
+        loadOrdersFromDatabase(customerId);
+        Object param2 = ClientHandler.getLastResponse().getParam();
+        ArrayList<?> list2 = (ArrayList<?>) param2;
 
-    private void handleBack() {
-        // Implement logic to navigate back to the previous screen
+        if (!list2.isEmpty() && list2.get(0) instanceof Order) {
+            orderList = (ArrayList<Order>) list2;
+        }
+
+        orderTable.getItems().clear();
+        List <Order> filteredOrders = orderList.stream()
+                .filter(order -> !order.getCancelled())
+                .collect(Collectors.toList());
+        orderTable.getItems().addAll(filteredOrders);
+
     }
 }
 
