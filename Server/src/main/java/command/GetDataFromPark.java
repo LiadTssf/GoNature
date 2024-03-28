@@ -9,7 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GetDataFromPark implements ServerCommand{
-
+    /**
+     * Executes the command to retrieve data from a park in the database.
+     *
+     * @param param   The DataParkChange object containing the park data to retrieve.
+     * @param account The account associated with the data retrieval request.
+     * @return A message containing the retrieved park data.
+     */
     @Override
     public Message execute(Object param, Account account) {
         if (!(param instanceof DataParkChange)){

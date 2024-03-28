@@ -13,6 +13,13 @@ public class GetFilesFromDB implements ServerCommand{
 
     @Override
     public Message execute(Object param, Account account){
+        /**
+         * Executes the command to retrieve files from the database.
+         *
+         * @param param   The parameter required for the command (not used in this case).
+         * @param account The account associated with the command.
+         * @return A message containing the files retrieved from the database.
+         */
         ArrayList<FilesData> arrayListFiles = new ArrayList<>();
         DatabaseController DB = new DatabaseController();
         String queryGetFiles = "SELECT file_name FROM files";

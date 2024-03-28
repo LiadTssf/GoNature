@@ -10,6 +10,13 @@ import java.sql.SQLException;
 public class UpdateParkDetails implements ServerCommand {
     @Override
     public Message execute(Object param, Account account) throws SQLException {
+        /**
+         * Executes the command to update park details in the database.
+         *
+         * @param param   The Park object containing the updated park details.
+         * @param account The account associated with the update request.
+         * @return A message indicating the result of the update operation.
+         */
         if(!(param instanceof Park)){
             return new Message("FailMessage", "Invalid parameter type ");
         }

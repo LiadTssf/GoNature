@@ -9,6 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DownloadFileFromDB implements ServerCommand{
+    /**
+     * Executes the command to download a file from the database.
+     *
+     * @param param   The name of the file to download.
+     * @param account The account associated with the download request.
+     * @return A message indicating the result of the download operation.
+     */
     @Override
     public Message execute(Object param, Account account) {
         if (!(param instanceof String)) {

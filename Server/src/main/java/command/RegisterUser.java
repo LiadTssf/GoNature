@@ -12,6 +12,13 @@ public class RegisterUser implements ServerCommand{
 
     @Override
     public Message execute(Object param, Account account) {
+        /**
+         * Executes the command to register a user.
+         *
+         * @param param   The RegisteredAccount object containing user registration data.
+         * @param account The account associated with the registration request.
+         * @return A message indicating the result of the registration operation.
+         */
         if (!(param instanceof RegisteredAccount)){
             return new Message("RegistrationFailed","param is not registerUser type");
         }

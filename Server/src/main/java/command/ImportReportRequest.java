@@ -15,6 +15,13 @@ public class ImportReportRequest implements ServerCommand {
 
     @Override
     public Message execute(Object param, Account account) {
+        /**
+         * Executes the command to import report requests and generate reports.
+         *
+         * @param param   The ReportRequest object containing the report request details.
+         * @param account The account associated with the report request.
+         * @return A message indicating the result of the import and report generation operation.
+         */
         if (!(param instanceof ReportRequest)) {
             return new Message("paramFailed", "parameter is not ReportRequest type");
         }

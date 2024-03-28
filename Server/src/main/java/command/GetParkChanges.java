@@ -14,6 +14,13 @@ public class GetParkChanges implements ServerCommand {
 
     @Override
     public Message execute(Object param, Account account)  {
+        /**
+         * Executes the command to retrieve park changes from the database.
+         *
+         * @param param   The parameter required for the command (not used in this case).
+         * @param account The account associated with the command.
+         * @return A message containing the park changes retrieved from the database.
+         */
         try{
             ArrayList<ParkChangesView> parkChangesList = new ArrayList<>();
             String queryToRun = "SELECT * FROM `gonature`.`park_changes`";

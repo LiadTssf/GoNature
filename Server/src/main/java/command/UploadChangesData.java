@@ -8,6 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class UploadChangesData implements ServerCommand{
+    /**
+     * Executes the command to upload changes data to the database.
+     *
+     * @param param   The DataParkChange object containing the changes data to upload.
+     * @param account The account associated with the upload request.
+     * @return A message indicating the result of the upload operation.
+     */
     @Override
     public Message execute(Object param, Account account){
         if (!(param instanceof DataParkChange)){
