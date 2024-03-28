@@ -30,6 +30,7 @@ public class ServerUI extends Application {
 
         changeScene("DatabaseConnection");
         startBackgroundScheduler();
+        startBackroundReminderThread();
     }
 
     /**
@@ -78,5 +79,12 @@ public class ServerUI extends Application {
         threadToCancel = new ThreadToCancel();
         scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(threadToCancel, 0, 1, TimeUnit.HOURS); // Run every hour
+    }
+
+    private void startBackroundReminderThread(){
+        //will run once a day
+        ThreadSmsReminder threadSmsReminder = new ThreadSmsReminder();
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(threadSmsReminder, 0, 2, TimeUnit.SECONDS); // Run every hour
     }
 }
