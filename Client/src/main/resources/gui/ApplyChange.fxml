@@ -15,14 +15,14 @@
           <TableColumn prefWidth="85.0" text="Park Name" />
         </columns>
       </TableView>
-      <Button layoutX="464.0" layoutY="98.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Confirm" textFill="WHITE" onAction="#ConfirmChange">
+      <Button layoutX="464.0" layoutY="98.0" mnemonicParsing="false" onAction="#ConfirmChange" style="-fx-background-color: green;" text="Confirm" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="472.0" layoutY="161.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Cancel" textFill="WHITE" onAction="#discardChange">
+      <Button layoutX="472.0" layoutY="161.0" mnemonicParsing="false" onAction="#discardChange" style="-fx-background-color: red;" text="Cancel" textFill="WHITE">
          <font>
-            <Font size="18.0" name="System Bold"/>
+            <Font name="System Bold" size="18.0" />
          </font>
       </Button>
    </children>

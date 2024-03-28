@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GetReportFiles">
+   <children>
+      <Label layoutX="226.0" layoutY="14.0" text="Reports From Park Manager" />
+
+
+      <TableView fx:id="fileTable" layoutX="14.0" layoutY="53.0" prefHeight="295.0" prefWidth="271.0" styleClass="table-view">
+         <columns>
+         <TableColumn prefWidth="270.0" text="file name">
+            <cellValueFactory>
+               <PropertyValueFactory property="fileName" />
+            </cellValueFactory>
+         </TableColumn>
+         </columns>
+      </TableView>
+      <Button layoutX="358.0" layoutY="128.0" mnemonicParsing="false" text="Refresh" onAction="#refresh" />
+      <Button layoutX="349.0" layoutY="74.0" mnemonicParsing="false" text="Download" onAction="#download"/>
+   </children>
+
+</AnchorPane>

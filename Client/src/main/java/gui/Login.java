@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -123,6 +125,7 @@ public class Login implements Initializable {
                 ClientUI.addMainMenuItem("Home Screen", "Welcome");
                 ClientUI.addMainMenuItem("Export Report", "ExportReportReq");
                 ClientUI.addMainMenuItem("apply new changes", "OfficeMangerWelcomeWindow");
+                ClientUI.addMainMenuItem("report from parks", "GetReportFiles");
                 ClientUI.addMainMenuItem("Logout", "Logout");
             } else if (ClientHandler.getAccount().account_type.equals("ParkManager")) {
                 ClientUI.changeScene("Welcome");

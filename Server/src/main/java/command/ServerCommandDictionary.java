@@ -27,6 +27,8 @@ public class ServerCommandDictionary {
         this.addCommand("changePaidOrder",new changePaidOrder());
         this.addCommand("UploadChangesData",new UploadChangesData());
         this.addCommand("ImportReportRequest",new ImportReportRequest());
+        this.addCommand("GetFilesFromDB",new GetFilesFromDB());
+        this.addCommand("DownloadFileFromDB",new DownloadFileFromDB());
     }
 
     /**
