@@ -30,7 +30,6 @@
             <TableView fx:id="orderTableView" prefHeight="226.0" prefWidth="461.0">
                <columns>
                   <TableColumn fx:id="orderId" text="Order ID" />
-                  <TableColumn fx:id="parkId" text="Park ID" />
                   <TableColumn fx:id="visitTime" text="Visit Time" />
                   <TableColumn fx:id="exitTime" text="Exit Time" />
                   <TableColumn fx:id="numVisitors" text="Number of Visitors" />

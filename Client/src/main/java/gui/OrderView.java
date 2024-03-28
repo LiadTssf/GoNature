@@ -25,6 +25,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+
 public class OrderView implements Initializable {
     @FXML
     private Button searchButton;
@@ -63,11 +65,13 @@ public class OrderView implements Initializable {
     @FXML
     private Modality modality = Modality.WINDOW_MODAL;
     private String accountIdText;
+    private ArrayList<Order> filteredOrders=new ArrayList<Order>();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
          //Set up the cell value factories for the table columns
         orderId.setCellValueFactory(new PropertyValueFactory<>("OrderIdPk"));
-        parkId.setCellValueFactory(new PropertyValueFactory<>("ParkIdFk"));
+        //parkId.setCellValueFactory(new PropertyValueFactory<>("ParkIdFk"));
         visitTime.setCellValueFactory(new PropertyValueFactory<>("VisitTime"));
         exitTime.setCellValueFactory(new PropertyValueFactory<>("ExitTime"));
         numVisitors.setCellValueFactory(new PropertyValueFactory<>("NumberOfVisitors"));
@@ -91,7 +95,11 @@ public class OrderView implements Initializable {
             return; // Exit the method if the TextField is empty
         }
 
+
+
         try {
+            WorkerAccount workeraccount=(WorkerAccount) ClientHandler.getAccount();
+            String parkID = workeraccount.getPark_id();
             int accountId = Integer.parseInt(accountIdText);
 
             // Send request to server to search for orders
@@ -107,11 +115,18 @@ public class OrderView implements Initializable {
 
                     if (!list.isEmpty() && list.get(0) instanceof Order) {
                         orderList = (ArrayList<Order>) list;
+                        // Filter the orderList to show only orders with the matching parkID
+                        for (Order order : orderList) {
+                            if (order.getParkIdFk().equals(parkID)) {
+
+                                filteredOrders.add(order);
+                            }
+                        }
                     }
                     if (orderTableView != null) {
                         orderTableView.getItems().clear();
-                        if (orderList != null) {
-                            orderTableView.getItems().addAll(orderList);
+                        if (!filteredOrders.isEmpty()) {
+                            orderTableView.getItems().addAll(filteredOrders);
                         }
                     }
                 }

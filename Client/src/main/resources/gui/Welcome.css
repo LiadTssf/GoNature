@@ -1,0 +1,29 @@
+.left-arrow-button {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-padding: 10 15 10 15;
+    -fx-shape: "M 20 0 L 0 10 L 20 20 Z";
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-opacity: 0.5;
+    -fx-text-fill: black;
+}
+
+.left-arrow-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.2); /* Adjust transparency here */
+}
+
+.right-arrow-button {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-padding: 10 15 10 15;
+    -fx-shape: "M 0 0 L 20 10 L 0 20 Z";
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-opacity: 0.5;
+    -fx-text-fill: black;
+}
+
+.right-arrow-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.2); /* Adjust transparency here */
+}

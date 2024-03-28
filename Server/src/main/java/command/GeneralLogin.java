@@ -87,6 +87,7 @@ public class GeneralLogin implements ServerCommand{
                 if (resultSet.next()){
                     workerAccount.park_id_fk = resultSet.getString("park_name");
                 }
+                workerAccount.park_id="" + park_id;
                 workerAccount.firstname = rs.getString("firstname");
                 workerAccount.lastname = rs.getString("lastname");
                 workerAccount.worker_id = rs.getInt("worker_id");
