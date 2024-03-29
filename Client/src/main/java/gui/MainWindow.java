@@ -8,11 +8,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
-import java.awt.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -79,12 +78,12 @@ public class MainWindow implements Initializable {
     public void addMenuImage(String image) {
         URL imageUrl = null;
         if (image == null) {
-            image = "/Images/profile picture.jpg";
+            image = "/Images/defaultProfilePicture.jpg";
         } else {
             // Get the URL of the image resource
             imageUrl = getClass().getResource("/Images/" + image + ".jpg");
             if (imageUrl == null) {
-                image = "/Images/profile picture.jpg";
+                image = "/Images/defaultProfilePicture.jpg";
                 imageUrl = getClass().getResource(image);
             }
         }
