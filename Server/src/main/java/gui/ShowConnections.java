@@ -1,12 +1,21 @@
 package gui;
 
 import data.ConnectionTableData;
+import database.SqlConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class ShowConnections implements Initializable {
@@ -63,5 +72,45 @@ public class ShowConnections implements Initializable {
             }
         }
         return -1;
+    }
+
+    public void installGoNature(ActionEvent actionEvent) {
+        try {
+            //serverHandler.listen();
+
+            // Use the existing connection to execute the SQL file
+            Connection connection = SqlConnection.getConnection();
+            Statement statement = connection.createStatement();
+
+            // Specify the path to the SQL file
+            String sqlFilePath = "C:\\Users\\liad3\\IdeaProjects\\GoNature\\Server\\src\\main\\java\\database\\InstallGoNature.sql";
+
+
+            // Read the SQL file
+            StringBuilder sqlStatements = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new FileReader(sqlFilePath))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sqlStatements.append(line).append("\n"); // Append newline character to ensure complete lines are read
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Execute the SQL statements in the file
+            String[] sqlQueries = sqlStatements.toString().split(";");
+            for (String query : sqlQueries) {
+                // Skip empty queries
+                if (!query.trim().isEmpty()) {
+                    System.out.println("Query: " + query); // Print each query before executing
+                    statement.addBatch(query);
+                }
+            }
+            statement.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Print message to server console
+        System.out.println("Installation successful!");
     }
 }

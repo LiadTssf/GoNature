@@ -83,3 +83,12 @@ Order order = (Order) response.getParam();
       git pull origin main ( get the newest version of the project)
       git push origin main
 
+
+
+סוגי עובדם:
+OfficeManger
+ParkManger
+ParkWorker
+OfficeWorker
+
+Regular
