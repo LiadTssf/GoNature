@@ -76,8 +76,8 @@ public class Login implements Initializable {
 
             ClientUI.changeScene("Welcome");
             ClientUI.removeAllMainMenuItems();
-            ClientUI.addMainMenuImage("profile picture");
-            ClientUI.addMainMenuName("Mr.Nigger");
+            ClientUI.addMainMenuImage("defaultProfilePicture");
+            ClientUI.addMainMenuName("New User");
             ClientUI.addMainMenuItem("Welcome", "Welcome");
             ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
             ClientUI.addMainMenuItem("Orders List", "OrderList");
@@ -119,7 +119,7 @@ public class Login implements Initializable {
             if (ClientHandler.getAccount().account_type.equals("TourGuide")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
-                ClientUI.addMainMenuImage("profile picture");
+                ClientUI.addMainMenuImage("defaultProfilePicture");
                 ClientUI.addMainMenuName(username);
                 ClientUI.addMainMenuItem("Home Screen", "Welcome");
                 ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
@@ -128,7 +128,7 @@ public class Login implements Initializable {
             } else if (ClientHandler.getAccount().account_type.equals("OfficeManager")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
-                ClientUI.addMainMenuImage("profile picture");
+                ClientUI.addMainMenuImage("defaultProfilePicture");
                 ClientUI.addMainMenuName(username);
                 ClientUI.addMainMenuItem("Home Screen", "Welcome");
                 ClientUI.addMainMenuItem("Export Report", "ExportReportReq");
@@ -138,7 +138,7 @@ public class Login implements Initializable {
             } else if (ClientHandler.getAccount().account_type.equals("ParkManager")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
-                ClientUI.addMainMenuImage("profile picture");
+                ClientUI.addMainMenuImage("defaultProfilePicture");
                 ClientUI.addMainMenuName(username);
                 ClientUI.addMainMenuItem("Home Screen", "Welcome");
                 ClientUI.addMainMenuItem("Import Reports", "ImportReports");
@@ -147,7 +147,7 @@ public class Login implements Initializable {
             } else if (ClientHandler.getAccount().account_type.equals("OfficeWorker")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
-                ClientUI.addMainMenuImage("profile picture");
+                ClientUI.addMainMenuImage("defaultProfilePicture");
                 ClientUI.addMainMenuName(username);
                 ClientUI.addMainMenuItem("Home Screen", "Welcome");
                 ClientUI.addMainMenuItem("Tour Guide Registration", "Register");
@@ -155,7 +155,7 @@ public class Login implements Initializable {
             }else if (ClientHandler.getAccount().account_type.equals("ParkWorker")){
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
-                ClientUI.addMainMenuImage("profile picture");
+                ClientUI.addMainMenuImage("defaultProfilePicture");
                 ClientUI.addMainMenuName(username);
                 ClientUI.addMainMenuItem("Home Screen", "Welcome");
                 ClientUI.addMainMenuItem("View Order", "OrderView");
