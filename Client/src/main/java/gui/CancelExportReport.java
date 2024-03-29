@@ -16,18 +16,19 @@ import java.util.ResourceBundle;
 public class CancelExportReport implements Initializable {
     @FXML
     private TableView<Order> cancellationTbl;
+    private ObservableList<Order> observableList;
     private ArrayList<Order> orderList;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (ClientHandler.getLastResponse().getCommand().equals("VisitExportReport")){
+        observableList = FXCollections.observableArrayList();
+        cancellationTbl.setItems(observableList);
+        if (ClientHandler.getLastResponse().getCommand().equals("CancellationReport")){
             orderList = (ArrayList<Order>) ClientHandler.getLastResponse().getParam();
         }
+        observableList.clear();
+        observableList.addAll(orderList);
 
-        // Convert the ArrayList to an ObservableList
-        ObservableList<Order> observableList = FXCollections.observableArrayList();
-
-        cancellationTbl.setItems(observableList);
-
+        cancellationTbl.refresh();
 
     }
 }

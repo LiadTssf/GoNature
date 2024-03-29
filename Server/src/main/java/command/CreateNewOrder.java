@@ -40,7 +40,7 @@ public class CreateNewOrder implements ServerCommand {
 
         DatabaseController DB = new DatabaseController();
 
-        String query = ("INSERT INTO `order` (order_id_pk, account_id, park_id_fk, visit_date, visit_time, exit_time, number_of_visitors, email, phone, guided_order, on_arrival_order, on_waiting_list, cancelled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        String query = ("INSERT INTO `order` (order_id_pk, account_id, park_id_fk, visit_date, visit_time, exit_time, number_of_visitors, email, phone, guided_order, on_arrival_order, on_waiting_list, cancelled, paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         String queryGetID = ("SELECT park_id_pk FROM park WHERE park_name = ?"); //Get park ID
 
         String queryToIncrease = ("SELECT current_visitors,capacity,capacity_offset FROM park WHERE park_id_pk = ?"); //Updates current visitors+specific order visitors number by using park ID
@@ -70,7 +70,7 @@ public class CreateNewOrder implements ServerCommand {
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 capacity = rs.getInt("capacity");
-                offset = rs.getInt("current_visitors");
+                offset = rs.getInt("capacity_offset");
                 avgTime = rs.getInt("average_visit_time");
             }
 
@@ -84,6 +84,7 @@ public class CreateNewOrder implements ServerCommand {
             }
 
             pstmt = DB.getConnection().prepareStatement(queryToIncrease);
+            pstmt.setInt(1,parkID);
             rs = pstmt.executeQuery();
             if (rs.next()){
                 currentVisitors = rs.getInt("current_visitors");
@@ -111,12 +112,14 @@ public class CreateNewOrder implements ServerCommand {
             pstmt.setBoolean(10, orderToCreate.guided_order);
             pstmt.setBoolean(11, orderToCreate.on_arrival_order);
             pstmt.setBoolean(12, orderToCreate.on_waiting_list);
-            pstmt.setBoolean(13, orderToCreate.cancelled);
+            pstmt.setBoolean(13, false);
+            pstmt.setBoolean(14,false);
             pstmt.execute();
+
             if (orderToCreate.on_waiting_list){
                 return new Message("OnWaitingList");
             }
-            return new Message("OrderCreated", orderToCreate);
+            return new Message("OrderCreated", account);
         } catch (SQLException e) {
             e.printStackTrace();
             return new Message("OrderFailed", "An error occurred while trying to create order.");

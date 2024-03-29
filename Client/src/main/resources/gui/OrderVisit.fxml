@@ -12,23 +12,23 @@
       <Label layoutX="20.0" layoutY="29.0" text="ID:" />
       <Label layoutX="14.0" layoutY="66.0" text="Email:" />
       <Label layoutX="18.0" layoutY="137.0" text="Number Of Visitors: " />
-      <Label layoutX="16.0" layoutY="277.0" text="Final Cost: " />
-      <Label layoutX="15.0" layoutY="305.0" text="Waiting List: " />
+      <Label layoutX="16.0" layoutY="277.0" text="Final Cost: " visible="false" />
+      <Label layoutX="15.0" layoutY="305.0" text="Waiting List: " visible="false" />
       <Spinner fx:id="timeOfVisit" layoutX="97.0" layoutY="200.0" />
       <Spinner fx:id="numberOfVisitors" layoutX="137.0" layoutY="133.0" prefHeight="25.0" prefWidth="69.0" />
       <DatePicker fx:id="dateToVisit" layoutX="97.0" layoutY="165.0" />
       <TextField fx:id="customer_email" layoutX="97.0" layoutY="62.0" />
       <TextField fx:id="customer_id" disable="true" layoutX="97.0" layoutY="25.0" />
 
-      <RadioButton fx:id="waitingList" layoutX="102.0" layoutY="305.0" mnemonicParsing="false" />
+      <RadioButton fx:id="waitingList" layoutX="102.0" layoutY="305.0" mnemonicParsing="false" visible="false" />
       <Button layoutX="206.0" layoutY="313.0" mnemonicParsing="false" onAction="#OrderVisit" prefHeight="65.0" prefWidth="133.0" style="-fx-background-color: green;" text="Submmite Your Order" textAlignment="CENTER" textFill="WHITE" />
       <Label layoutX="14.0" layoutY="101.0" text="Phone Number: " />
       <TextField fx:id="customer_phone_number" layoutX="110.0" layoutY="97.0" />
       <Label layoutX="14.0" layoutY="235.0" text="Choose Location" />
-      <SplitMenuButton fx:id="location_pick" layoutX="107.0" layoutY="231.0" text="Park Location" >
+      <SplitMenuButton fx:id="location_pick" layoutX="107.0" layoutY="231.0" text="Park Location">
         <items>
-          <MenuItem fx:id="menuItem_karmiel" text="Karmiel"/>
-          <MenuItem fx:id="menuItem_Haifa" text="Haifa"/>
+          <MenuItem fx:id="menuItem_karmiel" text="Karmiel" />
+          <MenuItem fx:id="menuItem_Haifa" text="Haifa" />
           <MenuItem fx:id="menuItem_Tel_aviv" text="Tel Aviv" />
         </items>
       </SplitMenuButton>

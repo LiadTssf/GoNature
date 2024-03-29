@@ -45,7 +45,7 @@ public class ImportReportRequest implements ServerCommand {
         if (reportRequest.capacityReport) {
             fileName = "capacity_Report_" + reportRequest.areaOfReport +"_"+LocalDate.now()+ ".txt";
             reportFile = new File(fileName);
-            queryToRun = "SELECT SUM(number_of_visitors) AS totalNum FROM `order` WHERE park_id_fk = ? AND visit_date = ? AND visit_time = ?";
+            queryToRun = "SELECT current_visitors FROM park WHERE park_id_pk = ?";
         } else {
             fileName = "by_group_report_" + reportRequest.areaOfReport +"_"+LocalDate.now()+".txt";
             reportFile = new File(fileName);
@@ -71,12 +71,10 @@ public class ImportReportRequest implements ServerCommand {
                 try {
                     while (fromDate.isBefore(toDate)) {
                         LocalTime startingTime = LocalTime.of(7,0);
-                        pstmt.setDate(2, Date.valueOf(reportRequest.dates.get(0)));
                         while (startingTime.isBefore(LocalTime.of(20,0))) {
-                            pstmt.setTime(3, Time.valueOf(startingTime));
                             rs = pstmt.executeQuery();
                             if (rs.next()) {
-                                totalVisitor = rs.getInt("totalNum");
+                                totalVisitor = rs.getInt("current_visitors");
                                 if (totalVisitor < capacity) {
                                     ParkCapacity = "Not Full Park";
                                 } else {

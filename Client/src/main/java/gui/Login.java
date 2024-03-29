@@ -68,7 +68,7 @@ public class Login implements Initializable {
         }
 
         if (ClientHandler.getLastResponse().getCommand().equals("AlreadyRegistered")){
-            ClientUI.popupNotification("The ID is belong to tour guide\nPlease Login with Username and Password");
+            ClientUI.popupNotification("The ID is belong to tour guide or as regular client\nPlease Login with Username and Password");
         }
         if(ClientHandler.getLastResponse().getCommand().equals("AuthenticateClient")) {
             //Accepted response

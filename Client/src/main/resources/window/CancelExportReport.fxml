@@ -1,24 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="535.0" prefWidth="1001.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CancelExportReport">
+<AnchorPane prefHeight="535.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CancelExportReport">
    <children>
-      <TableView fx:id="cancellationTbl" layoutX="14.0" layoutY="14.0" prefHeight="509.0" prefWidth="978.0">
+      <TableView fx:id="cancellationTbl" layoutX="14.0" layoutY="14.0" prefHeight="509.0" prefWidth="840.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="account id" />
-          <TableColumn prefWidth="75.0" text="park name" />
-          <TableColumn prefWidth="75.0" text="visit date" />
-          <TableColumn prefWidth="75.0" text="visit time" />
-          <TableColumn prefWidth="75.0" text="exit time" />
-          <TableColumn prefWidth="119.0" text="number of visitor" />
-          <TableColumn prefWidth="98.0" text="email" />
-          <TableColumn prefWidth="52.0" text="phone" />
-          <TableColumn prefWidth="79.0" text="guided tour" />
-          <TableColumn prefWidth="111.0" text="order on the spot" />
-          <TableColumn prefWidth="75.0" text="waiting list" />
-          <TableColumn prefWidth="67.0" text="cancelled" />
+          <TableColumn prefWidth="75.0" text="account id">
+                  <cellValueFactory>
+                      <PropertyValueFactory property="account_id" />
+                  </cellValueFactory>
+          </TableColumn>
+            <TableColumn prefWidth="75.0" text="park name">
+                <cellValueFactory>
+                    <PropertyValueFactory property="park_id_fk" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="visit date">
+                <cellValueFactory>
+                    <PropertyValueFactory property="visit_date" />
+                </cellValueFactory>
+            </TableColumn>
+          <TableColumn prefWidth="75.0" text="visit time">
+            <cellValueFactory>
+                <PropertyValueFactory property="visit_time" />
+            </cellValueFactory>
+          </TableColumn>
+          <TableColumn prefWidth="75.0" text="exit time">
+            <cellValueFactory>
+                <PropertyValueFactory property="exit_time" />
+            </cellValueFactory>
+          </TableColumn>
+
+          <TableColumn prefWidth="119.0" text="number of visitor">
+            <cellValueFactory>
+                <PropertyValueFactory property="number_of_visitors" />
+            </cellValueFactory>
+          </TableColumn>
+          <TableColumn prefWidth="98.0" text="email">
+            <cellValueFactory>
+                <PropertyValueFactory property="email" />
+            </cellValueFactory>
+          </TableColumn>
+          <TableColumn prefWidth="52.0" text="phone">
+            <cellValueFactory>
+                <PropertyValueFactory property="phone" />
+            </cellValueFactory>
+          </TableColumn>
+          <TableColumn prefWidth="79.0" text="guided tour">
+            <cellValueFactory>
+                <PropertyValueFactory property="guided_order" />
+            </cellValueFactory>
+          </TableColumn>
+          <TableColumn prefWidth="112.0" text="on waiting list">
+            <cellValueFactory>
+                <PropertyValueFactory property="on_waiting_list" />
+            </cellValueFactory>
+          </TableColumn>
         </columns>
       </TableView>
    </children>

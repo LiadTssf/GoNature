@@ -45,6 +45,9 @@ public class OrderVisit extends Login implements Initializable {
     @FXML
     private MenuItem menuItem_Tel_aviv;
     private RegisteredAccount registeredAccount;
+    private Order newOrder;
+    private int accID;
+    private String accType;
     private float priceCalculation(int numberOfVisitors,double discount){
         return 0;
     }
@@ -54,7 +57,11 @@ public class OrderVisit extends Login implements Initializable {
     * the Spinner local method it's for set time (the steps are by half hour)*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        customer_id.setText(String.valueOf(ClientHandler.getAccount().account_id_pk));
+        if (ClientHandler.getAccount().account_type.equals("ParkWorker")){
+            customer_id.setDisable(false);
+        }else {
+            customer_id.setText(String.valueOf(ClientHandler.getAccount().account_id_pk));
+        }
         if (ClientHandler.getAccount().account_type.equals("TourGuide")){
             registeredAccount = (RegisteredAccount) ClientHandler.getAccount();
             customer_email.setDisable(true);
@@ -103,7 +110,7 @@ public class OrderVisit extends Login implements Initializable {
 
     @FXML
     public void OrderVisit(ActionEvent actionEvent) {
-        Order newOrder = new Order();
+        newOrder = new Order();
         if(ClientHandler.getAccount().account_type.equals("TourGuide")) {
             newOrder.guided_order = true;
         }else{
@@ -158,7 +165,6 @@ public class OrderVisit extends Login implements Initializable {
 
             ClientHandler.request(new Message("CreateNewOrder",newOrder));
 
-
             if (ClientHandler.getLastResponse().getCommand().equals("OrderEmail")){
                 ClientUI.popupNotification("Enter your Email please");
             }
@@ -174,12 +180,9 @@ public class OrderVisit extends Login implements Initializable {
             if (ClientHandler.getLastResponse().getCommand().equals("OnWaitingList")){
                 ClientUI.popupNotification("Unfortunately, The park is fully booked.\nYour order Moved to waiting List.\nWe will let you know when there will be open spot");
             }
-        if (ClientHandler.getLastResponse().getCommand().equals("OrderCreated")) {
-            ClientUI.popupNotification("Congratulations!!\nYour Order Created Successfully.\nWe'll be Happy To see you!");
-            ClientUI.changeScene("Welcome");
+            if (ClientHandler.getLastResponse().getCommand().equals("OrderCreated")) {
+                ClientUI.popupNotification("Congratulations!!\nYour Order Created Successfully.\nWe'll be Happy To see you!");
         }
-
-
     }
 
 }
