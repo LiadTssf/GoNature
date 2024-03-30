@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 
 public class DatabaseConnection implements Initializable {
     public static boolean isConnected = false;
-    public static final Object lock = new Object();
 
     @FXML
     private TextField url_txtfield;
@@ -44,10 +43,9 @@ public class DatabaseConnection implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        synchronized(DatabaseConnection.lock) {
-            isConnected = true;
-            DatabaseConnection.lock.notifyAll();
-        }
+        isConnected = true;
+
+
         ServerUI.changeScene("ShowConnections");
     }
 

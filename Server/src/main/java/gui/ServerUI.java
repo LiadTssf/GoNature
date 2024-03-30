@@ -80,7 +80,6 @@ public class ServerUI extends Application {
          */
         threadToCancel = new ThreadToCancel();
         ThreadParkFullChecker  = new ThreadParkFullChecker();
-
         ScheduledExecutorService cancelScheduler = Executors.newSingleThreadScheduledExecutor();
         cancelScheduler.scheduleAtFixedRate(threadToCancel, 0, 1, TimeUnit.HOURS); // Run every hour
 
@@ -91,9 +90,9 @@ public class ServerUI extends Application {
 
     private void startBackroundReminderThread(){
         //will run once a day
-        ThreadSmsReminder threadSmsReminder = new ThreadSmsReminder();
-        scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(threadSmsReminder, 0, 2, TimeUnit.SECONDS); // Run every hour
+//        ThreadSmsReminder threadSmsReminder = new ThreadSmsReminder();
+//        scheduler = Executors.newSingleThreadScheduledExecutor();
+//        scheduler.scheduleAtFixedRate(threadSmsReminder, 0, 2, TimeUnit.SECONDS); // Run every hour
     }
 
 }
