@@ -63,7 +63,7 @@ public class OrderVisit extends Login implements Initializable {
         }else {
             customer_id.setText(String.valueOf(ClientHandler.getAccount().account_id_pk));
         }
-        if (ClientHandler.getAccount().account_type != null){
+        if (ClientHandler.getAccount().account_type.equals("TourGuide") || ClientHandler.getAccount().account_type.equals("Client") ){
             blockFields();
             if (ClientHandler.getAccount().account_type.equals("TourGuide")) {
                 numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 15));
