@@ -83,7 +83,7 @@ public class ShowConnections implements Initializable {
             Statement statement = connection.createStatement();
 
             // Specify the path to the SQL file
-            String sqlFilePath = "C:\\Users\\liad3\\IdeaProjects\\GoNature\\Server\\src\\main\\java\\database\\InstallGoNature.sql";
+            String sqlFilePath = "InstallGoNature.sql";
 
 
             // Read the SQL file
@@ -94,7 +94,7 @@ public class ShowConnections implements Initializable {
                     sqlStatements.append(line).append("\n"); // Append newline character to ensure complete lines are read
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Change File.SQL PATH!!!!!!");
             }
 
             // Execute the SQL statements in the file

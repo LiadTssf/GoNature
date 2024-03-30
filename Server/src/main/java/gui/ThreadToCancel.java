@@ -9,7 +9,7 @@ import java.time.ZoneId;
 
 import static java.lang.Thread.sleep;
 
-public class ThreadToCancel implements Runnable{
+public class ThreadToCancel extends Thread implements Runnable{
 
     /*Thread method that checks every row and IF the exit time and visit date is the same as real values
     * set this order as cancelled

@@ -17,6 +17,7 @@ public class ServerUI extends Application {
     private ScheduledExecutorService scheduler;
     private ThreadToCancel threadToCancel;
     private ThreadParkFullChecker ThreadParkFullChecker;
+    private ThreadSmsReminder threadSmsReminder;
 
     public static void main(String[] args) { launch(); }
 
@@ -38,8 +39,10 @@ public class ServerUI extends Application {
      * Handles closing the application, closes the server handler
      */
     @Override
-    public void stop() {
-
+    public void stop() throws InterruptedException{
+        ThreadParkFullChecker.interrupt();
+        threadSmsReminder.interrupt();
+        threadToCancel.interrupt();
         ServerHandler.closeServerHandler();
         scheduler.shutdown();
     }
@@ -91,7 +94,7 @@ public class ServerUI extends Application {
 
     private void startBackroundReminderThread(){
         //will run once a day
-        ThreadSmsReminder threadSmsReminder = new ThreadSmsReminder();
+        threadSmsReminder = new ThreadSmsReminder();
         scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(threadSmsReminder, 0, 2, TimeUnit.SECONDS); // Run every hour
     }

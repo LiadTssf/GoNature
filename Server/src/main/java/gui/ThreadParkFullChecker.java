@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class ThreadParkFullChecker implements Runnable {
+public class ThreadParkFullChecker extends Thread implements Runnable{
     @Override
     public void run() {
         LocalTime now = LocalTime.now();
