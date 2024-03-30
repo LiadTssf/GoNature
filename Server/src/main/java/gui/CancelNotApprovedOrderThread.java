@@ -20,7 +20,8 @@ public class CancelNotApprovedOrderThread implements Runnable{
     @Override
     public void run() {
         try {
-            Thread.sleep(2 * 60 * 60 * 1000); // 2 hours in milliseconds
+//            Thread.sleep(2 * 60 * 60 * 1000); // 2 hours in milliseconds
+            Thread.sleep(100);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -37,10 +38,11 @@ public class CancelNotApprovedOrderThread implements Runnable{
         LocalDate tomorrow = LocalDate.now().plusDays(2);
         try {
 
-            String query = "UPDATE `gonature`.`order` SET cancelled = ? WHERE visit_date = ?";
+            String query = "UPDATE `gonature`.`order` SET cancelled = ? WHERE visit_date = ? AND approve = ?";
             PreparedStatement statement = DB.getConnection().prepareStatement(query);
             statement.setBoolean(1,true);
             statement.setDate(2, Date.valueOf(tomorrow));
+            statement.setBoolean(3,false);
             statement.executeUpdate();
             System.out.println("order deleted ! ");
 //            statement.close();
