@@ -49,7 +49,7 @@ public class GetReportFiles implements Initializable {
     public void download(ActionEvent actionEvent) {
         fileName = fileTable.getSelectionModel().getSelectedItem().getFileName();
         if (fileName != null){
-            ClientHandler.request(new Message("DownloadFileFromDB",fileName));
+            ClientHandler.request(new Message("DownloadFileFromDB", fileName));
         }
         if (ClientHandler.getLastResponse().getCommand().equals("DownloadFailed")){
             ClientUI.popupNotification("Download failed, please Call group 15 IT team");

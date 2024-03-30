@@ -115,6 +115,8 @@ public class OrderView implements Initializable {
 
                     if (!list.isEmpty() && list.get(0) instanceof Order) {
                         orderList = (ArrayList<Order>) list;
+                        // Clear the filteredOrders list before filtering again
+                        filteredOrders.clear();
                         // Filter the orderList to show only orders with the matching parkID
                         for (Order order : orderList) {
                             if (order.getParkIdFk().equals(parkID)) {

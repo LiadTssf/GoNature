@@ -23,7 +23,7 @@ public class changePaidOrder implements ServerCommand{
 
         String updateQuery = "UPDATE `order` SET `paid` = 1 WHERE `order_id_pk` = ? AND `cancelled` = 0 AND `on_waiting_list` = 0";
         String selQuery = "SELECT number_of_visitors,park_id_fk FROM `order` WHERE `order_id_pk` = ?";
-        String selParkVisitQuery = "SELECT current_visitors FROM park WHERE `order_id_pk` = ?";
+        String selParkVisitQuery = "SELECT current_visitors FROM park WHERE `park_id_pk` = ?";
         String increaseQuery = "UPDATE park SET current_visitors = ? WHERE park_id_pk = ?";
         try {
             PreparedStatement pstmt = DB.getConnection().prepareStatement(updateQuery);
