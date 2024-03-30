@@ -94,9 +94,9 @@ public class ServerUI extends Application {
 
     private void startBackroundReminderThread(){
         //will run once a day
-        threadSmsReminder = new ThreadSmsReminder();
-        scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(threadSmsReminder, 0, 2, TimeUnit.SECONDS); // Run every hour
+//        ThreadSmsReminder threadSmsReminder = new ThreadSmsReminder();
+//        scheduler = Executors.newSingleThreadScheduledExecutor();
+//        scheduler.scheduleAtFixedRate(threadSmsReminder, 0, 2, TimeUnit.SECONDS); // Run every hour
     }
 
 }

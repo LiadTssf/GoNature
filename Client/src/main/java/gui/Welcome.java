@@ -36,6 +36,7 @@ public class Welcome implements Initializable {
         // Set up the button actions
         leftArrow.setOnAction(event -> showPreviousImage());
         rightArrow.setOnAction(event -> showNextImage());
+
     }
     @FXML
     private void showPreviousImage() {

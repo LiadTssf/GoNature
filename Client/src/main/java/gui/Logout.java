@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,8 +35,14 @@ public class Logout implements Initializable {
         ClientHandler.request(new Message("LogoutAccount"));
         ClientUI.changeScene("Login");
         ClientUI.removeAllMainMenuItems();
+        ClientUI.addMainMenuImage("LogOut");
+        ClientUI.addMainMenuName("LogOut");
+
         ClientUI.addMainMenuItem("Login", "Login");
+
     }
+
+
 
     /**
      * Called when logout no button is clicked

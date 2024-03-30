@@ -25,14 +25,14 @@ public class ThreadSmsReminder extends Thread implements Runnable{
     private LocalTime localTime= LocalTime.now();
     @Override
     public void run() {
-        synchronized(DatabaseConnection.lock) {
-            while(!DatabaseConnection.isConnected) {
-                try {
-                    DatabaseConnection.lock.wait();
-                } catch(InterruptedException e) {
-                    e.printStackTrace();
-                }
+
+        while(!DatabaseConnection.isConnected) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
             }
+
         }
 
             LocalDate tomorrow = LocalDate.now().plusDays(2); // Tomorrow's date

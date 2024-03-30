@@ -25,7 +25,6 @@ public class MainWindow implements Initializable {
     private ImageView profilePicture;
     @FXML
     private Label name;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -76,6 +75,13 @@ public class MainWindow implements Initializable {
      * @param image The filename of the image without the extension (.jpg).
      */
     public void addMenuImage(String image) {
+        if (image != null && image.equals("LogOut")) {
+            profilePicture.setImage(null);
+            name.setText("");
+            name.setStyle(""); // Remove the border style
+            return;
+        }
+
         URL imageUrl = null;
         if (image == null) {
             image = "/Images/defaultProfilePicture.jpg";
@@ -100,6 +106,11 @@ public class MainWindow implements Initializable {
      * @param name The name to be displayed.
      */
     public void addMenuName(String name) {
+        if (name != null && name.equals("LogOut")) {
+            this.name.setText("");
+            this.name.setStyle(""); // Remove the border style
+            return;
+        }
         // If the name is null, set it to "User"
         if (name == null) {
             name = "User";
@@ -130,4 +141,5 @@ public class MainWindow implements Initializable {
     public void removeAllMenuItems() {
         options_list_vbox.getChildren().clear();
     }
+
 }

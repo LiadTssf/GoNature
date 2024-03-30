@@ -29,8 +29,6 @@ public class ShowConnections implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         connectionTableData = FXCollections.observableArrayList();
         clients_table.setItems(connectionTableData);
-        cancellationThread = new Thread(new ThreadToCancel());
-        cancellationThread.start();
     }
 
     /**

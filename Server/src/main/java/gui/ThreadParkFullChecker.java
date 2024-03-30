@@ -14,17 +14,15 @@ public class ThreadParkFullChecker extends Thread implements Runnable{
     public void run() {
         LocalTime now = LocalTime.now();
         int minutes = now.getMinute();
-        //minutes == 0 || minutes == 30|| minutes == 59 || minutes == 29
         if(minutes == 0 || minutes == 30|| minutes == 59 || minutes == 29){
-            synchronized(DatabaseConnection.lock) {
-                while(!DatabaseConnection.isConnected) {
-                    try {
-                        DatabaseConnection.lock.wait();
-                    } catch(InterruptedException e) {
-                        e.printStackTrace();
-                    }
+            while(!DatabaseConnection.isConnected) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
+
             checkAndUpdateParkCapacity();
         }
     }
