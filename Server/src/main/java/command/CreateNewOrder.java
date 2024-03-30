@@ -1,6 +1,7 @@
 package command;
 
 import data.Account;
+import data.MessagesToSend;
 import data.Order;
 import database.DatabaseController;
 import handler.ServerHandler;
@@ -8,6 +9,7 @@ import handler.ServerHandler;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class CreateNewOrder implements ServerCommand {
     /**
@@ -34,8 +36,11 @@ public class CreateNewOrder implements ServerCommand {
         if (orderToCreate.phone.length() != 10) {
             return new Message("OrderPhone", "Please Enter phone number without '-' or check your phone again");
         }
-        if (orderToCreate.visit_date.isBefore(LocalDate.now())) {
+        if (orderToCreate.visit_date.isBefore(LocalDate.now()) || orderToCreate.visit_time == null) {
             return new Message("OrderDate", "Please choose date that is after " + LocalDate.now());
+        }
+        if (orderToCreate.park_id_fk.equals("Park Location")){
+            return new Message("LocationError");
         }
 
         DatabaseController DB = new DatabaseController();
@@ -119,7 +124,16 @@ public class CreateNewOrder implements ServerCommand {
             if (orderToCreate.on_waiting_list){
                 return new Message("OnWaitingList");
             }
-            return new Message("OrderCreated", account);
+
+            MessagesToSend MSG = new MessagesToSend();
+            MSG.MessageText ="Congratulations!!\nYour Order Created Successfully.\nWe'll be Happy To see you!";
+            MSG.MessageTitle = "SMS Approve\n";
+            MSG.phone = orderToCreate.phone;
+            MSG.Email = orderToCreate.email;
+            ArrayList<Object> objArr = new ArrayList<>();
+            objArr.add(MSG);
+            objArr.add(account);
+            return new Message("OrderCreated", objArr);
         } catch (SQLException e) {
             e.printStackTrace();
             return new Message("OrderFailed", "An error occurred while trying to create order.");

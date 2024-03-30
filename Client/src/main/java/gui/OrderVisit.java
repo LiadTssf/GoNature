@@ -1,6 +1,7 @@
 package gui;
 
 import command.Message;
+import data.MessagesToSend;
 import data.Order;
 import data.RegisteredAccount;
 import handler.ClientHandler;
@@ -62,14 +63,13 @@ public class OrderVisit extends Login implements Initializable {
         }else {
             customer_id.setText(String.valueOf(ClientHandler.getAccount().account_id_pk));
         }
-        if (ClientHandler.getAccount().account_type.equals("TourGuide")){
-            registeredAccount = (RegisteredAccount) ClientHandler.getAccount();
-            customer_email.setDisable(true);
-            customer_email.setText(registeredAccount.email);
-            customer_phone_number.setDisable(true);
-            customer_phone_number.setText(registeredAccount.phone);
-
-            numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,15));
+        if (ClientHandler.getAccount().account_type != null){
+            blockFields();
+            if (ClientHandler.getAccount().account_type.equals("TourGuide")) {
+                numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 15));
+            }else{
+                numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5));
+            }
         }else {
             numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5));
         }
@@ -180,9 +180,24 @@ public class OrderVisit extends Login implements Initializable {
             if (ClientHandler.getLastResponse().getCommand().equals("OnWaitingList")){
                 ClientUI.popupNotification("Unfortunately, The park is fully booked.\nYour order Moved to waiting List.\nWe will let you know when there will be open spot");
             }
+            if (ClientHandler.getLastResponse().getCommand().equals("LocationError")){
+                ClientUI.popupNotification("Please choose Location");
+            }
             if (ClientHandler.getLastResponse().getCommand().equals("OrderCreated")) {
                 ClientUI.popupNotification("Congratulations!!\nYour Order Created Successfully.\nWe'll be Happy To see you!");
+                MessagesToSend msg = ClientHandler.getMessageToSend();
+                ClientUI.popupNotification("To: "+msg.Email+"\nTitle: Email title\n"+"Content:"+msg.MessageText);
+                ClientUI.popupNotification("To: "+msg.phone+"\nTitle: "+msg.MessageTitle+"Content:"+msg.MessageText);
         }
+    }
+
+
+    private void blockFields(){
+        registeredAccount = (RegisteredAccount) ClientHandler.getAccount();
+        customer_email.setDisable(true);
+        customer_email.setText(registeredAccount.email);
+        customer_phone_number.setDisable(true);
+        customer_phone_number.setText(registeredAccount.phone);
     }
 
 }

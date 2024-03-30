@@ -3,6 +3,7 @@ package command;
 import data.Account;
 import database.DatabaseController;
 
+import java.io.FileWriter;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,6 +41,8 @@ public class DownloadFileFromDB implements ServerCommand{
                         Writer writer = new FileWriter(dir);
                         if (rs.next()) {
                             writer.write(rs.getString("file_data"));
+                            writer.close();
+                            fos.close();
                         }
 
                         pstmt = db.getConnection().prepareStatement(queryToDeleteFile);

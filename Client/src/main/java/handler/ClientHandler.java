@@ -4,6 +4,7 @@ import command.ClientCommand;
 import command.ClientCommandDictionary;
 import command.Message;
 import data.Account;
+import data.MessagesToSend;
 import data.RegisteredAccount;
 import gui.ClientUI;
 import ocsf.client.AbstractClient;
@@ -15,6 +16,7 @@ public class ClientHandler extends AbstractClient {
     private Message lastResponse;
     private Object commandReturn;
     private Account account;
+    private MessagesToSend msg;
     private RegisteredAccount registeredAccount;
     private boolean await;
 
@@ -119,6 +121,13 @@ public class ClientHandler extends AbstractClient {
         instance.account = account;
     }
 
+    public static void setMessageToSend(MessagesToSend msg){
+        instance.msg = msg;
+    }
+
+    public static MessagesToSend getMessageToSend(){
+        return instance.msg;
+    }
     /**
      * Returns last message response received from the server
      * @return server response

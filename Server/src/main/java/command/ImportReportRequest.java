@@ -4,11 +4,13 @@ import data.Account;
 import data.ReportRequest;
 import database.DatabaseController;
 
+import java.io.FileWriter;
 import java.io.*;
 import java.sql.*;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class ImportReportRequest implements ServerCommand {
     private File reportFile;
@@ -26,6 +28,10 @@ public class ImportReportRequest implements ServerCommand {
             return new Message("paramFailed", "parameter is not ReportRequest type");
         }
 
+        //------------------------------------------------
+        //-----------------CHECK--------------------------
+        ArrayList<String> stringArrayList = new ArrayList<>();
+        //---------------------------------------------------
         ReportRequest reportRequest = (ReportRequest) param;
 
         DatabaseController DB = new DatabaseController();
@@ -43,16 +49,16 @@ public class ImportReportRequest implements ServerCommand {
         LocalDate toDate = reportRequest.dates.get(1);
 
         if (reportRequest.capacityReport) {
-            fileName = "capacity_Report_" + reportRequest.areaOfReport +"_"+LocalDate.now()+ ".txt";
+            fileName = "capacity_Report_" + reportRequest.areaOfReport +"_"+LocalDate.now()+"_"+LocalTime.now().getHour()+ ".txt";
             reportFile = new File(fileName);
             queryToRun = "SELECT current_visitors FROM park WHERE park_id_pk = ?";
         } else {
-            fileName = "by_group_report_" + reportRequest.areaOfReport +"_"+LocalDate.now()+".txt";
+            fileName = "by_group_report_" + reportRequest.areaOfReport +"_"+LocalDate.now()+"_"+LocalTime.now().getHour()+".txt";
             reportFile = new File(fileName);
             queryToRun = "SELECT * FROM `order` WHERE park_id_fk = ? AND visit_date BETWEEN ? AND ?";
         }
         try {
-            Writer writer = new FileWriter(reportFile);
+            FileWriter writer = new FileWriter(reportFile);
             PreparedStatement pstmt = DB.getConnection().prepareStatement(queryToSort);
             pstmt.execute();
 
@@ -114,9 +120,16 @@ public class ImportReportRequest implements ServerCommand {
                     }
 
                     String printString = String.format("OrderID: %s, Customer ID: %d, Park: %s, Order Date: %s, Order Time: %s, Visitors Number: %d, Group: %s", orderID, accountID, reportRequest.areaOfReport, visitDate.toString(), visitTime.toString(), groupSize, guidedOrder);
-                    writer.write(printString);
+                    stringArrayList.add(printString);
+//                    writer.write(printString);
+//                    writer.write(System.lineSeparator());
+                }
+
+                for (String s:stringArrayList){
+                    writer.write(s);
                     writer.write(System.lineSeparator());
                 }
+                writer.close();
             }
             FileInputStream fis = new FileInputStream(reportFile);
             byte[] fileData = new byte[(int) reportFile.length()];
@@ -127,6 +140,7 @@ public class ImportReportRequest implements ServerCommand {
             pstmt.setBytes(2, fileData);
 
             pstmt.executeUpdate();
+            fis.close();
             return new Message("FileSucceed");
 
 

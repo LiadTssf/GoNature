@@ -1,8 +1,13 @@
 package gui;
 
+import data.Account;
 import data.Order;
 import database.DatabaseController;
+import gui.DatabaseConnection;
+import handler.ServerHandler;
+import javafx.fxml.Initializable;
 
+import java.net.URL;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,10 +15,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class ThreadSmsReminder implements Runnable{
-
+    private List<Order> orders = new ArrayList<>();
     @Override
     public void run() {
         while(!(DatabaseConnection.isConnected))
@@ -24,22 +30,33 @@ public class ThreadSmsReminder implements Runnable{
                 throw new RuntimeException(e);
             }
         }
-        List<Order> orders = new ArrayList<>();
+
             LocalDate tomorrow = LocalDate.now().plusDays(2); // Tomorrow's date
 
 
+
             String sql = "SELECT * FROM `gonature`.`order` WHERE `visit_date` = ? AND cancelled = ? ";
+            String queryParkName = "SELECT park_name FROM park WHERE park_id_pk = ?";
 
             try  {
 
                 DatabaseController DB = new DatabaseController();
+                DatabaseController db = new DatabaseController();
                 PreparedStatement pstmt = DB.getConnection().prepareStatement(sql);
+                PreparedStatement preparedStatement = db.getConnection().prepareStatement(queryParkName);
                 pstmt.setDate(1, Date.valueOf(tomorrow)); // Set tomorrow's date as parameter
                 pstmt.setBoolean(2,false);
                 try (ResultSet rs = pstmt.executeQuery()) {
-
                     while (rs.next()) {
                         Order order = new Order();
+                        preparedStatement.setInt(1,rs.getInt("park_id_fk"));
+                        ResultSet resultSet = preparedStatement.executeQuery();
+                        if (resultSet.next()){
+                            order.park_id_fk = resultSet.getString("park_name");
+                        }
+                        order.account_id = rs.getInt("account_id");
+                        order.visit_time = rs.getTime("visit_time").toLocalTime();
+                        order.visit_date = rs.getDate("visit_date").toLocalDate();
                         order.email= rs.getString("email");
                         order.phone = rs.getString("phone");
                         orders.add(order);
@@ -81,7 +98,6 @@ public class ThreadSmsReminder implements Runnable{
             updateStmt.executeUpdate();
         }
     }
-
 }
 
 

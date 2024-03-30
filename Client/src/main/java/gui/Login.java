@@ -135,6 +135,15 @@ public class Login implements Initializable {
                 ClientUI.addMainMenuItem("apply new changes", "OfficeMangerWelcomeWindow");
                 ClientUI.addMainMenuItem("report from parks", "GetReportFiles");
                 ClientUI.addMainMenuItem("Logout", "Logout");
+            }else if (ClientHandler.getAccount().account_type.equals("Client")) {
+                ClientUI.changeScene("Welcome");
+                ClientUI.removeAllMainMenuItems();
+                ClientUI.addMainMenuImage("defaultProfilePicture");
+                ClientUI.addMainMenuName(username);
+                ClientUI.addMainMenuItem("Home Screen", "Welcome");
+                ClientUI.addMainMenuItem("Order Visit", "OrderVisit");
+                ClientUI.addMainMenuItem("Orders List", "OrderList");
+                ClientUI.addMainMenuItem("Logout", "Logout");
             } else if (ClientHandler.getAccount().account_type.equals("ParkManager")) {
                 ClientUI.changeScene("Welcome");
                 ClientUI.removeAllMainMenuItems();
