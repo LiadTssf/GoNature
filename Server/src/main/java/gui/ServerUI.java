@@ -31,8 +31,8 @@ public class ServerUI extends Application {
         this.stage = stage;
 
         changeScene("DatabaseConnection");
-        startBackgroundScheduler();
-        startBackroundReminderThread();
+//        startBackgroundScheduler();
+//        startBackroundReminderThread();
     }
 
     /**

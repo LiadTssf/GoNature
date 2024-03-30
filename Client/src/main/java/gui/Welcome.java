@@ -1,5 +1,8 @@
 package gui;
 
+import command.Message;
+import data.Order;
+import handler.ClientHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
@@ -15,6 +18,7 @@ public class Welcome implements Initializable {
     @FXML
     private Button leftArrow, rightArrow;
 
+    private int accountId;
     private int currentIndex = 0;
     private Image[] images =new Image[] {
             new Image(getClass().getResourceAsStream("/images/desert1.jpg")),
@@ -36,6 +40,8 @@ public class Welcome implements Initializable {
         // Set up the button actions
         leftArrow.setOnAction(event -> showPreviousImage());
         rightArrow.setOnAction(event -> showNextImage());
+        accountId = ClientHandler.getAccount().account_id_pk; // current account id
+        CheckReminder();
 
     }
     @FXML
@@ -56,4 +62,14 @@ public class Welcome implements Initializable {
         }
         photoView.setImage(images[currentIndex]);
     }
+
+    private void CheckReminder(){
+        ClientHandler.request(new Message("smsReminder",accountId));
+        if(ClientHandler.getLastResponse().getParam() != null) {
+            System.out.println("print client param" + ClientHandler.getLastResponse().getParam() );
+            ClientUI.smsReminderPopUpNotification("new Reminder to approve your order for tomorrow");
+        }
+    }
+
+
 }

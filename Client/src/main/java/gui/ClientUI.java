@@ -126,6 +126,11 @@ public class ClientUI extends Application {
         if(controller != null) { controller.update_label(notification); }
     }
 
+    public static void smsReminderPopUpNotification(String notificationData){
+        smsReminderPopUpNotification controller = (smsReminderPopUpNotification ) openNewWindow("smsReminderPopUpNotification");
+        if(controller != null) { controller.update_label(notificationData); }
+    }
+
     /**
      * Gets current javafx controller instance from the sub-scene displayed in the main window
      * @return javafx controller instance

@@ -1,14 +1,8 @@
 package gui;
 
-import data.Account;
-import data.MessagesToSend;
+
 import data.Order;
 import database.DatabaseController;
-import gui.DatabaseConnection;
-import handler.ServerHandler;
-import javafx.fxml.Initializable;
-
-import java.net.URL;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,8 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.UUID;
+
 
 public class ThreadSmsReminder extends Thread implements Runnable{
     private List<Order> orders = new ArrayList<>();
@@ -75,8 +68,6 @@ public class ThreadSmsReminder extends Thread implements Runnable{
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-
     }
 
 //    private void sendCustomerReminder(List<Order> orders){
@@ -87,29 +78,48 @@ public class ThreadSmsReminder extends Thread implements Runnable{
 //        }
 //
 //    }
-
-
-    // TODO  - finish this method
-    private void sendCustomerReminder(List<Order> orders){ // need to add approve column
-        for (Order order : orders) {
-            MSGwindow msGwindow = new MSGwindow();
-            MSGwindow msGwindow1 = new MSGwindow();
-            msGwindow.setOrderToSend(order);
-            msGwindow.setNow(LocalTime.now());
-            msGwindow.setTypeSMS("SMS");
-            msGwindow1.setOrderToSend(order);
-            msGwindow.setNow(LocalTime.now());
-            msGwindow.setTypeSMS("Email");
-            msGwindow.start();
-            msGwindow1.start();
-            // Update the order status to canceled
+private void sendCustomerReminder(List<Order> orders){ // need to add approve column
+    for (Order order : orders) {
+        MSGwindow msGwindow = new MSGwindow();
+        MSGwindow msGwindow1 = new MSGwindow();
+        msGwindow.setOrderToSend(order);
+        msGwindow.setNow(LocalTime.now());
+        msGwindow.setTypeSMS("SMS");
+        msGwindow1.setOrderToSend(order);
+        msGwindow.setNow(LocalTime.now());
+        msGwindow.setTypeSMS("Email");
+        msGwindow.start();
+        msGwindow1.start();
+//             Update the order status to canceled
 //            String updateSql = "UPDATE `gonature`.`order` SET cancelled = ? WHERE email = ?";
 //            PreparedStatement updateStmt = DB.getConnection().prepareStatement(updateSql);
 //            updateStmt.setBoolean(1, true);
 //            updateStmt.setString(2, order.getEmail());
 //            updateStmt.executeUpdate();
-        }
     }
+}
+
+    // TODO  - finish this method
+//    private void sendCustomerReminder(List<Order> orders){ // need to add approve column
+//        for (Order order : orders) {
+//            MSGwindow msGwindow = new MSGwindow();
+//            MSGwindow msGwindow1 = new MSGwindow();
+//            msGwindow.setOrderToSend(order);
+//            msGwindow.setNow(LocalTime.now());
+//            msGwindow.setTypeSMS("SMS");
+//            msGwindow1.setOrderToSend(order);
+//            msGwindow.setNow(LocalTime.now());
+//            msGwindow.setTypeSMS("Email");
+//            msGwindow.start();
+//            msGwindow1.start();
+//             Update the order status to canceled
+//            String updateSql = "UPDATE `gonature`.`order` SET cancelled = ? WHERE email = ?";
+//            PreparedStatement updateStmt = DB.getConnection().prepareStatement(updateSql);
+//            updateStmt.setBoolean(1, true);
+//            updateStmt.setString(2, order.getEmail());
+//            updateStmt.executeUpdate();
+//        }
+//    }
 }
 
 
