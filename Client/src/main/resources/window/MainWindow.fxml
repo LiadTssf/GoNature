@@ -8,7 +8,7 @@
 
 <BorderPane prefHeight="400.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainWindow">
    <left>
-      <VBox prefHeight="400.0" prefWidth="140.0" style="-fx-background-color: rgba(69,140,121,0.66);" BorderPane.alignment="CENTER">
+      <VBox prefHeight="400.0" prefWidth="140.0" style="-fx-background-color: #Caffd1" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="profilePicture" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
@@ -21,7 +21,7 @@
                <font>
                   <Font name="Segoe UI Black" size="18.0" />
                </font></Label>
-            <VBox fx:id="options_list_vbox" prefHeight="254.0" prefWidth="140.0" style="-fx-background-color: rgba(69,140,121,0.66);" BorderPane.alignment="CENTER" />
+            <VBox fx:id="options_list_vbox" prefHeight="254.0" prefWidth="140.0" style="-fx-background-color: #Caffd1" BorderPane.alignment="CENTER" />
          </children></VBox>
    </left>
    <center>
