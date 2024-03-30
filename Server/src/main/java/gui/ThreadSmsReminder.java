@@ -22,12 +22,13 @@ public class ThreadSmsReminder implements Runnable{
     private List<Order> orders = new ArrayList<>();
     @Override
     public void run() {
-        while(!(DatabaseConnection.isConnected))
-        {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        synchronized(DatabaseConnection.lock) {
+            while(!DatabaseConnection.isConnected) {
+                try {
+                    DatabaseConnection.lock.wait();
+                } catch(InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
