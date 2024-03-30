@@ -10,15 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.converter.LocalTimeStringConverter;
-import static gui.ClientUI.popupNotification;
-import java.lang.invoke.StringConcatException;
 import java.net.URL;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -146,7 +142,6 @@ public class OrderVisit extends Login implements Initializable {
                 ClientUI.popupNotification("Please enter visit Date");
             }
 
-            newOrder.on_waiting_list = waitingList.isSelected();
             newOrder.order_id_pk = UUID.randomUUID();
             newOrder.account_id = ClientHandler.getAccount().account_id_pk;
             newOrder.cancelled = false;
@@ -156,14 +151,36 @@ public class OrderVisit extends Login implements Initializable {
 //                ClientUI.popupNotification("Choose Time between 7:00 - 20:00");
 //            }
             newOrder.park_id_fk = String.valueOf(location_pick.getText());
-
             if (ClientHandler.getAccount().account_type.equals("ParkWorker")){
                 newOrder.on_arrival_order = true;
             }else{
                 newOrder.on_arrival_order = false;
             }
+            if(!newOrder.on_arrival_order){
+                ClientHandler.request(new Message("CheckParkCapacity",newOrder));
+                Message response = ClientHandler.getLastResponse();
+                if (response.getCommand().equals("ParkFull")) {
+                    // Show a popup window with an option for the user
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Park Full");
+                    alert.setHeaderText("The park is full at the specified date and time.");
+                    alert.setContentText("Do you want to be placed on the waiting list?");
 
-            ClientHandler.request(new Message("CreateNewOrder",newOrder));
+                    ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+                    ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+                    alert.getButtonTypes().setAll(yesButton, noButton);
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.isPresent() && result.get() == yesButton) {
+                        newOrder.on_waiting_list = true;
+                    } else {
+                        // User chose not to be placed on the waiting list, handle this accordingly
+                        newOrder.on_waiting_list = false;
+                    }
+                }
+            }
+
+        ClientHandler.request(new Message("CreateNewOrder", newOrder));
 
             if (ClientHandler.getLastResponse().getCommand().equals("OrderEmail")){
                 ClientUI.popupNotification("Enter your Email please");
@@ -188,6 +205,9 @@ public class OrderVisit extends Login implements Initializable {
                 MessagesToSend msg = ClientHandler.getMessageToSend();
                 ClientUI.popupNotification("To: "+msg.Email+"\nTitle: Email title\n"+"Content:"+msg.MessageText);
                 ClientUI.popupNotification("To: "+msg.phone+"\nTitle: "+msg.MessageTitle+"Content:"+msg.MessageText);
+            }
+        if (ClientHandler.getLastResponse().getCommand().equals("NotOnWaitingList")) {
+            ClientUI.popupNotification("order was cancelled and not added to waiting-list");
         }
     }
 

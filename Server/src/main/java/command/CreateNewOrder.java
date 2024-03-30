@@ -97,12 +97,10 @@ public class CreateNewOrder implements ServerCommand {
             if (currentVisitors+orderToCreate.number_of_visitors>capacity && orderToCreate.on_arrival_order){
                 return new Message("ParkFull","There is no space is the park,Try later");
             }
-            if ((totalVisitors + orderToCreate.number_of_visitors > capacity - offset) && !orderToCreate.on_arrival_order){ //checking the current Number of visitors in DB
-                orderToCreate.on_waiting_list = true;
-            }else {
-                orderToCreate.on_waiting_list = false;
-            }
 
+            if (!orderToCreate.on_waiting_list && !orderToCreate.on_arrival_order && currentVisitors+orderToCreate.number_of_visitors>capacity){
+                return new Message("NotOnWaitingList","Order cancelled because chose not to get in waiting list+ Park full");
+            }
             orderToCreate.exit_time = orderToCreate.visit_time.plusHours(avgTime);
             pstmt = DB.getConnection().prepareStatement(query);
             pstmt.setString(1, String.valueOf(orderToCreate.order_id_pk));
@@ -120,10 +118,10 @@ public class CreateNewOrder implements ServerCommand {
             pstmt.setBoolean(13, false);
             pstmt.setBoolean(14,false);
             pstmt.execute();
-
             if (orderToCreate.on_waiting_list){
                 return new Message("OnWaitingList");
             }
+
 
             MessagesToSend MSG = new MessagesToSend();
             MSG.MessageText ="Congratulations!!\nYour Order Created Successfully.\nWe'll be Happy To see you!";
