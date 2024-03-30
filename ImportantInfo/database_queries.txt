@@ -38,6 +38,7 @@ CREATE TABLE `gonature`.`order` (
   `visit_time` TIME NULL,
   `exit_time` TIME NULL,
   `number_of_visitors` INT NULL,
+  'approve' INT NULL,
   `email` VARCHAR(45) NULL,
   `phone` VARCHAR(45) NULL,
   `guided_order` BOOLEAN NULL,

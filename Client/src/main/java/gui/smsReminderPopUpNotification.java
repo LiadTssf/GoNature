@@ -44,7 +44,7 @@ public class smsReminderPopUpNotification implements Initializable {
         currentStage.close();
         accountId = ClientHandler.getAccount().account_id_pk;
         System.out.println("order accepted");
-        ClientHandler.request(new Message("ApproveOrder",accountId  ));
+        ClientHandler.request(new Message("ApproveOrder",accountId));
     }
 
     /**
