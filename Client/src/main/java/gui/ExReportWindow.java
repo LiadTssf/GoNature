@@ -26,6 +26,7 @@ public class ExReportWindow implements Initializable {
     private int cancelledCounter = 0;
     private int regularOrder = 0;
     private int guidedOrderCounter = 0;
+    private int paidOrder = 0;
     private ArrayList<Order> orderList;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -53,7 +54,8 @@ public class ExReportWindow implements Initializable {
                 new PieChart.Data("Cancelled Order",cancelledCounter),
                 new PieChart.Data("Waiting List Orders",waitingListCounter),
                 new PieChart.Data("Regular Orders",regularOrder),
-                new PieChart.Data("guided orders",guidedOrderCounter));
+                new PieChart.Data("guided orders",guidedOrderCounter),
+                new PieChart.Data("paid orders",paidOrder));
 
         ex_report_pie.setData(pieChartData);
 

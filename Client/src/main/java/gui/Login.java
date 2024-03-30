@@ -112,6 +112,9 @@ public class Login implements Initializable {
             ClientUI.popupNotification("User Not Found. Check your user name or password");
         }
 
+        if (ClientHandler.getLastResponse().getCommand().equals("LoginSession")){
+            ClientUI.popupNotification((String) ClientHandler.getLastResponse().getParam());
+        }
         if(ClientHandler.getLastResponse().getCommand().equals("AuthenticateUser")) {
             //Accepted response
             ClientHandler.request(new Message("ConnectClient"));
