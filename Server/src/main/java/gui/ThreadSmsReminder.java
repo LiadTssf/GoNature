@@ -76,8 +76,7 @@ public class ThreadSmsReminder implements Runnable{
 
 
     }
-
-
+    
     private void sendCustomerReminder(List<Order> orders){
 
         for ( Order order : orders){

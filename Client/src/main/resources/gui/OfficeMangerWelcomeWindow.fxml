@@ -1,53 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="gui.OfficeMangerWelcomeWindow"
-            prefHeight="1000.0" prefWidth="1000.0">
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OfficeMangerWelcomeWindow">
 
     <children>
 
-        <TableView fx:id="parkChanges" layoutX="5.0" layoutY="5.0" prefHeight="600.0" prefWidth="800.0" styleClass="table-view">
+        <TableView fx:id="parkChanges" layoutX="5.0" layoutY="5.0" prefHeight="164.0" prefWidth="733.0" styleClass="table-view">
             <columns>
                 <TableColumn prefWidth="90.0" text="park name">
                     <cellValueFactory>
-                        <PropertyValueFactory property="parkName"/>
+                        <PropertyValueFactory property="parkName" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn prefWidth="90.0" text="old capacity">
                     <cellValueFactory>
-                        <PropertyValueFactory property="oldCapacity"/>
+                        <PropertyValueFactory property="oldCapacity" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn prefWidth="110.0" text="old avg visit time">
                     <cellValueFactory>
-                        <PropertyValueFactory property="oldAverageVisitTime"/>
+                        <PropertyValueFactory property="oldAverageVisitTime" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn prefWidth="110.0" text="old offset capacity">
                     <cellValueFactory>
-                        <PropertyValueFactory property="oldCapacityOffset"/>
+                        <PropertyValueFactory property="oldCapacityOffset" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn prefWidth="90.0" text="new capacity">
                     <cellValueFactory>
-                        <PropertyValueFactory property="newCapacity"/>
+                        <PropertyValueFactory property="newCapacity" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn prefWidth="110.0" text="new avg visit time">
                     <cellValueFactory>
-                        <PropertyValueFactory property="newAverageVisitTime"/>
+                        <PropertyValueFactory property="newAverageVisitTime" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn prefWidth="130.0" text="new offset capacity">
                     <cellValueFactory>
-                        <PropertyValueFactory property="newCapacityOffset"/>
+                        <PropertyValueFactory property="newCapacityOffset" />
                     </cellValueFactory>
                 </TableColumn>
             </columns>
@@ -55,8 +51,14 @@
         </TableView>
 
 
-        <Button fx:id="refresh" layoutX="20.0" layoutY="20.0" onAction="#getParkChanges" text="Refresh"/>
-        <Button fx:id="confirm" layoutX="130.0" layoutY="20.0" onAction="#confirmChanges" text="Confirm"/>
+        <Button fx:id="refresh" layoutX="255.0" layoutY="278.0" onAction="#getParkChanges" style="-fx-background-color: blue;" text="Refresh" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+        <Button fx:id="confirm" layoutX="362.0" layoutY="278.0" onAction="#confirmChanges" prefHeight="29.0" prefWidth="94.0" style="-fx-background-color: green;" text="Confirm" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
     </children>
 
 </AnchorPane>

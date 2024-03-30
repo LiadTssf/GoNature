@@ -28,6 +28,9 @@
       <Label fx:id="oldCapacity" layoutX="410.0" layoutY="108.0" text="oldCap" />
       <Label fx:id="oldOffSet" layoutX="410.0" layoutY="141.0" text="oldSet" />
       <Label fx:id="oldTime" layoutX="429.0" layoutY="177.0" text="oldTime" />
-      <Button layoutX="325.0" layoutY="294.0" mnemonicParsing="false" text="Commit" onAction="#sendToManager"/>
+      <Button layoutX="325.0" layoutY="294.0" mnemonicParsing="false" onAction="#sendToManager" style="-fx-background-color: orange;" text="Commit">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>

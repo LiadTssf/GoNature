@@ -8,7 +8,7 @@
     <children>
         <Label layoutX="81.0" layoutY="14.0" text="Export Cancellation/Visit Report">
             <font>
-                <Font name="System Bold Italic" size="24.0" />
+                <Font name="Impact" size="24.0" />
             </font>
         </Label>
         <Label layoutX="94.0" layoutY="59.0" text="Please Pick the Day, Month and year for your Report" />
