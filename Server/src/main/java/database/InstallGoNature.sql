@@ -61,6 +61,7 @@ CREATE TABLE `order` (
                          `on_waiting_list` BOOLEAN NULL,
                          `cancelled` BOOLEAN NULL,
                          `paid` BOOLEAN NULL,
+                        `approve` BOOLEAN NULL,
                          PRIMARY KEY (`order_id_pk`),
                          INDEX `park_id_fk_idx` (`park_id_fk` ASC)
 );
@@ -114,12 +115,6 @@ VALUES
     (2, 'Tel Aviv', 700, 0, 4, 10),
     (3, 'Karmiel', 300, 0, 4, 10);
 
--- Insert park info
-INSERT INTO `park` (`park_id_pk`, `park_name`, `capacity`, `current_visitors`, `average_visit_time`, `capacity_offset`)
-VALUES
-    (1, 'Haifa', 400, 0, 4, 10),
-    (2, 'Tel Aviv', 700, 0, 4, 10),
-    (3, 'Karmiel', 300, 0, 4, 10);
 
 INSERT INTO gonature.`order` (order_id_pk, account_id, park_id_fk, visit_date, visit_time, exit_time, number_of_visitors, email, phone, guided_order, on_arrival_order, on_waiting_list, cancelled, paid) VALUES ('032f684d-0675-45bd-a452-b5d0defbf76e', 281459953, 1, '2024-03-28', '07:00:00', '15:00:00', 3, ' another@example.com', '9876543210', 0, 1, 0, 0, 1);
 INSERT INTO gonature.`order` (order_id_pk, account_id, park_id_fk, visit_date, visit_time, exit_time, number_of_visitors, email, phone, guided_order, on_arrival_order, on_waiting_list, cancelled, paid) VALUES ('032f684d-0675-45bd-a452-b5d0defbf86e', 281459953, 1, '2024-03-28', '07:00:00', '15:00:00', 3, ' another@example.com', ' 9876543210', 0, 1, 0, 0, 1);

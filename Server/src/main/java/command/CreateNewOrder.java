@@ -45,7 +45,7 @@ public class CreateNewOrder implements ServerCommand {
 
         DatabaseController DB = new DatabaseController();
 
-        String query = ("INSERT INTO `order` (order_id_pk, account_id, park_id_fk, visit_date, visit_time, exit_time, number_of_visitors, email, phone, guided_order, on_arrival_order, on_waiting_list, cancelled, paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        String query = ("INSERT INTO `order` (order_id_pk, account_id, park_id_fk, visit_date, visit_time, exit_time, number_of_visitors, email, phone, guided_order, on_arrival_order, on_waiting_list, cancelled, paid,approve) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
         String queryGetID = ("SELECT park_id_pk FROM park WHERE park_name = ?"); //Get park ID
 
         String queryToIncrease = ("SELECT current_visitors,capacity,capacity_offset FROM park WHERE park_id_pk = ?"); //Updates current visitors+specific order visitors number by using park ID
@@ -117,6 +117,7 @@ public class CreateNewOrder implements ServerCommand {
             pstmt.setBoolean(12, orderToCreate.on_waiting_list);
             pstmt.setBoolean(13, false);
             pstmt.setBoolean(14,false);
+            pstmt.setBoolean(15,false);
             pstmt.execute();
             if (orderToCreate.on_waiting_list){
                 return new Message("OnWaitingList");

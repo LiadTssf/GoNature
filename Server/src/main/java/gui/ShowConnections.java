@@ -81,7 +81,7 @@ public class ShowConnections implements Initializable {
             Statement statement = connection.createStatement();
 
             // Specify the path to the SQL file
-            String sqlFilePath = "InstallGoNature.sql";
+            String sqlFilePath = "Server/src/main/java/database/InstallGoNature.sql";
 
 
             // Read the SQL file
