@@ -55,7 +55,7 @@ public class Welcome implements Initializable {
         );
         slideshow.setCycleCount(Timeline.INDEFINITE); // Repeat indefinitely
         slideshow.play();
-        //CheckReminder();
+        CheckReminder();
 
 
     }
