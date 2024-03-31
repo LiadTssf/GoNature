@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 
+import javax.swing.*;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -47,7 +49,12 @@ public class GetReportFiles implements Initializable {
     }
 
     public void download(ActionEvent actionEvent) {
-        fileName = fileTable.getSelectionModel().getSelectedItem().getFileName();
+        try {
+            fileName = fileTable.getSelectionModel().getSelectedItem().getFileName();
+        }catch (NullPointerException e){
+            ClientUI.popupNotification("No File Chosen");
+        }
+
         if (fileName != null){
             ClientHandler.request(new Message("DownloadFileFromDB", fileName));
         }
@@ -58,8 +65,33 @@ public class GetReportFiles implements Initializable {
             ClientUI.popupNotification("You already downloaded this file Check in your folder");
         }
         if (ClientHandler.getLastResponse().getCommand().equals("FileDownloaded")){
-            ClientUI.popupNotification("Download completed successfully");
-            refresh(actionEvent);
+            if (!(ClientHandler.getLastResponse().getParam() instanceof FilesData)){
+                ClientUI.popupNotification("File creation failed");
+            }else{
+                FilesData filesData = (FilesData) ClientHandler.getLastResponse().getParam();
+                File downloadFile = new File(filesData.getFileName());
+                try {
+                    if (!downloadFile.exists()) {
+                        if (downloadFile.createNewFile()) {
+                            FileOutputStream fos = new FileOutputStream(downloadFile);
+                            BufferedOutputStream bos = new BufferedOutputStream(fos);
+
+                            fos.write(filesData.getFile_data());
+                            bos.flush();
+                            fos.flush();
+
+                            ClientUI.popupNotification("Download completed successfully");
+                            refresh(actionEvent);
+                        }
+                    }else{
+                        ClientUI.popupNotification("File Exists");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    ClientUI.popupNotification("Download Failed");
+                }
+
+            }
         }
     }
 }

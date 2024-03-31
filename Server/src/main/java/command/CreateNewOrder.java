@@ -137,5 +137,4 @@ public class CreateNewOrder implements ServerCommand {
             return new Message("OrderFailed", "An error occurred while trying to create order.");
         }
     }
-
 }

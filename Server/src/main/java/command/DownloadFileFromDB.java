@@ -1,6 +1,7 @@
 package command;
 
 import data.Account;
+import data.FilesData;
 import database.DatabaseController;
 
 import java.io.FileWriter;
@@ -9,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DownloadFileFromDB implements ServerCommand{
+public class DownloadFileFromDB implements ServerCommand {
     /**
      * Executes the command to download a file from the database.
      *
@@ -25,39 +26,28 @@ public class DownloadFileFromDB implements ServerCommand{
 
         String fileName = (String) param;
         //String directory = "C:\\Desktop\\OfficeManager\\" + fileName;
-        File dir = new File(fileName);
         String queryToDownload = "SELECT file_data FROM files WHERE file_name = ?";
         String queryToDeleteFile = "DELETE FROM files WHERE file_name = ?";
         DatabaseController db = new DatabaseController();
 
-        if (!dir.exists()) {
-            try {
-                if (dir.createNewFile()) {
-                    try {
-                        PreparedStatement pstmt = db.getConnection().prepareStatement(queryToDownload);
-                        pstmt.setString(1, fileName);
-                        ResultSet rs = pstmt.executeQuery();
-                        FileOutputStream fos = new FileOutputStream(dir);
-                        Writer writer = new FileWriter(dir);
-                        if (rs.next()) {
-                            writer.write(rs.getString("file_data"));
-                            writer.close();
-                            fos.close();
-                        }
-
-                        pstmt = db.getConnection().prepareStatement(queryToDeleteFile);
-                        pstmt.setString(1,fileName);
-                        pstmt.execute();
-                        return new Message("FileDownloaded");
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                return new Message("DownloadFailed");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        FilesData filesData = new FilesData();
+        filesData.setFileName(fileName);
+        try {
+            PreparedStatement pstmt = db.getConnection().prepareStatement(queryToDownload);
+            pstmt.setString(1, fileName);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                filesData.setFile_data(rs.getBytes("file_data"));
             }
+
+            pstmt = db.getConnection().prepareStatement(queryToDeleteFile);
+            pstmt.setString(1, fileName);
+            pstmt.execute();
+            return new Message("FileDownloaded",filesData);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
         }
-        return new Message("FileExist");
     }
 }

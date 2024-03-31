@@ -41,7 +41,7 @@ public class Welcome implements Initializable {
         leftArrow.setOnAction(event -> showPreviousImage());
         rightArrow.setOnAction(event -> showNextImage());
         accountId = ClientHandler.getAccount().account_id_pk; // current account id
-        CheckReminder();
+        //CheckReminder();
 
     }
     @FXML
