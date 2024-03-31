@@ -3,6 +3,8 @@ package gui;
 import command.Message;
 import data.Order;
 import handler.ClientHandler;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
@@ -12,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
+
 public class Welcome implements Initializable {
     @FXML
     private ImageView photoView;
@@ -28,6 +32,9 @@ public class Welcome implements Initializable {
             new Image(getClass().getResourceAsStream("/images/mountain1.jpg"))
     };
 
+    private Timeline slideshow;
+    private Duration slideDuration = Duration.seconds(10); // Set the duration for each slide
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set the fitWidth and fitHeight properties to maintain a consistent size
@@ -41,9 +48,17 @@ public class Welcome implements Initializable {
         leftArrow.setOnAction(event -> showPreviousImage());
         rightArrow.setOnAction(event -> showNextImage());
         accountId = ClientHandler.getAccount().account_id_pk; // current account id
+        // Set up the slideshow
+        slideshow = new Timeline(
+                new KeyFrame(slideDuration, event -> showNextImage())
+        );
+        slideshow.setCycleCount(Timeline.INDEFINITE); // Repeat indefinitely
+        slideshow.play();
         //CheckReminder();
 
+
     }
+
     @FXML
     private void showPreviousImage() {
         if (currentIndex > 0) {
@@ -53,6 +68,7 @@ public class Welcome implements Initializable {
         }
         photoView.setImage(images[currentIndex]);
     }
+
     @FXML
     private void showNextImage() {
         if (currentIndex < images.length - 1) {
@@ -70,6 +86,7 @@ public class Welcome implements Initializable {
             ClientUI.smsReminderPopUpNotification("new Reminder to approve your order for tomorrow");
         }
     }
-
-
 }
+
+
+

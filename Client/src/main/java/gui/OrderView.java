@@ -26,7 +26,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
-
+/**
+ * Controller class for the OrderView.fxml file.
+ * Manages the user interface for viewing and interacting with orders.
+ */
 public class OrderView implements Initializable {
     @FXML
     private Button searchButton;
@@ -66,7 +69,11 @@ public class OrderView implements Initializable {
     private Modality modality = Modality.WINDOW_MODAL;
     private String accountIdText;
     private ArrayList<Order> filteredOrders=new ArrayList<Order>();
-
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * This method is called automatically by the FXMLLoader.
+     * It sets up the cell value factories for the table columns.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
          //Set up the cell value factories for the table columns
@@ -84,7 +91,12 @@ public class OrderView implements Initializable {
         paid.setCellValueFactory(new PropertyValueFactory<>("Paid"));
 
     }
-
+    /**
+     * Handles the event when the search button is clicked.
+     * Extracts the account ID from the text field and sends a request to the server to search for orders.
+     * Filters the order list to show only orders with the matching park ID.
+     * Updates the table view with the filtered orders.
+     */
     @FXML
     private void onSearchButtonClick(ActionEvent event) {
 
@@ -139,7 +151,11 @@ public class OrderView implements Initializable {
             ClientUI.popupNotification("Invalid account ID");
         }
     }
-
+    /**
+     * Handles the event when the cancel order button is clicked.
+     * Cancels the selected order by sending a request to the server.
+     * Displays a notification based on the server response.
+     */
     @FXML
     private void onCancelOrderButtonClick(ActionEvent event) {
         // Get the selected item from the ListView
@@ -166,6 +182,10 @@ public class OrderView implements Initializable {
             ClientUI.popupNotification("Order could not be cancelled");
         }
     }
+    /**
+     * Handles the event when the payment button is clicked.
+     * Opens the payment window for the selected order.
+     */
     @FXML
     public void onOpenPaymentWindow(ActionEvent actionEvent) {
         try {
@@ -194,7 +214,11 @@ public class OrderView implements Initializable {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Handles the event when the refresh button is clicked.
+     * Sends a request to the server to refresh the order list.
+     * Updates the table view with the refreshed orders.
+     */
     @FXML
     private void onRefreshButtonClick(ActionEvent event) {
         // Send request to server to refresh the order list

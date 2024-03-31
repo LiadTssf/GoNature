@@ -49,9 +49,13 @@ public class OrderVisit extends Login implements Initializable {
         return 0;
     }
 
-    /* The initialize function sets the ID field with the ID from Login
-    * the difference between Client and tour guide is the number of visitors in the group
-    * the Spinner local method it's for set time (the steps are by half hour)*/
+    /**
+     * Initializes the OrderVisit controller.
+     * Sets up initial values and configurations for the form fields.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resources The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (ClientHandler.getAccount().account_type.equals("ParkWorker")){
@@ -103,7 +107,12 @@ public class OrderVisit extends Login implements Initializable {
         menuItem_Tel_aviv.setOnAction(event -> location_pick.setText(menuItem_Tel_aviv.getText()));
 
     }
-
+    /**
+     * Handles the order visit action.
+     * Validates user input and creates a new order based on the provided information.
+     *
+     * @param actionEvent The event that triggered the action.
+     */
     @FXML
     public void OrderVisit(ActionEvent actionEvent) {
         newOrder = new Order();

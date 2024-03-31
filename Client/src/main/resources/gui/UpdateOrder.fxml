@@ -1,64 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UpdateOrder">
-    <stylesheets>
-        <URL value="https://fonts.googleapis.com/css2?family=Roboto:wght@300&amp;display=swap" />
-    </stylesheets>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@UpdateOrder.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UpdateOrder">
     <children>
         <!-- Title -->
-        <Label fx:id="orderIdLabel" layoutX="20.0" layoutY="20.0" style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 24px;" text="Order ID: 12345" />
+        <Label fx:id="orderIdLabel" layoutX="20.0" layoutY="20.0" styleClass="label" text="Order ID: 12345" />
 
 
         <!-- Editable Fields -->
         <VBox alignment="CENTER" layoutX="20.0" layoutY="80.0" spacing="10">
             <HBox spacing="10">
-                <Label style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px;" text="Time of Visit:">
-               <font>
-                  <Font size="14.0" />
-               </font></Label>
-                <Spinner fx:id="timeOfVisit" editable="true" prefWidth="100.0" />
+                <Label styleClass="label" text="Time of Visit:" />
+                <Spinner fx:id="timeOfVisit" editable="true" prefWidth="100.0" styleClass="spinner" />
             </HBox>
             <HBox spacing="10" />
             <HBox spacing="10">
-                <Label style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px;" text="Date to Visit:" />
-                <DatePicker fx:id="dateToVisit" editable="true" prefWidth="150.0" />
+                <Label styleClass="label" text="Date to Visit:" />
+                <DatePicker fx:id="dateToVisit" editable="true" prefWidth="150.0" styleClass="date-picker" />
             </HBox>
         </VBox>
 
         <!-- Buttons -->
         <HBox alignment="CENTER" layoutX="20.0" layoutY="300.0" spacing="20" />
         <HBox alignment="CENTER" layoutX="20.0" layoutY="340.0" spacing="20" />
-        <Button fx:id="cancelOrderButton" layoutX="20.0" layoutY="161.0" onAction="#handleCancelOrder" style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px; -fx-background-color: #FF0000; -fx-text-fill: #000000;" text="Cancel Order">
-         <font>
-            <Font name="Times New Roman" size="12.0" />
-         </font>
-         <textFill>
-            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </RadialGradient>
-         </textFill></Button>
-         <Button fx:id="saveButton" layoutX="116.0" layoutY="321.0" onAction="#handleSaveChangesAndBack" style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px;" text="Save and Go Back" />
-         <Button fx:id="backButton" layoutX="301.0" layoutY="321.0" onAction="#handleBack" style="-fx-font-family: 'Roboto', sans-serif; -fx-font-size: 18px;" text="Cancel and Go Back" />
-      <Label fx:id="msgToUser" layoutX="39.0" layoutY="283.0" prefHeight="35.0" prefWidth="523.0">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
+        <Button fx:id="cancelOrderButton" layoutX="14.0" layoutY="193.0" onAction="#handleCancelOrder" styleClass="cancelOrderButton" text="Cancel Order" />
+        <Button fx:id="saveButton" layoutX="116.0" layoutY="321.0" onAction="#handleSaveChangesAndBack" styleClass="button" text="Save and Go Back" />
+        <Button fx:id="backButton" layoutX="301.0" layoutY="321.0" onAction="#handleBack" styleClass="button" text="Cancel and Go Back" />
+        <Label fx:id="msgToUser" layoutX="39.0" layoutY="283.0" prefHeight="35.0" prefWidth="523.0" styleClass="msgToUser" />
     </children>
 </AnchorPane>

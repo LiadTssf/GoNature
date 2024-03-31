@@ -8,6 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 public class changePaidOrder implements ServerCommand{
+    /**
+     * Executes the command to change the paid status of an order.
+     *
+     * @param param   The parameter containing the order ID to be updated.
+     * @param account The account associated with the command execution (not used in this command).
+     * @return A message indicating the result of the operation.
+     */
     @Override
     public Message execute(Object param, Account account) {
         if (!(param instanceof UUID)) {
