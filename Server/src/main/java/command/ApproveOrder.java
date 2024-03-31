@@ -22,11 +22,12 @@ public class ApproveOrder implements ServerCommand{
         DatabaseController DB = new DatabaseController();
         try {
 
-            String query = "UPDATE `gonature`.`order` SET approve = ? WHERE visit_date = ? AND account_id = ?";
+            String query = "UPDATE `gonature`.`order` SET approve = ? WHERE (visit_date = ? OR visit_date = ?) AND account_id = ?";
             PreparedStatement statement = DB.getConnection().prepareStatement(query);
             statement.setBoolean(1,true);
             statement.setDate(2,Date.valueOf(tomorrow));
-            statement.setInt(3,accountId);
+            statement.setDate(3,Date.valueOf(tomorrow.minusDays(1)));
+            statement.setInt(4,accountId);
             statement.executeUpdate();
             System.out.println("order approved ! ");
 

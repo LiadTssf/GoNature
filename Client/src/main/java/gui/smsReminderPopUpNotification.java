@@ -3,6 +3,7 @@ package gui;
 
 import command.Message;
 import handler.ClientHandler;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
 
 public class smsReminderPopUpNotification implements Initializable {
     @FXML
-    private Button close_btn;
+    private Button deny;
 
     @FXML
     private Button accept;
@@ -25,8 +26,12 @@ public class smsReminderPopUpNotification implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        Platform.runLater(() -> {
+            Stage stage = (Stage) accept.getScene().getWindow();
+            stage.setTitle("Simulation!!!");
+        });
     }
+
 
     /**
      * Called when notification is closed
@@ -34,13 +39,13 @@ public class smsReminderPopUpNotification implements Initializable {
      * @param actionEvent javafx actionEvent
      */
     @FXML
-    public void close_btn(ActionEvent actionEvent) {
-        Stage currentStage = (Stage) close_btn.getScene().getWindow();
+    public void deny(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) deny.getScene().getWindow();
         currentStage.close();
     }
     @FXML
     public void acceptBtn(ActionEvent actionEvent) {
-        Stage currentStage = (Stage) close_btn.getScene().getWindow();
+        Stage currentStage = (Stage) accept.getScene().getWindow();
         currentStage.close();
         accountId = ClientHandler.getAccount().account_id_pk;
         System.out.println("order accepted");

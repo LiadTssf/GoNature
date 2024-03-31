@@ -4,15 +4,14 @@ import data.Account;
 import data.Order;
 import database.DatabaseController;
 import gui.CancelNotApprovedOrderThread;
+
+import java.sql.*;
 import java.util.UUID;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 public class smsReminder implements ServerCommand{
@@ -29,50 +28,90 @@ public class smsReminder implements ServerCommand{
 
         int accountId = (Integer) param;
         System.out.println("enter sms reminder methos with accound id : " + accountId);
-        SerachForOrdersToRemind(accountId);
-        CancelNotApprovedOrderThread cancelNotApprovedOrderThread = new CancelNotApprovedOrderThread(orderToReturn.account_id, orderToReturn.order_id_pk.toString());
-        cancelNotApprovedOrderThread.run();
-        return new Message("popUpOrderReminder" , orderToReturn);
+        try {
+            orders = SerachForOrdersToRemind(accountId); // Corrected the method name
+            System.out.println(orders);
+            for (Order order : orders) { // Corrected the for-each loop syntax
+                System.out.println("orders check thread do");
+
+                if (order != null) { // Added the missing variable in the if condition
+                    CancelNotApprovedOrderThread cancelNotApprovedOrderThread = new CancelNotApprovedOrderThread(order.account_id, order.order_id_pk.toString());
+                    System.out.println("Starting new thread for CancelNotApprovedOrderThread");
+                    Thread thread = new Thread(cancelNotApprovedOrderThread);
+                    thread.start();
+                    System.out.println("Thread started");
+                } else {
+                    // This else block is unnecessary because if 'order' is null, it wouldn't be in the 'orders' list
+                    System.out.println("order is null");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+            return new Message("popUpOrderReminder" , orders);
+
     }
 
 
+    private List<Order> SerachForOrdersToRemind(int accountId) {
 
-    private void SerachForOrdersToRemind(int accountId){
+        List<Order> ordersToRemind = new ArrayList<>();
+        LocalDate today = LocalDate.now(); // Tomorrow's date
+        LocalDate tomorrow = LocalDate.now().plusDays(1); // Tomorrow's date
+        LocalTime now = LocalTime.now().plusHours(2); // Current time
 
-        LocalDate tomorrow = LocalDate.now().plusDays(2); // Tomorrow's date
-        String sql = "SELECT * FROM `gonature`.`order` WHERE `visit_date` = ? AND cancelled = ? AND account_id = ? ";
+        String sql = "SELECT * FROM `gonature`.`order` WHERE (`visit_date` = ? OR `visit_date` = ?) AND cancelled = false AND account_id = ?";
+
         String queryParkName = "SELECT park_name FROM park WHERE park_id_pk = ?";
+
+
+
+        System.out.println("query checking");
         try  {
-            DatabaseController DB = new DatabaseController();
             DatabaseController db = new DatabaseController();
-            PreparedStatement pstmt = DB.getConnection().prepareStatement(sql);
+            DatabaseController db2 = new DatabaseController();
+            PreparedStatement pstmt = db2.getConnection().prepareStatement(sql);
             PreparedStatement preparedStatement = db.getConnection().prepareStatement(queryParkName);
-            pstmt.setDate(1, Date.valueOf(tomorrow)); // Set tomorrow's date as parameter
-            pstmt.setBoolean(2,false);
-            pstmt.setInt(3,accountId);
+            pstmt.setDate(1, Date.valueOf(tomorrow.plusDays(1))); // Set the first placeholder with tomorrow's date
+            pstmt.setDate(2, Date.valueOf(today.plusDays(1))); // Set the second placeholder with today's date
+            pstmt.setInt(3, accountId); // Set the third placeholder with the account ID
+
+
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    Order order = new Order();
-                    preparedStatement.setInt(1,rs.getInt("park_id_fk"));
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    if (resultSet.next()){
-                        order.park_id_fk = resultSet.getString("park_name");
+                    System.out.println("__________________________");
+                    System.out.println("Ac ID: "+rs.getInt("account_id"));
+                    LocalDate visitDate = rs.getDate("visit_date").toLocalDate();
+                    LocalTime visitTime = rs.getTime("visit_time").toLocalTime();
+                    // Check if the visit time is before the current time
+                    if ((visitDate.equals(today) && now.isBefore(visitTime)) || (visitDate.equals(tomorrow) && visitTime.isBefore(now))) {                        System.out.println("entered for visitTime: "+visitTime);
+                        Order order = new Order();
+                        preparedStatement.setInt(1, rs.getInt("park_id_fk"));
+                        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                            if (resultSet.next()) {
+                                order.park_id_fk = resultSet.getString("park_name");
+                            }
+                        }
+                        order.order_id_pk = UUID.fromString(rs.getString("order_id_pk"));
+                        order.account_id = rs.getInt("account_id");
+                        order.setVisitTime(visitTime);
+
+                        order.visit_date = rs.getDate("visit_date").toLocalDate();
+                        order.email = rs.getString("email");
+                        order.phone = rs.getString("phone");
+
+                        ordersToRemind.add(order);
+
+
                     }
-                    order.order_id_pk = UUID.fromString(rs.getString("order_id_pk"));
-                    order.account_id = rs.getInt("account_id");
-                    order.visit_time = rs.getTime("visit_time").toLocalTime();
-                    order.visit_date = rs.getDate("visit_date").toLocalDate();
-                    order.email= rs.getString("email");
-                    order.phone = rs.getString("phone");
-                    orderToReturn = order;
-
-                    System.out.println("order details:" + orderToReturn.getEmail()+orderToReturn.getPhone());
-
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace(); // Or handle the exception as needed
         }
-        }
-
+        System.out.println(ordersToRemind);
+        return ordersToRemind;
+    }
 }
+
+

@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -81,9 +82,12 @@ public class Welcome implements Initializable {
 
     private void CheckReminder(){
         ClientHandler.request(new Message("smsReminder",accountId));
-        if(ClientHandler.getLastResponse().getParam() != null) {
+        System.out.println(ClientHandler.getLastResponse().getParam());
+        Object param = ClientHandler.getLastResponse().getParam();
+        ArrayList<?> list = (ArrayList<?>) param;
+        if(!(((ArrayList<?>) param).isEmpty())) {
             System.out.println("print client param" + ClientHandler.getLastResponse().getParam() );
-            ClientUI.smsReminderPopUpNotification("new Reminder to approve your order for tomorrow");
+            ClientUI.smsReminderPopUpNotification("You have visits next 24 hours from now, would you like to approve them?");
         }
     }
 }

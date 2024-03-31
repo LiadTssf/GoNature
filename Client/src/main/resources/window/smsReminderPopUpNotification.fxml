@@ -9,8 +9,9 @@
 
 <AnchorPane prefHeight="87.0" prefWidth="276.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.smsReminderPopUpNotification">
     <children>
-        <Button fx:id="close_btn" layoutX="90.0" layoutY="49.0" mnemonicParsing="false" onAction="#close_btn" text="deny" />
-        <Button fx:id="accept" layoutX="160.0" layoutY="49.0" mnemonicParsing="false" onAction="#acceptBtn" text="accept" />
+        <Button fx:id="accept" layoutX="90.0" layoutY="49.0" mnemonicParsing="false" onAction="#acceptBtn" text="accept" />
+        <Button fx:id="deny" layoutX="160.0" layoutY="49.0" mnemonicParsing="false" onAction="#deny" text="deny" />
+
         <Label fx:id="notif_lbl" alignment="CENTER" layoutX="11.0" prefHeight="51.0" prefWidth="254.0" textAlignment="CENTER" wrapText="true" />
     </children>
 </AnchorPane>
