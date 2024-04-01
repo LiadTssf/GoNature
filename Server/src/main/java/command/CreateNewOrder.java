@@ -98,8 +98,14 @@ public class CreateNewOrder implements ServerCommand {
                 return new Message("ParkFull","There is no space is the park,Try later");
             }
 
-            if (!orderToCreate.on_waiting_list && !orderToCreate.on_arrival_order && currentVisitors+orderToCreate.number_of_visitors>capacity){
-                return new Message("NotOnWaitingList","Order cancelled because chose not to get in waiting list+ Park full");
+//            if (!orderToCreate.on_waiting_list && !orderToCreate.on_arrival_order && currentVisitors+orderToCreate.number_of_visitors>capacity){
+//                return new Message("NotOnWaitingList","Order cancelled because chose not to get in waiting list+ Park full");
+//            }
+            if(totalVisitors + orderToCreate.number_of_visitors > capacity - offset && !orderToCreate.on_arrival_order){
+                orderToCreate.on_waiting_list = true;
+            }
+            else {
+                orderToCreate.on_waiting_list = false;
             }
             orderToCreate.exit_time = orderToCreate.visit_time.plusHours(avgTime);
             pstmt = DB.getConnection().prepareStatement(query);

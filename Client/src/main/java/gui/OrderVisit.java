@@ -165,29 +165,29 @@ public class OrderVisit extends Login implements Initializable {
             }else{
                 newOrder.on_arrival_order = false;
             }
-            if(!newOrder.on_arrival_order){
-                ClientHandler.request(new Message("CheckParkCapacity",newOrder));
-                Message response = ClientHandler.getLastResponse();
-                if (response.getCommand().equals("ParkFull")) {
-                    // Show a popup window with an option for the user
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Park Full");
-                    alert.setHeaderText("The park is full at the specified date and time.");
-                    alert.setContentText("Do you want to be placed on the waiting list?");
-
-                    ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-                    ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
-                    alert.getButtonTypes().setAll(yesButton, noButton);
-
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.isPresent() && result.get() == yesButton) {
-                        newOrder.on_waiting_list = true;
-                    } else {
-                        // User chose not to be placed on the waiting list, handle this accordingly
-                        newOrder.on_waiting_list = false;
-                    }
-                }
-            }
+//            if(!newOrder.on_arrival_order){
+//                ClientHandler.request(new Message("CheckParkCapacity",newOrder));
+//                Message response = ClientHandler.getLastResponse();
+//                if (response.getCommand().equals("ParkFull")) {
+//                    // Show a popup window with an option for the user
+//                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                    alert.setTitle("Park Full");
+//                    alert.setHeaderText("The park is full at the specified date and time.");
+//                    alert.setContentText("Do you want to be placed on the waiting list?");
+//
+//                    ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+//                    ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+//                    alert.getButtonTypes().setAll(yesButton, noButton);
+//
+//                    Optional<ButtonType> result = alert.showAndWait();
+//                    if (result.isPresent() && result.get() == yesButton) {
+//                        newOrder.on_waiting_list = true;
+//                    } else {
+//                        // User chose not to be placed on the waiting list, handle this accordingly
+//                        newOrder.on_waiting_list = false;
+//                    }
+//                }
+//            }
 
         ClientHandler.request(new Message("CreateNewOrder", newOrder));
 
