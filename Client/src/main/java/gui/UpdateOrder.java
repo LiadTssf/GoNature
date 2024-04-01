@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -57,6 +58,8 @@ public class UpdateOrder implements Initializable {
     private Boolean isCancelled=false;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        AnchorPane anchorPane = (AnchorPane) orderIdLabel.getParent(); // Assuming orderIdLabel is a child of the AnchorPane
+        anchorPane.getStylesheets().add(getClass().getResource("UpdateOrder.css").toExternalForm());
 //        if (ClientHandler.getAccount().account_type.equals("TourGuide")){
 //            numberOfVisitors.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,15));
 //        }else {

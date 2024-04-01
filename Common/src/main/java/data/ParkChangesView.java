@@ -1,9 +1,5 @@
 package data;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.property.IntegerProperty;
 import java.io.Serializable;
 
 public class ParkChangesView implements Serializable {

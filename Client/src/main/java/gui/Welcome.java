@@ -12,9 +12,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class Welcome implements Initializable {
@@ -26,25 +28,28 @@ public class Welcome implements Initializable {
     private int accountId;
     private int currentIndex = 0;
     private Image[] images =new Image[] {
-            new Image(getClass().getResourceAsStream("/images/desert1.jpg")),
-            new Image(getClass().getResourceAsStream("/images/river3.jpg")),
-            new Image(getClass().getResourceAsStream("/images/river4.jpg")),
-            new Image(getClass().getResourceAsStream("/images/river5.jpg")),
-            new Image(getClass().getResourceAsStream("/images/mountain1.jpg"))
+            new Image(getClass().getResourceAsStream("/Images/desert1.jpg")),
+            new Image(getClass().getResourceAsStream("/Images/river3.jpg")),
+            new Image(getClass().getResourceAsStream("/Images/river4.jpg")),
+            new Image(getClass().getResourceAsStream("/Images/river5.jpg")),
+            new Image(getClass().getResourceAsStream("/Images/mountain1.jpg"))
     };
 
     private Timeline slideshow;
     private Duration slideDuration = Duration.seconds(10); // Set the duration for each slide
+    private Scene scene;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        AnchorPane anchorPane = (AnchorPane) photoView.getParent(); // Assuming photoView is a child of the AnchorPane
+        anchorPane.getStylesheets().add(getClass().getResource("Welcome.css").toExternalForm());
         // Set the fitWidth and fitHeight properties to maintain a consistent size
         photoView.setPreserveRatio(false); // Disable preserving the aspect ratio
         photoView.setFitWidth(600); // Set the width to match the window width
         photoView.setFitHeight(400); // Set the height to match the window height
         // Initialize the ImageView with the first image
         photoView.setImage(images[currentIndex]);
-
+        // Print the paths of the images being loaded
         // Set up the button actions
         leftArrow.setOnAction(event -> showPreviousImage());
         rightArrow.setOnAction(event -> showNextImage());

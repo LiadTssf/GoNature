@@ -12,6 +12,7 @@ public class ClientUI extends Application {
     private static Object currentController;
     private static MainWindow mainWindowController;
 //     private static OfficeMangerWelcomeWindow mainWindowController;
+    private Scene scene;
 
 
     public static void main(String[] args) { launch(); }
@@ -23,9 +24,9 @@ public class ClientUI extends Application {
     @Override
     public void start(Stage stage) {
         instance = this;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/window/mainWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/window/MainWindow.fxml"));
         try {
-            Scene scene = new Scene(loader.load());
+            scene= new Scene(loader.load());
             currentController = loader.getController();
             stage.setResizable(false);
             stage.setTitle("GoNature Client");
