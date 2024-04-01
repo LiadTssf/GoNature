@@ -14,6 +14,14 @@ public class SqlConnection {
         dbuser = user;
         dbpass = pass;
     }
+    public static void setUrlBack()
+    {
+        dburl = "jdbc:mysql://localhost/gonature?serverTimezone=UTC";
+    }
+    public static void setUrlWithoutGonature()
+    {
+        dburl = "jdbc:mysql://localhost?serverTimezone=UTC";
+    }
 
     /**
      * Establishes new connection to the database

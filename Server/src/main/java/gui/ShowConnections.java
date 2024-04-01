@@ -12,10 +12,12 @@ import javafx.scene.control.TableView;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ShowConnections implements Initializable {
@@ -75,18 +77,17 @@ public class ShowConnections implements Initializable {
     public void installGoNature(ActionEvent actionEvent) {
         try {
             //serverHandler.listen();
-
+            SqlConnection.setUrlWithoutGonature();
             // Use the existing connection to execute the SQL file
             Connection connection = SqlConnection.getConnection();
             Statement statement = connection.createStatement();
 
             // Specify the path to the SQL file
-            String sqlFilePath = "Server/src/main/java/database/InstallGoNature.sql";
-
+            String sqlFilePath = "/InstallGoNature.sql";
 
             // Read the SQL file
             StringBuilder sqlStatements = new StringBuilder();
-            try (BufferedReader reader = new BufferedReader(new FileReader(sqlFilePath))) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream(sqlFilePath))))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     sqlStatements.append(line).append("\n"); // Append newline character to ensure complete lines are read
@@ -110,5 +111,6 @@ public class ShowConnections implements Initializable {
         }
         // Print message to server console
         System.out.println("Installation successful!");
+        SqlConnection.setUrlBack();
     }
 }
